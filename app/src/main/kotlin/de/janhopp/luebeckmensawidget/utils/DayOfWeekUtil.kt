@@ -5,12 +5,12 @@ import kotlinx.datetime.DayOfWeek.*
 
 // this is German... @importantus & @draculente
 fun DayOfWeek.toMensaApiFormat() = when (this) {
-    MONDAY -> "mo"
-    TUESDAY -> "di"
-    WEDNESDAY -> "mi"
-    THURSDAY -> "do"
-    FRIDAY -> "fr"
-    else -> "mo" // no service at weekends
+    MONDAY -> "mo&week=current"
+    TUESDAY -> "di&week=current"
+    WEDNESDAY -> "mi&week=current"
+    THURSDAY -> "do&week=current"
+    FRIDAY -> "fr&week=current"
+    else -> "mo&week=next" // no service at weekends
     /*SATURDAY -> "sa"
     SUNDAY -> "so"*/
 }
