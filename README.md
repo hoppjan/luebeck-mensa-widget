@@ -21,7 +21,7 @@ If you encounter any problems, fix them yourself (or open an issue)!
 
 When you want to create a new release, follow these steps:
 
-1. Update the version in `app/build.gradle.kts` (e.g. 1.2.3)
+1. Update the `versionName` (e.g. 1.2.3) and increase the `versionCode` (e.g. 3) in `app/build.gradle.kts` 
 1. Commit that change (`git commit -am v1.2.3`)
 1. Tag the commit (`git tag v1.2.3`). Make sure your tag name's format is `v*.*.*`
 1. Push the changes to GitHub (`git push && git push --tags`)
