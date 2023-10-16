@@ -22,7 +22,7 @@ class MensaApi(
         get() = currentDay.dayOfWeek.toMensaApiFormat()
 
     suspend fun getMealsToday(): List<MensaDay> = runCatching {
-        client.get("https://speiseplan.mcloud.digital/meals?day=$urlDay")
+        client.get("https://speiseplan.mcloud.digital/meals?day=$urlDay&week=current")
             .body<String>()
             .let { days -> json.decodeFromString<List<MensaDay>>(days) }
     }.alsoThrow<_, CancellationException>() // needed for use of runCatching in coroutines
