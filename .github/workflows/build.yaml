@@ -1,0 +1,31 @@
+name: Build & Publish Release APK
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  Gradle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+      - name: setup jdk
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+      - name: Build apk
+        uses: sparkfabrik/android-build-action@v1.5.0
+        with:
+          project-path: .
+          output-path: luebeck-mensa-widget-${{ github.ref_name }}.apk
+      - name: Release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: ${{ github.ref_name }}
+          draft: true
+          title: ${{ github.ref_name }}
+          files: |
+            luebeck-mensa-widget-${{ github.ref_name }}.apk
