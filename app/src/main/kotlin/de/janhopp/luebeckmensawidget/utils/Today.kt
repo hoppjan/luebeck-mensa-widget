@@ -11,4 +11,7 @@ val currentTime: LocalDateTime
         .toLocalDateTime(TimeZone.currentSystemDefault())
 
 val currentDay: LocalDate
-    get() = currentTime.date
+    get() = when {
+        currentTime.hour < 15 -> currentTime.date
+        else -> currentTime.date.plus(DatePeriod(0,0,1))
+    }
