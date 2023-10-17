@@ -2,7 +2,8 @@ package de.janhopp.luebeckmensawidget.api
 
 import de.janhopp.luebeckmensawidget.api.model.MensaDay
 import de.janhopp.luebeckmensawidget.utils.alsoThrow
-import de.janhopp.luebeckmensawidget.utils.currentDay
+import de.janhopp.luebeckmensawidget.utils.currentTime
+import de.janhopp.luebeckmensawidget.utils.mensaDay
 import de.janhopp.luebeckmensawidget.utils.toMensaApiFormat
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -19,7 +20,7 @@ class MensaApi(
     }
 
     private val urlDay: String
-        get() = currentDay.dayOfWeek.toMensaApiFormat()
+        get() = currentTime.mensaDay.dayOfWeek.toMensaApiFormat()
 
     suspend fun getMealsToday(): List<MensaDay> = runCatching {
         client.get("https://speiseplan.mcloud.digital/meals?day=$urlDay")
