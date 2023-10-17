@@ -4,8 +4,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.glance.LocalContext
-import android.content.Context
-import android.content.res.Configuration
+import androidx.glance.color.isNightMode
 
 @Composable
 fun AppTheme(
