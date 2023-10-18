@@ -57,4 +57,6 @@ dependencies {
 
     implementation("androidx.glance:glance:1.0.0")
     implementation("androidx.glance:glance-appwidget:1.0.0")
+
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 }
