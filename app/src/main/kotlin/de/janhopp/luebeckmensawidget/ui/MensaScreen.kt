@@ -9,13 +9,13 @@ import de.janhopp.luebeckmensawidget.api.model.MensaDay
 import de.janhopp.luebeckmensawidget.ui.components.StyledText
 
 @Composable
-fun MensaScreen(days: List<MensaDay>) {
+fun MensaScreen(day: MensaDay?) {
     Box(
         modifier = GlanceModifier
             .background(MaterialTheme.colorScheme.background),
     ) {
-        if (days.isNotEmpty())
-            MensaDayView(day = days.last())
+        if (day != null)
+            MensaDayView(day)
         else
             StyledText(text = "Couldn't load menu...")
     }
