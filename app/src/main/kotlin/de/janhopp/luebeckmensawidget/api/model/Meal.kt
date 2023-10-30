@@ -12,9 +12,9 @@ data class Meal(
     val allergens: List<Allergen>,
 ) {
     val widgetName = when {
-        vegan -> "🌱 "
-        vegetarian -> "🥦 "
-        else -> ""
+        vegan -> "🌻 "
+        vegetarian -> "🌽 "
+        else -> "🥩 "
     }.plus(name)
 
     val studentPrice = price.split(" / ").first()
