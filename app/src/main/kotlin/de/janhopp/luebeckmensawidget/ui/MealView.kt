@@ -10,6 +10,7 @@ import androidx.glance.text.FontWeight
 import de.janhopp.luebeckmensawidget.api.model.Meal
 import de.janhopp.luebeckmensawidget.theme.toGlance
 import de.janhopp.luebeckmensawidget.ui.components.StyledText
+import de.janhopp.luebeckmensawidget.utils.studentPrice
 
 @Composable
 fun MealView(meal: Meal) {
@@ -21,8 +22,7 @@ fun MealView(meal: Meal) {
                 .copy(fontWeight = FontWeight.Bold),
             text = meal.widgetName
         )
-        StyledText(
-            text = meal.studentPrice
-        )
+        meal.studentPrice?.format()
+            ?.let { price -> StyledText(text = price) }
     }
 }

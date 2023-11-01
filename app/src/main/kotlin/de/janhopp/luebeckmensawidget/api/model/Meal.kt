@@ -10,13 +10,10 @@ data class Meal(
     val vegetarian: Boolean,
     val location: MensaLocation,
     val allergens: List<Allergen>,
-    val priceByGroup: Price
 ) {
     val widgetName = when {
         vegan -> "🌻 "
         vegetarian -> "🌽 "
         else -> "🥩 "
     }.plus(name)
-
-    val studentPrice = String.format("%.2f€", priceByGroup.students)
 }
