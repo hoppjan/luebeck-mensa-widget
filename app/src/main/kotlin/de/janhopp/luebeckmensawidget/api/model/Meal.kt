@@ -10,6 +10,7 @@ data class Meal(
     val vegetarian: Boolean,
     val location: MensaLocation,
     val allergens: List<Allergen>,
+    val priceByGroup: GroupedPrices,
 ) {
     val widgetName = when {
         vegan -> "🌻 "
