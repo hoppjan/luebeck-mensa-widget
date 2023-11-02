@@ -8,6 +8,7 @@ import androidx.glance.layout.Column
 import androidx.glance.layout.padding
 import androidx.glance.text.FontWeight
 import de.janhopp.luebeckmensawidget.api.model.Meal
+import de.janhopp.luebeckmensawidget.api.model.formatPrice
 import de.janhopp.luebeckmensawidget.theme.toGlance
 import de.janhopp.luebeckmensawidget.ui.components.StyledText
 
@@ -22,7 +23,7 @@ fun MealView(meal: Meal) {
             text = meal.widgetName
         )
         StyledText(
-            text = meal.studentPrice
+            text = meal.priceByGroup.students.formatPrice()
         )
     }
 }
