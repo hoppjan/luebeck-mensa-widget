@@ -30,7 +30,7 @@ When you want to create a new release, follow these steps:
 After building successfully, the action will publish the release artifacts in a new release draft that will be created on GitHub with download links for the app. 
 
 ## Similar projects
-- [Tray Application](https://github.com/Importantus/speiseplan-tray/) (Windows, Linux)
+- [Tray Application](https://github.com/Importantus/speiseplan-tray/) (Windows, Linux, MacOS)
 - [KDE Plasma Widget](https://github.com/lomenzel/mensa) (Linux with KDE Plasma)
 
 ## Thanks
