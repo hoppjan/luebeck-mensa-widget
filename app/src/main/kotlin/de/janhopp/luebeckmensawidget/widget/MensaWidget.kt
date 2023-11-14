@@ -12,6 +12,7 @@ import de.janhopp.luebeckmensawidget.utils.currentTime
 import de.janhopp.luebeckmensawidget.utils.mensaDay
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MensaWidget : GlanceAppWidget() {
@@ -29,9 +30,11 @@ class MensaWidget : GlanceAppWidget() {
                 meals.first()
             }
 
+            val update: () -> Unit = { launch { update(context, id) } }
+
             provideContent {
                 AppTheme {
-                    MensaScreen(today)
+                    MensaScreen(today, update)
                 }
             }
         }
