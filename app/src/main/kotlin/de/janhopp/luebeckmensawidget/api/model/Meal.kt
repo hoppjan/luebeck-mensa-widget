@@ -16,5 +16,5 @@ data class Meal(
         vegan -> "🌻 "
         vegetarian -> "🌽 "
         else -> "🥩 "
-    }.plus(name)
+    }.plus(name.replace(Regex("[A-Z ]+: "), ""))
 }
