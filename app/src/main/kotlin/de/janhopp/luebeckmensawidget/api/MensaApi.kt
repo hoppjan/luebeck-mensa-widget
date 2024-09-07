@@ -1,6 +1,5 @@
 package de.janhopp.luebeckmensawidget.api
 
-import android.util.Log
 import de.janhopp.luebeckmensawidget.api.model.MensaDay
 import de.janhopp.luebeckmensawidget.utils.alsoThrow
 import de.janhopp.luebeckmensawidget.utils.currentTime

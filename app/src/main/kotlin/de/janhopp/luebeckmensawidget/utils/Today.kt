@@ -2,7 +2,7 @@ package de.janhopp.luebeckmensawidget.utils
 
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DatePeriod
-import kotlinx.datetime.DayOfWeek
+import kotlinx.datetime.DayOfWeek.*
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
@@ -15,8 +15,8 @@ val currentTime: LocalDateTime
 
 val LocalDateTime.mensaDay: LocalDate
     get() = when {
-        date.dayOfWeek == DayOfWeek(6) -> date + 2.days
-        date.dayOfWeek == DayOfWeek(7) || isAfterMensaHours -> date + 1.days
+        date.dayOfWeek == SATURDAY -> date + 2.days
+        date.dayOfWeek == SUNDAY || isAfterMensaHours -> date + 1.days
         else -> date
     }
 
