@@ -18,11 +18,10 @@ class MensaApi(
         get() = currentTime.mensaApiFormat
 
     suspend fun getMealsToday(): List<MensaDay> = runCatching {
-        client.get("https://speiseplan.mcloud.digital/v2/meals?location=ME")
+        client.get("https://speiseplan.mcloud.digital/v2/meals?location=ME&date=$date")
             .body<String>()
             .let { response -> MensaJson.decodeFromString<ApiResponse>(response) }
             .toMensaDays()
-            .filter { it.date == date }
     }.alsoThrow<_, CancellationException>() // needed for use of runCatching in coroutines
         .getOrDefault(listOf())
 }
