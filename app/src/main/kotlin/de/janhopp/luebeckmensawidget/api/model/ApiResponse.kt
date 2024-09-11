@@ -1,5 +1,6 @@
 package de.janhopp.luebeckmensawidget.api.model
 
+import de.janhopp.luebeckmensawidget.api.MensaJson
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -8,6 +9,8 @@ data class ApiResponse(
     @SerialName("last_updated") val lastUpdated: String,
     @SerialName("data") val meals: List<Meal>,
 )
+
+fun String.toApiResponse() = MensaJson.decodeFromString<ApiResponse>(this)
 
 fun ApiResponse.toMensaDays(): List<MensaDay> =
     meals.groupBy { it.date }.map { (date, meals) -> MensaDay(date, meals) }
