@@ -8,7 +8,6 @@ import kotlinx.serialization.encodeToString
 @Serializable
 data class MensaDay(
     val date: String,
-    val open: Boolean,
     val meals: List<Meal>,
 ) {
     val localDate: LocalDate = date.split("T").first().let(LocalDate::parse)

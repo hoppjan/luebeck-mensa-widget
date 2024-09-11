@@ -12,5 +12,5 @@ data class ApiResponse(
 fun ApiResponse.toMensaDays(): List<MensaDay> =
     meals.groupBy { it.date }
         .map { (dateKey, meals) ->
-            MensaDay(date = dateKey, open = true, meals = meals)
+            MensaDay(date = dateKey, meals = meals)
         }
