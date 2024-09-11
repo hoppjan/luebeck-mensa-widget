@@ -15,7 +15,6 @@ fun MensaDayView(day: MensaDay) {
     ) {
         items(
             items = day.meals
-                .filter { it.location == MensaLocation.Mensa },
         ) { meal ->
             MealView(meal)
         }

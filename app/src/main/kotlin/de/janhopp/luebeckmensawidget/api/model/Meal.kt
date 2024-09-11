@@ -5,12 +5,12 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Meal(
     val name: String,
-    val price: String,
+    val date: String,
+    val price: GroupedPrices,
     val vegan: Boolean,
     val vegetarian: Boolean,
-    val location: MensaLocation,
+    // TODO: fix this: val location: MensaLocation,
     val allergens: List<Allergen>,
-    val priceByGroup: GroupedPrices,
 ) {
     val widgetName = when {
         vegan -> "🌻 "
