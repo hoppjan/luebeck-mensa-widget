@@ -8,7 +8,6 @@ import kotlinx.serialization.encodeToString
 @Serializable
 data class MensaDay(
     val date: String,
-    val week: MensaWeek,
     val open: Boolean,
     val meals: List<Meal>,
 ) {
