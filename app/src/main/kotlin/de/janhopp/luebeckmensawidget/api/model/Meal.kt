@@ -9,7 +9,7 @@ data class Meal(
     val price: GroupedPrices,
     val vegan: Boolean,
     val vegetarian: Boolean,
-    // TODO: fix this: val location: MensaLocation,
+    val location: MensaLocation,
     val allergens: List<Allergen>,
 ) {
     val widgetName = when {
