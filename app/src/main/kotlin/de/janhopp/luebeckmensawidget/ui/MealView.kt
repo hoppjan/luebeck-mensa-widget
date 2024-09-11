@@ -23,7 +23,7 @@ fun MealView(meal: Meal) {
             text = meal.widgetName
         )
         StyledText(
-            text = meal.priceByGroup.students.formatPrice()
+            text = meal.price.students.formatPrice()
         )
     }
 }
