@@ -24,8 +24,8 @@ fun MensaDayView(day: MensaDay) {
     var priceGroup by remember { mutableStateOf(Option.PriceGroup.defaultValue) }
 
     LaunchedEffect(Unit) {
-        showDate = options.get(Option.ShowDate)
-        useEmoji = options.get(Option.UseEmoji)
+        showDate = options.getBoolean(Option.ShowDate)
+        useEmoji = options.getBoolean(Option.UseEmoji)
         priceGroup = options.getString(Option.PriceGroup)
     }
     LazyColumn(

@@ -30,8 +30,8 @@ fun ConfigurationList(
     var priceGroupSelected by remember { mutableStateOf(Option.PriceGroup.defaultValue) }
 
     LaunchedEffect(Unit) {
-        isShowDateEnabled = options.get(Option.ShowDate)
-        isUseEmojiEnabled = options.get(Option.UseEmoji)
+        isShowDateEnabled = options.getBoolean(Option.ShowDate)
+        isUseEmojiEnabled = options.getBoolean(Option.UseEmoji)
         priceGroupSelected = options.getString(Option.PriceGroup)
     }
 
@@ -46,7 +46,7 @@ fun ConfigurationList(
             onCheckedChange = {
                 isShowDateEnabled = !isShowDateEnabled
                 coroutineScope.launch {
-                    options.set(Option.ShowDate, isShowDateEnabled)
+                    options.setBoolean(Option.ShowDate, isShowDateEnabled)
                 }
             },
         )
@@ -56,7 +56,7 @@ fun ConfigurationList(
             onCheckedChange = {
                 isUseEmojiEnabled = !isUseEmojiEnabled
                 coroutineScope.launch {
-                    options.set(Option.UseEmoji, isUseEmojiEnabled)
+                    options.setBoolean(Option.UseEmoji, isUseEmojiEnabled)
                 }
             },
         )
