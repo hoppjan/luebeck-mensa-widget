@@ -35,7 +35,7 @@ fun ConfigurationList(
             .fillMaxSize()
             .then(modifier),
     ) {
-        SwitchOption(
+        OptionSwitch(
             text = "Show date",
             checked = isShowDateEnabled,
             onCheckedChange = {
