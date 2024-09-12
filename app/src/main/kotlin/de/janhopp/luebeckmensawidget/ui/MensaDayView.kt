@@ -24,8 +24,8 @@ import de.janhopp.luebeckmensawidget.storage.OptionsStorage
 @Composable
 fun MensaDayView(day: MensaDay) {
     val options = OptionsStorage(LocalContext.current)
-    var showDate by remember { mutableStateOf(false) }
-    var useEmoji by remember { mutableStateOf(false) }
+    var showDate by remember { mutableStateOf(Option.ShowDate.defaultValue) }
+    var useEmoji by remember { mutableStateOf(Option.UseEmoji.defaultValue) }
 
     LaunchedEffect(Unit) {
         showDate = options.get(Option.ShowDate)

@@ -24,8 +24,8 @@ fun ConfigurationList(
     val options = OptionsStorage(LocalContext.current)
     val coroutineScope = rememberCoroutineScope()
 
-    var isShowDateEnabled by remember { mutableStateOf(false) }
-    var isUseEmojiEnabled by remember { mutableStateOf(true) }
+    var isShowDateEnabled by remember { mutableStateOf(Option.ShowDate.defaultValue) }
+    var isUseEmojiEnabled by remember { mutableStateOf(Option.UseEmoji.defaultValue) }
 
     LaunchedEffect(Unit) {
         isShowDateEnabled = options.get(Option.ShowDate)
