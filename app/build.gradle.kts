@@ -1,7 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    kotlin("plugin.serialization") version "1.9.10"
+    kotlin("plugin.serialization") version "2.0.20"
+    kotlin("plugin.compose")
 }
 
 android {
@@ -33,9 +34,6 @@ android {
     }
     buildFeatures {
         compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3"
     }
 }
 
