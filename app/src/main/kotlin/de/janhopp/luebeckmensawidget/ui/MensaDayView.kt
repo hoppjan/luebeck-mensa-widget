@@ -1,27 +1,19 @@
 package de.janhopp.luebeckmensawidget.ui
 
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.glance.GlanceModifier
 import androidx.glance.LocalContext
 import androidx.glance.appwidget.lazy.LazyColumn
 import androidx.glance.appwidget.lazy.items
 import androidx.glance.layout.fillMaxSize
-import androidx.glance.layout.padding
-import androidx.glance.text.FontWeight
-import androidx.glance.text.Text
 import de.janhopp.luebeckmensawidget.api.model.MensaDay
 import de.janhopp.luebeckmensawidget.storage.Option
 import de.janhopp.luebeckmensawidget.storage.OptionsStorage
-import de.janhopp.luebeckmensawidget.theme.toGlance
-import de.janhopp.luebeckmensawidget.utils.toDisplayString
 
 @Composable
 fun MensaDayView(day: MensaDay) {
@@ -37,16 +29,7 @@ fun MensaDayView(day: MensaDay) {
         modifier = GlanceModifier.fillMaxSize(),
     ) {
         if (showDate)
-            item {
-                Text(
-                    text = day.toDisplayString(),
-                    modifier = GlanceModifier
-                        .padding(horizontal = 8.dp)
-                        .padding(top = 10.dp),
-                    style = LocalTextStyle.current.toGlance()
-                        .copy(fontWeight = FontWeight.Bold, fontSize = 15.sp)
-                )
-            }
+            item { DateTopBar(day) }
 
         items(
             items = day.meals
