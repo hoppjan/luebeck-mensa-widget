@@ -9,7 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import de.janhopp.luebeckmensawidget.ui.theme.MensaTheme
 
 @Composable
-fun SwitchOption(
+fun OptionSwitch(
     text: String,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
@@ -29,14 +29,14 @@ fun SwitchOption(
 
 @Preview
 @Composable
-fun Preview_SwitchOption() = MensaTheme {
+fun Preview_OptionSwitch() = MensaTheme {
     Column {
-        SwitchOption(
+        OptionSwitch(
             text = "Enabled option",
             checked = true,
             onCheckedChange = {},
         )
-        SwitchOption(
+        OptionSwitch(
             text = "Disabled option",
             checked = false,
             onCheckedChange = {},
