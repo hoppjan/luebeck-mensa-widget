@@ -33,4 +33,5 @@ sealed class Option<T>(
     val defaultValue: T,
 ) {
     data object ShowDate : Option<Boolean>(key = "show_date", defaultValue = false)
+    data object UseEmoji : Option<Boolean>(key = "use_emoji", defaultValue = true)
 }

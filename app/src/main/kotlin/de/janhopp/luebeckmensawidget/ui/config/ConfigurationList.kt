@@ -25,9 +25,11 @@ fun ConfigurationList(
     val coroutineScope = rememberCoroutineScope()
 
     var isShowDateEnabled by remember { mutableStateOf(false) }
+    var isUseEmojiEnabled by remember { mutableStateOf(true) }
 
     LaunchedEffect(Unit) {
         isShowDateEnabled = options.get(Option.ShowDate)
+        isUseEmojiEnabled = options.get(Option.UseEmoji)
     }
 
     Column(
@@ -42,6 +44,16 @@ fun ConfigurationList(
                 isShowDateEnabled = !isShowDateEnabled
                 coroutineScope.launch {
                     options.set(Option.ShowDate, isShowDateEnabled)
+                }
+            },
+        )
+        OptionSwitch(
+            text = "Use emoji in meal names",
+            checked = isUseEmojiEnabled,
+            onCheckedChange = {
+                isUseEmojiEnabled = !isUseEmojiEnabled
+                coroutineScope.launch {
+                    options.set(Option.UseEmoji, isUseEmojiEnabled)
                 }
             },
         )

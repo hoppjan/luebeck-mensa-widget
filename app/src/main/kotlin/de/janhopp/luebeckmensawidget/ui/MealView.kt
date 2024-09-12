@@ -13,14 +13,14 @@ import de.janhopp.luebeckmensawidget.theme.toGlance
 import de.janhopp.luebeckmensawidget.ui.components.StyledText
 
 @Composable
-fun MealView(meal: Meal) {
+fun MealView(meal: Meal, useEmoji: Boolean) {
     Column(
         modifier = GlanceModifier.padding(8.dp)
     ) {
         StyledText(
             style = LocalTextStyle.current.toGlance()
                 .copy(fontWeight = FontWeight.Bold),
-            text = meal.widgetName
+            text = if (useEmoji) meal.widgetName else meal.name
         )
         StyledText(
             text = meal.price.students.formatPrice()
