@@ -21,6 +21,7 @@ import de.janhopp.luebeckmensawidget.api.model.MensaDay
 import de.janhopp.luebeckmensawidget.storage.Option
 import de.janhopp.luebeckmensawidget.storage.OptionsStorage
 import de.janhopp.luebeckmensawidget.theme.toGlance
+import de.janhopp.luebeckmensawidget.utils.toDisplayString
 
 @Composable
 fun MensaDayView(day: MensaDay) {
@@ -38,7 +39,7 @@ fun MensaDayView(day: MensaDay) {
         if (showDate)
             item {
                 Text(
-                    text = day.date,
+                    text = day.toDisplayString(),
                     modifier = GlanceModifier
                         .padding(horizontal = 8.dp)
                         .padding(top = 10.dp),
