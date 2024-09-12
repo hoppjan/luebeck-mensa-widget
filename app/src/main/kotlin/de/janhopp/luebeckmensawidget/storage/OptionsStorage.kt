@@ -16,13 +16,13 @@ class OptionsStorage(
 ) {
     private val dataStore = context.dataStore
 
-    suspend fun get(option: Option<Boolean>): Boolean {
-        return dataStore.data.map { preferences -> preferences[option.toKey()] }.firstOrNull()
-            ?: option.defaultValue
+    suspend fun getBoolean(option: Option<Boolean>): Boolean {
+        return dataStore.data.map { preferences -> preferences[option.toBooleanKey()] }
+            .firstOrNull() ?: option.defaultValue
     }
 
-    suspend fun set(option: Option<Boolean>, value: Boolean) {
-        dataStore.edit { preferences -> preferences[option.toKey()] = value }
+    suspend fun setBoolean(option: Option<Boolean>, value: Boolean) {
+        dataStore.edit { preferences -> preferences[option.toBooleanKey()] = value }
     }
 
     suspend fun getString(option: Option<String>): String {
@@ -35,7 +35,7 @@ class OptionsStorage(
     }
 
     private companion object {
-        fun Option<Boolean>.toKey() = booleanPreferencesKey(key)
+        fun Option<Boolean>.toBooleanKey() = booleanPreferencesKey(key)
         fun Option<String>.toStringKey() = stringPreferencesKey(key)
     }
 }
