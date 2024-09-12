@@ -7,4 +7,5 @@
     android:minResizeHeight="40dp"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="1800000"
+    android:configure="de.janhopp.luebeckmensawidget.WidgetConfigurationActivity"
     android:widgetCategory="home_screen" />
