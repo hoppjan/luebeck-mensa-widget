@@ -1,10 +1,12 @@
 [versions]
+androidGradlePlugin = "8.6.0"
 appcompat = "1.7.0"
 datastorePreferences = "1.1.1"
 espressoCore = "3.6.1"
 glanceAppwidget = "1.1.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
+kotlin = "2.0.20"
 kotlinxDatetime = "0.5.0"
 kotlinxSerializationJson = "1.6.2"
 ktorClientCore = "2.3.7"
@@ -27,3 +29,9 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktorClientCore" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCore" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
