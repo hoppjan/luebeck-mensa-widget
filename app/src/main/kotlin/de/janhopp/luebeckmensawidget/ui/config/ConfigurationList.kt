@@ -12,6 +12,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import de.janhopp.luebeckmensawidget.api.model.PriceGroup
 import de.janhopp.luebeckmensawidget.storage.Option
 import de.janhopp.luebeckmensawidget.storage.OptionsStorage
 import de.janhopp.luebeckmensawidget.ui.theme.MensaTheme
@@ -26,10 +27,12 @@ fun ConfigurationList(
 
     var isShowDateEnabled by remember { mutableStateOf(Option.ShowDate.defaultValue) }
     var isUseEmojiEnabled by remember { mutableStateOf(Option.UseEmoji.defaultValue) }
+    var priceGroupSelected by remember { mutableStateOf(Option.PriceGroup.defaultValue) }
 
     LaunchedEffect(Unit) {
         isShowDateEnabled = options.get(Option.ShowDate)
         isUseEmojiEnabled = options.get(Option.UseEmoji)
+        priceGroupSelected = options.getString(Option.PriceGroup)
     }
 
     Column(
@@ -56,6 +59,17 @@ fun ConfigurationList(
                     options.set(Option.UseEmoji, isUseEmojiEnabled)
                 }
             },
+        )
+        OptionDropdownMenu(
+            text = "Price to show",
+            options = PriceGroup.names,
+            onOptionSelected = {
+                priceGroupSelected = it
+                coroutineScope.launch {
+                    options.setString(Option.PriceGroup, it)
+                }
+            },
+            selectedOption = priceGroupSelected,
         )
     }
 }
