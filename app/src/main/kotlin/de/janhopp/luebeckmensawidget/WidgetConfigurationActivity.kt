@@ -3,20 +3,15 @@ package de.janhopp.luebeckmensawidget
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
 import de.janhopp.luebeckmensawidget.ui.config.WidgetConfigurationScreen
+import de.janhopp.luebeckmensawidget.ui.theme.MensaTheme
 
 class WidgetConfigurationActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
-            MaterialTheme(
-                colorScheme = if (isSystemInDarkTheme()) darkColorScheme() else lightColorScheme()
-            ) {
+            MensaTheme {
                 WidgetConfigurationScreen(
                     onConfigurationFinished = {
                         setResult(RESULT_OK)
