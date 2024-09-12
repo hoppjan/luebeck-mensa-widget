@@ -1,5 +1,6 @@
 package de.janhopp.luebeckmensawidget.ui
 
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -16,10 +17,10 @@ import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.padding
 import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
-import androidx.glance.text.TextStyle
 import de.janhopp.luebeckmensawidget.api.model.MensaDay
 import de.janhopp.luebeckmensawidget.storage.Option
 import de.janhopp.luebeckmensawidget.storage.OptionsStorage
+import de.janhopp.luebeckmensawidget.theme.toGlance
 
 @Composable
 fun MensaDayView(day: MensaDay) {
@@ -41,7 +42,8 @@ fun MensaDayView(day: MensaDay) {
                     modifier = GlanceModifier
                         .padding(horizontal = 8.dp)
                         .padding(top = 10.dp),
-                    style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 15.sp)
+                    style = LocalTextStyle.current.toGlance()
+                        .copy(fontWeight = FontWeight.Bold, fontSize = 15.sp)
                 )
             }
 
