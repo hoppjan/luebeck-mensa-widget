@@ -21,9 +21,7 @@ fun SwitchOption(
         trailingContent = {
             Switch(
                 checked = checked,
-                onCheckedChange = {
-                    onCheckedChange(!checked)
-                }
+                onCheckedChange = onCheckedChange
             )
         }
     )
