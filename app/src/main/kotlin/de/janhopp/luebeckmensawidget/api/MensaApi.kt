@@ -18,7 +18,7 @@ class MensaApi(
         get() = currentTime.mensaApiFormat
 
     suspend fun getMealsToday(): List<MensaDay> = runCatching {
-        client.get("https://speiseplan.mcloud.digital/v2/meals?location=ME&date=$date")
+        client.get("https://speiseplan.mcloud.digital/v2/meals?location=HL_ME&date=$date")
             .body<String>()
             .toApiResponse()
             .toMensaDays()
