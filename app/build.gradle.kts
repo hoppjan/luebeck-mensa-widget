@@ -64,5 +64,12 @@ dependencies {
     implementation(libs.androidx.glance)
     implementation(libs.androidx.glance.appwidget)
 
+    implementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.ui.tooling.preview)
+    debugImplementation(libs.androidx.ui.tooling)
+
     implementation(libs.androidx.datastore.preferences)
 }
