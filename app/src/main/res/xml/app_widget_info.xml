@@ -8,4 +8,5 @@
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="1800000"
     android:configure="de.janhopp.luebeckmensawidget.WidgetConfigurationActivity"
+    android:widgetFeatures="reconfigurable|configuration_optional"
     android:widgetCategory="home_screen" />
