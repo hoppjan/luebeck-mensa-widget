@@ -25,9 +25,11 @@ import de.janhopp.luebeckmensawidget.storage.OptionsStorage
 fun MensaDayView(day: MensaDay) {
     val options = OptionsStorage(LocalContext.current)
     var showDate by remember { mutableStateOf(false) }
+    var useEmoji by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         showDate = options.get(Option.ShowDate)
+        useEmoji = options.get(Option.UseEmoji)
     }
     LazyColumn(
         modifier = GlanceModifier.fillMaxSize(),
@@ -46,7 +48,7 @@ fun MensaDayView(day: MensaDay) {
         items(
             items = day.meals
         ) { meal ->
-            MealView(meal)
+            MealView(meal, useEmoji)
         }
     }
 }
