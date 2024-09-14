@@ -29,7 +29,7 @@ fun WidgetConfigurationScreen(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.primary,
                 ),
-                title = { Text(text = "Widget Configuration Screen") },
+                title = { Text(text = "Settings") },
             )
         },
         floatingActionButton = {
