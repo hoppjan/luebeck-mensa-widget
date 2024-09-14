@@ -1,5 +1,7 @@
 # LübeckMensaWidget
 
+![Release Build Status](https://github.com/hoppjan/luebeck-mensa-widget/actions/workflows/build.yaml/badge.svg)
+
 Lübeck Mensa Widget is an Android application that displays the menu of the cafeteria and mensa located in the university district of Lübeck. The app only provides a widget for users to access the daily menu directly from their device's home screen.
 
 ## Installation
