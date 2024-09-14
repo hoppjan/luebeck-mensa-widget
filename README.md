@@ -11,6 +11,15 @@ Lübeck Mensa Widget is an Android application that displays the menu of the caf
 1. Open the downloaded APK file and follow the on-screen instructions to install the application.
 1. Once installed, add the widget to your home screen by long-pressing on an empty space on the home screen and selecting Widgets. Then, locate the "Lübeck Mensa Widget" and drag it to your desired position on the home screen.
 
+You can also get the app and its updates via Obtainium, but you will have to enable pre-releases for now:
+
+<a href="https://obtainium.imranr.dev">
+    <img
+        alt="Get it on Obtainium"
+        src="https://raw.githubusercontent.com/ImranR98/Obtainium/main/assets/graphics/badge_obtainium.png"
+        width=130 />
+</a>
+
 ## Build debug version
 
 1. Clone the project
