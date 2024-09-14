@@ -1,4 +1,4 @@
-# LübeckMensaWidget
+# Lübeck Mensa Widget
 
 ![Release Build Status](https://github.com/hoppjan/luebeck-mensa-widget/actions/workflows/build.yaml/badge.svg)
 
