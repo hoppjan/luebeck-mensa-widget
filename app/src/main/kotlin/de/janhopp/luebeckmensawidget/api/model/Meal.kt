@@ -15,6 +15,7 @@ data class Meal(
     val widgetName = when {
         vegan -> "🌻 "
         vegetarian -> "🌽 "
+        "Fisch" in allergens.map { it.name } -> "🐟 "
         else -> "🥩 "
     }.plus(name)
 }
