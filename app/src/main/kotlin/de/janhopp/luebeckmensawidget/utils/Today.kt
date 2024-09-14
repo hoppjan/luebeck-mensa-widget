@@ -21,10 +21,11 @@ val currentTime: LocalDateTime
         .toLocalDateTime(TimeZone.currentSystemDefault())
 
 val LocalDateTime.mensaDay: LocalDate
-    get() = when {
-        date.dayOfWeek == SATURDAY -> date + 2.days
-        date.dayOfWeek == SUNDAY || isAfterMensaHours -> date + 1.days
-        else -> date
+    get() = when (date.dayOfWeek) {
+        FRIDAY -> if (isAfterMensaHours) date + 3.days else date
+        SATURDAY -> date + 2.days
+        SUNDAY -> date + 1.days
+        else -> if (isAfterMensaHours) date + 1.days else date
     }
 
 fun DayOfWeek.format(): String = getDisplayName(TextStyle.FULL, Locale.getDefault())
