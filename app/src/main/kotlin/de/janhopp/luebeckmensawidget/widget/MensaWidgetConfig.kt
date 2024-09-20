@@ -5,10 +5,10 @@ import de.janhopp.luebeckmensawidget.storage.Option
 import de.janhopp.luebeckmensawidget.storage.OptionsStorage
 
 data class MensaWidgetConfig(
-    var showDate: Boolean = Option.ShowDate.defaultValue,
-    var useEmoji: Boolean = Option.UseEmoji.defaultValue,
-    var priceGroup: PriceGroup = PriceGroup.valueOf(Option.PriceGroup.defaultValue),
-    var filterDeals: Boolean = Option.FilterDeals.defaultValue,
+    val showDate: Boolean = Option.ShowDate.defaultValue,
+    val useEmoji: Boolean = Option.UseEmoji.defaultValue,
+    val priceGroup: PriceGroup = PriceGroup.valueOf(Option.PriceGroup.defaultValue),
+    val filterDeals: Boolean = Option.FilterDeals.defaultValue,
 )
 
 suspend fun OptionsStorage.getWidgetConfig() = MensaWidgetConfig(
