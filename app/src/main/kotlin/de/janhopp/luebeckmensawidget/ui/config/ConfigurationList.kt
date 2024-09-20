@@ -28,11 +28,13 @@ fun ConfigurationList(
     var isShowDateEnabled by remember { mutableStateOf(Option.ShowDate.defaultValue) }
     var isUseEmojiEnabled by remember { mutableStateOf(Option.UseEmoji.defaultValue) }
     var priceGroupSelected by remember { mutableStateOf(Option.PriceGroup.defaultValue) }
+    var isFilterDealsEnabled by remember { mutableStateOf(Option.FilterDeals.defaultValue) }
 
     LaunchedEffect(Unit) {
         isShowDateEnabled = options.getBoolean(Option.ShowDate)
         isUseEmojiEnabled = options.getBoolean(Option.UseEmoji)
         priceGroupSelected = options.getString(Option.PriceGroup)
+        isFilterDealsEnabled = options.getBoolean(Option.FilterDeals)
     }
 
     Column(
@@ -70,6 +72,16 @@ fun ConfigurationList(
                 }
             },
             selectedOption = priceGroupSelected,
+        )
+        OptionSwitch(
+            text = "Filter deals",
+            checked = isFilterDealsEnabled,
+            onCheckedChange = {
+                isFilterDealsEnabled = !isFilterDealsEnabled
+                coroutineScope.launch {
+                    options.setBoolean(Option.FilterDeals, isFilterDealsEnabled)
+                }
+            },
         )
     }
 }

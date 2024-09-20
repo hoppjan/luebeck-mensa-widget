@@ -19,3 +19,10 @@ data class MensaDay(
             json?.let { MensaJson.decodeFromString(string = it) }
     }
 }
+
+fun List<Meal>.filterDeals(isEnabled: Boolean): List<Meal> =
+    if (isEnabled)
+        filterNot { meal ->
+            listOf("!", "€").any { it in meal.name }
+        }
+    else this
