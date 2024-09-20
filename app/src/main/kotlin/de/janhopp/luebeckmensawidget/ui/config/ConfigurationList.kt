@@ -18,6 +18,7 @@ import de.janhopp.luebeckmensawidget.api.model.PriceGroup
 import de.janhopp.luebeckmensawidget.storage.Option
 import de.janhopp.luebeckmensawidget.storage.OptionsStorage
 import de.janhopp.luebeckmensawidget.ui.theme.MensaTheme
+import de.janhopp.luebeckmensawidget.ui.utils.stringRes
 import kotlinx.coroutines.launch
 
 @Composable
@@ -62,16 +63,17 @@ fun ConfigurationList(
                 }
             },
         )
-        OptionDropdownMenu(
+        OptionDropdownMenu<PriceGroup>(
             text = stringResource(R.string.option_price_group),
-            options = PriceGroup.names,
-            onOptionSelected = {
-                priceGroupSelected = it
+            options = PriceGroup.entries,
+            optionToString = { group -> group.stringRes() },
+            onOptionSelected = { group ->
+                priceGroupSelected = group.name
                 coroutineScope.launch {
-                    options.setString(Option.PriceGroup, it)
+                    options.setString(Option.PriceGroup, group.name)
                 }
             },
-            selectedOption = priceGroupSelected,
+            selectedOption = PriceGroup.valueOf(priceGroupSelected),
         )
     }
 }
