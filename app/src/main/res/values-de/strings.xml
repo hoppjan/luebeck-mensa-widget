@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lübeck Mensa Widget</string>
+    <string name="widget_settings_title">Einstellungen</string>
+    <string name="finish_configuration">Konfiguration speichern</string>
+    <string name="option_show_date">Datum anzeigen</string>
+    <string name="option_use_emoji">Emoji anzeigen</string>
+    <string name="option_price_group">Preisgruppe</string>
+    <string name="error_could_not_load_menu">Menü konnte nicht geladen werden…</string>
+    <string name="price_group_students">Studierende</string>
+    <string name="price_group_employees">Angestellte</string>
+    <string name="price_group_guests">Gäste</string>
+</resources>

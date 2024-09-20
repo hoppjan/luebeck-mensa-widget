@@ -12,7 +12,9 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import de.janhopp.luebeckmensawidget.R
 import de.janhopp.luebeckmensawidget.ui.theme.MensaTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -29,14 +31,14 @@ fun WidgetConfigurationScreen(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.primary,
                 ),
-                title = { Text(text = "Settings") },
+                title = { Text(text = stringResource(R.string.widget_settings_title)) },
             )
         },
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 onClick = onConfigurationFinished,
             ) {
-                Text(text = "Finish Configuration")
+                Text(text = stringResource(R.string.finish_configuration))
             }
         }
     ) {
