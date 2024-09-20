@@ -18,11 +18,12 @@ import androidx.compose.ui.Modifier
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun OptionDropdownMenu(
+inline fun <reified T: Enum<T>> OptionDropdownMenu(
     text: String,
-    options: List<String>,
-    selectedOption: String,
-    onOptionSelected: (String) -> Unit,
+    options: List<T>,
+    selectedOption: T,
+    crossinline optionToString: @Composable (T) -> String,
+    crossinline onOptionSelected: (T) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
 
@@ -40,7 +41,7 @@ fun OptionDropdownMenu(
                             enabled = true,
                         ),
                     readOnly = true,
-                    value = selectedOption,
+                    value = optionToString(selectedOption),
                     onValueChange = {},
                     label = { Text(text) },
                     trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
@@ -52,7 +53,7 @@ fun OptionDropdownMenu(
                 ) {
                     options.forEach { option ->
                         DropdownMenuItem(
-                            text = { Text(option) },
+                            text = { Text(optionToString(option)) },
                             onClick = {
                                 expanded = false
                                 onOptionSelected(option)
