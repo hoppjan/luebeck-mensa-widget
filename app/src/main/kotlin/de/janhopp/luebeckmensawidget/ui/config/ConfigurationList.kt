@@ -11,7 +11,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import de.janhopp.luebeckmensawidget.R
 import de.janhopp.luebeckmensawidget.api.model.PriceGroup
 import de.janhopp.luebeckmensawidget.storage.Option
 import de.janhopp.luebeckmensawidget.storage.OptionsStorage
@@ -41,7 +43,7 @@ fun ConfigurationList(
             .then(modifier),
     ) {
         OptionSwitch(
-            text = "Show date",
+            text = stringResource(R.string.option_show_date),
             checked = isShowDateEnabled,
             onCheckedChange = {
                 isShowDateEnabled = !isShowDateEnabled
@@ -51,7 +53,7 @@ fun ConfigurationList(
             },
         )
         OptionSwitch(
-            text = "Use emoji in meal names",
+            text = stringResource(R.string.option_use_emoji),
             checked = isUseEmojiEnabled,
             onCheckedChange = {
                 isUseEmojiEnabled = !isUseEmojiEnabled
@@ -61,7 +63,7 @@ fun ConfigurationList(
             },
         )
         OptionDropdownMenu(
-            text = "Price to show",
+            text = stringResource(R.string.option_price_group),
             options = PriceGroup.names,
             onOptionSelected = {
                 priceGroupSelected = it
