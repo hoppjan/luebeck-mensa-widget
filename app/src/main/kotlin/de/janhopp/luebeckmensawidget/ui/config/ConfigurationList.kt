@@ -11,13 +11,16 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import de.janhopp.luebeckmensawidget.R
 import de.janhopp.luebeckmensawidget.api.model.PriceGroup
 import de.janhopp.luebeckmensawidget.storage.Option
 import de.janhopp.luebeckmensawidget.storage.OptionsStorage
 import de.janhopp.luebeckmensawidget.ui.theme.MensaTheme
 import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
 import de.janhopp.luebeckmensawidget.widget.getWidgetConfig
+import de.janhopp.luebeckmensawidget.ui.utils.stringRes
 import kotlinx.coroutines.launch
 
 @Composable
@@ -38,7 +41,7 @@ fun ConfigurationList(
             .then(modifier),
     ) {
         OptionSwitch(
-            text = "Show date",
+            text = stringResource(R.string.option_show_date),
             checked = widgetConfig.showDate,
             onCheckedChange = {
                 widgetConfig = widgetConfig.copy(showDate = it)
@@ -48,7 +51,7 @@ fun ConfigurationList(
             },
         )
         OptionSwitch(
-            text = "Use emoji in meal names",
+            text = stringResource(R.string.option_use_emoji),
             checked = widgetConfig.useEmoji,
             onCheckedChange = {
                 widgetConfig = widgetConfig.copy(useEmoji = it)
@@ -57,13 +60,14 @@ fun ConfigurationList(
                 }
             },
         )
-        OptionDropdownMenu(
-            text = "Price to show",
-            options = PriceGroup.names,
-            onOptionSelected = {
-                widgetConfig = widgetConfig.copy(priceGroup = PriceGroup.valueOf(it))
+        OptionDropdownMenu<PriceGroup>(
+            text = stringResource(R.string.option_price_group),
+            options = PriceGroup.entries,
+            optionToString = { group -> group.stringRes() },
+            onOptionSelected = { group ->
+                widgetConfig = widgetConfig.copy(priceGroup = PriceGroup.valueOf(group))
                 coroutineScope.launch {
-                    options.setString(Option.PriceGroup, it)
+                    options.setString(Option.PriceGroup, group.name)
                 }
             },
             selectedOption = widgetConfig.priceGroup.name,
