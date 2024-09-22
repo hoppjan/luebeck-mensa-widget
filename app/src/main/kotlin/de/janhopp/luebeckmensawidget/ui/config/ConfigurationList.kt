@@ -73,7 +73,7 @@ fun ConfigurationList(
             selectedOption = widgetConfig.priceGroup,
         )
         OptionSwitch(
-            text = "Filter deals",
+            text = stringResource(R.string.option_filter_deals),
             checked = widgetConfig.filterDeals,
             onCheckedChange = {
                 widgetConfig = widgetConfig.copy(filterDeals = it)
