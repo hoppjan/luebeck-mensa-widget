@@ -65,12 +65,12 @@ fun ConfigurationList(
             options = PriceGroup.entries,
             optionToString = { group -> group.stringRes() },
             onOptionSelected = { group ->
-                widgetConfig = widgetConfig.copy(priceGroup = PriceGroup.valueOf(group))
+                widgetConfig = widgetConfig.copy(priceGroup = group)
                 coroutineScope.launch {
                     options.setString(Option.PriceGroup, group.name)
                 }
             },
-            selectedOption = widgetConfig.priceGroup.name,
+            selectedOption = widgetConfig.priceGroup,
         )
         OptionSwitch(
             text = "Filter deals",
