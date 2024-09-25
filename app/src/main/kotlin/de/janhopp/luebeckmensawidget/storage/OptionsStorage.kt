@@ -47,4 +47,5 @@ sealed class Option<T>(
     data object ShowDate : Option<Boolean>(key = "show_date", defaultValue = false)
     data object UseEmoji : Option<Boolean>(key = "use_emoji", defaultValue = true)
     data object PriceGroup : Option<String>(key = "price_group", defaultValue = Students.name)
+    data object FilterDeals : Option<Boolean>(key = "filter_deals", defaultValue = false)
 }

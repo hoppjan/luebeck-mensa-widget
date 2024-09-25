@@ -18,6 +18,8 @@ import de.janhopp.luebeckmensawidget.api.model.PriceGroup
 import de.janhopp.luebeckmensawidget.storage.Option
 import de.janhopp.luebeckmensawidget.storage.OptionsStorage
 import de.janhopp.luebeckmensawidget.ui.theme.MensaTheme
+import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
+import de.janhopp.luebeckmensawidget.widget.getWidgetConfig
 import de.janhopp.luebeckmensawidget.ui.utils.stringRes
 import kotlinx.coroutines.launch
 
@@ -28,14 +30,9 @@ fun ConfigurationList(
     val options = OptionsStorage(LocalContext.current)
     val coroutineScope = rememberCoroutineScope()
 
-    var isShowDateEnabled by remember { mutableStateOf(Option.ShowDate.defaultValue) }
-    var isUseEmojiEnabled by remember { mutableStateOf(Option.UseEmoji.defaultValue) }
-    var priceGroupSelected by remember { mutableStateOf(Option.PriceGroup.defaultValue) }
-
+    var widgetConfig by remember { mutableStateOf(MensaWidgetConfig()) }
     LaunchedEffect(Unit) {
-        isShowDateEnabled = options.getBoolean(Option.ShowDate)
-        isUseEmojiEnabled = options.getBoolean(Option.UseEmoji)
-        priceGroupSelected = options.getString(Option.PriceGroup)
+        widgetConfig = options.getWidgetConfig()
     }
 
     Column(
@@ -45,21 +42,21 @@ fun ConfigurationList(
     ) {
         OptionSwitch(
             text = stringResource(R.string.option_show_date),
-            checked = isShowDateEnabled,
+            checked = widgetConfig.showDate,
             onCheckedChange = {
-                isShowDateEnabled = !isShowDateEnabled
+                widgetConfig = widgetConfig.copy(showDate = it)
                 coroutineScope.launch {
-                    options.setBoolean(Option.ShowDate, isShowDateEnabled)
+                    options.setBoolean(Option.ShowDate, it)
                 }
             },
         )
         OptionSwitch(
             text = stringResource(R.string.option_use_emoji),
-            checked = isUseEmojiEnabled,
+            checked = widgetConfig.useEmoji,
             onCheckedChange = {
-                isUseEmojiEnabled = !isUseEmojiEnabled
+                widgetConfig = widgetConfig.copy(useEmoji = it)
                 coroutineScope.launch {
-                    options.setBoolean(Option.UseEmoji, isUseEmojiEnabled)
+                    options.setBoolean(Option.UseEmoji, it)
                 }
             },
         )
@@ -68,12 +65,22 @@ fun ConfigurationList(
             options = PriceGroup.entries,
             optionToString = { group -> group.stringRes() },
             onOptionSelected = { group ->
-                priceGroupSelected = group.name
+                widgetConfig = widgetConfig.copy(priceGroup = group)
                 coroutineScope.launch {
                     options.setString(Option.PriceGroup, group.name)
                 }
             },
-            selectedOption = PriceGroup.valueOf(priceGroupSelected),
+            selectedOption = widgetConfig.priceGroup,
+        )
+        OptionSwitch(
+            text = stringResource(R.string.option_filter_deals),
+            checked = widgetConfig.filterDeals,
+            onCheckedChange = {
+                widgetConfig = widgetConfig.copy(filterDeals = it)
+                coroutineScope.launch {
+                    options.setBoolean(Option.FilterDeals, it)
+                }
+            },
         )
     }
 }
