@@ -5,7 +5,9 @@ import androidx.glance.GlanceId
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.provideContent
 import de.janhopp.luebeckmensawidget.api.MensaApi
+import de.janhopp.luebeckmensawidget.api.model.Location
 import de.janhopp.luebeckmensawidget.storage.MenuStorage
+import de.janhopp.luebeckmensawidget.storage.OptionsStorage
 import de.janhopp.luebeckmensawidget.theme.AppTheme
 import de.janhopp.luebeckmensawidget.ui.MensaScreen
 import de.janhopp.luebeckmensawidget.utils.currentTime
@@ -20,8 +22,9 @@ class MensaWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         val api = MensaApi()
         val storage = MenuStorage(context)
+        val config = OptionsStorage(context).getWidgetConfig()
         withContext(Dispatchers.IO) {
-            val meals = api.getMealsToday()
+            val meals = api.getMealsToday(config.locations)
 
             val today = if (meals.isEmpty()) {
                 storage.getMensaDay(currentTime.mensaDay).first()
