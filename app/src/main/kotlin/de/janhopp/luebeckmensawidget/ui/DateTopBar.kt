@@ -5,7 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.glance.GlanceModifier
-import androidx.glance.layout.Alignment
 import androidx.glance.layout.Box
 import androidx.glance.layout.fillMaxWidth
 import androidx.glance.layout.padding
@@ -20,14 +19,13 @@ fun DateTopBar(day: MensaDay) {
     Box(
         modifier = GlanceModifier
             .fillMaxWidth()
-            .padding(all = 8.dp)
-            .padding(top = 6.dp),
-        contentAlignment = Alignment.Center,
+            .padding(all = 10.dp)
+            .padding(start = 2.dp),
     ) {
         StyledText(
             text = day.toDisplayString(),
             style = LocalTextStyle.current.toGlance()
-                .copy(fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                .copy(fontWeight = FontWeight.Bold, fontSize = 16.sp)
         )
     }
 }
