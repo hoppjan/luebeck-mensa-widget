@@ -6,6 +6,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -28,9 +29,10 @@ inline fun <reified T: Enum<T>> OptionDropdownMenu(
     var expanded by remember { mutableStateOf(false) }
 
     ListItem(
-        headlineContent = {
+        headlineContent = { Text(text) },
+        trailingContent = {
             ExposedDropdownMenuBox(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(fraction = 0.5f),
                 expanded = expanded,
                 onExpandedChange = { expanded = !expanded },
             ) {
@@ -43,9 +45,9 @@ inline fun <reified T: Enum<T>> OptionDropdownMenu(
                     readOnly = true,
                     value = optionToString(selectedOption),
                     onValueChange = {},
-                    label = { Text(text) },
                     trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
                     colors = ExposedDropdownMenuDefaults.textFieldColors(),
+                    textStyle = MaterialTheme.typography.bodyLarge,
                 )
                 ExposedDropdownMenu(
                     expanded = expanded,
