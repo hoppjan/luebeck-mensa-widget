@@ -25,7 +25,7 @@ val LocalDateTime.mensaDay: LocalDate
         else -> if (isAfterMensaHours) date + 1.days else date
     }
 
-fun DayOfWeek.format(): String = getDisplayName(TextStyle.FULL, Locale.getDefault())
+fun DayOfWeek.format(): String = getDisplayName(TextStyle.SHORT, Locale.getDefault())
 
 fun String.toDateString() = split("-").let { (_, month, day) -> "$day.$month." }
 
