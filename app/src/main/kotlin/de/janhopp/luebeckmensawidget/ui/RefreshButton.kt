@@ -3,6 +3,7 @@ package de.janhopp.luebeckmensawidget.ui
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.glance.ColorFilter
 import androidx.glance.GlanceModifier
@@ -25,7 +26,7 @@ fun RefreshButton(
             .clickable(update),
         provider = ImageProvider(R.drawable.refresh),
         colorFilter = MaterialTheme.colorScheme.onBackground.toColorFilter(),
-        contentDescription = "refresh"
+        contentDescription = stringResource(R.string.refresh)
     )
 }
 
