@@ -10,10 +10,7 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.plus
 import kotlinx.datetime.toLocalDateTime
-import java.text.DateFormat
-import java.time.Instant
 import java.time.format.TextStyle
-import java.util.Date
 import java.util.Locale
 
 val currentTime: LocalDateTime
@@ -28,12 +25,11 @@ val LocalDateTime.mensaDay: LocalDate
         else -> if (isAfterMensaHours) date + 1.days else date
     }
 
-fun DayOfWeek.format(): String = getDisplayName(TextStyle.FULL, Locale.getDefault())
+fun DayOfWeek.format(): String = getDisplayName(TextStyle.SHORT, Locale.getDefault())
 
-fun String.toDate(): Date = Date.from(Instant.parse("${this}T12:00:00Z"))
+fun String.toDateString() = split("-").let { (_, month, day) -> "$day.$month." }
 
-fun MensaDay.toDisplayString() =
-    "${localDate.dayOfWeek.format()}, ${DateFormat.getDateInstance().format(date.toDate())}"
+fun MensaDay.toDisplayString() = "${localDate.dayOfWeek.format()}, ${date.toDateString()}"
 
 val LocalDateTime.mensaApiFormat: String
     get() = "%04d-%02d-%02d".format(mensaDay.year, mensaDay.monthNumber, mensaDay.dayOfMonth)

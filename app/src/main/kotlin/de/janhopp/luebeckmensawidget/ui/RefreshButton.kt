@@ -25,7 +25,7 @@ fun RefreshButton(
             .clickable(update),
         provider = ImageProvider(R.drawable.refresh),
         colorFilter = MaterialTheme.colorScheme.onBackground.toColorFilter(),
-        contentDescription = "refresh"
+        contentDescription = null
     )
 }
 

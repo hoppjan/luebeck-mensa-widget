@@ -43,7 +43,7 @@ fun MensaScreen(
         modifier = GlanceModifier
             .background(MaterialTheme.colorScheme.background)
             .fillMaxSize(),
-        contentAlignment = Alignment.BottomEnd,
+        contentAlignment = if (widgetConfig.showDate) Alignment.TopEnd else Alignment.BottomEnd,
     ) {
         if (isUpdating)
             LoadingView()
