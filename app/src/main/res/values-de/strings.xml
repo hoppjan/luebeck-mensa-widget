@@ -7,8 +7,12 @@
     <string name="option_use_emoji">Emoji anzeigen</string>
     <string name="option_price_group">Preisgruppe</string>
     <string name="option_filter_deals">Angebote ignorieren</string>
+    <string name="option_location">Standort</string>
     <string name="error_could_not_load_menu">Menü konnte nicht geladen werden…</string>
     <string name="price_group_students">Studierende</string>
     <string name="price_group_employees">Angestellte</string>
     <string name="price_group_guests">Gäste</string>
+    <string name="location_mensa_luebeck">Mensa Lübeck</string>
+    <string name="location_cafeteria_luebeck">Cafeteria Lübeck</string>
+    <string name="location_musikhochschule_luebeck">Musikhochschule Lübeck</string>
 </resources>
