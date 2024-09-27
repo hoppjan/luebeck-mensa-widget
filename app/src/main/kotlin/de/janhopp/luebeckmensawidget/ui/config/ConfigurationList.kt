@@ -14,6 +14,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import de.janhopp.luebeckmensawidget.R
+import de.janhopp.luebeckmensawidget.api.model.Location
 import de.janhopp.luebeckmensawidget.api.model.PriceGroup
 import de.janhopp.luebeckmensawidget.storage.Option
 import de.janhopp.luebeckmensawidget.storage.OptionsStorage
@@ -81,6 +82,18 @@ fun ConfigurationList(
                     options.setBoolean(Option.FilterDeals, it)
                 }
             },
+        )
+        OptionDropdownMenu<Location>(
+            text = stringResource(R.string.option_location),
+            options = Location.entries,
+            optionToString = { location -> location.stringRes() },
+            onOptionSelected = { locations ->
+                widgetConfig = widgetConfig.copy(locations = setOf(locations))
+                coroutineScope.launch {
+                    options.setStringSet(Option.Locations, setOf(locations.code))
+                }
+            },
+            selectedOption = widgetConfig.locations.first(),
         )
     }
 }
