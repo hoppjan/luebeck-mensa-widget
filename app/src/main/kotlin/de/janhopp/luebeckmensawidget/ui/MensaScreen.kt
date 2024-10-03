@@ -8,7 +8,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.res.stringResource
 import androidx.glance.GlanceModifier
 import androidx.glance.LocalContext
 import androidx.glance.background
@@ -18,6 +17,7 @@ import androidx.glance.layout.fillMaxSize
 import de.janhopp.luebeckmensawidget.R
 import de.janhopp.luebeckmensawidget.api.model.MensaDay
 import de.janhopp.luebeckmensawidget.storage.OptionsStorage
+import de.janhopp.luebeckmensawidget.theme.glanceString
 import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
 import de.janhopp.luebeckmensawidget.widget.getWidgetConfig
 import kotlinx.coroutines.delay
@@ -50,7 +50,7 @@ fun MensaScreen(
         else if (day != null)
             MensaDayView(day, widgetConfig)
         else
-            ErrorView(errorMessage = stringResource(R.string.error_could_not_load_menu))
+            ErrorView(errorMessage = glanceString(R.string.error_could_not_load_menu))
 
         RefreshButton {
             scope.launch {
