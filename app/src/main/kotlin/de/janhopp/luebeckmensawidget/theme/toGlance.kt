@@ -2,8 +2,10 @@ package de.janhopp.luebeckmensawidget.theme
 
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
+import androidx.glance.ColorFilter
 import androidx.glance.LocalContext
 import androidx.glance.unit.ColorProvider
 
@@ -64,6 +66,8 @@ fun androidx.compose.ui.text.font.FontFamily.toGlance(): androidx.glance.text.Fo
     }
 
 fun TextUnit.toGlance(): TextUnit = TextUnit(value, TextUnitType.Sp)
+
+fun Color.toColorFilter() = ColorFilter.tint(ColorProvider(color = this))
 
 @Composable
 fun glanceString(@StringRes resId: Int, vararg formatArgs: Any): String =
