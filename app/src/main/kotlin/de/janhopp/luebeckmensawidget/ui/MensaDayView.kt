@@ -6,8 +6,10 @@ import androidx.glance.appwidget.lazy.LazyColumn
 import androidx.glance.appwidget.lazy.items
 import androidx.glance.layout.Column
 import androidx.glance.layout.fillMaxSize
+import de.janhopp.luebeckmensawidget.R
 import de.janhopp.luebeckmensawidget.api.model.MensaDay
 import de.janhopp.luebeckmensawidget.api.model.filterDeals
+import de.janhopp.luebeckmensawidget.theme.glanceString
 import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
 
 @Composable
@@ -18,15 +20,18 @@ fun MensaDayView(day: MensaDay, widgetConfig: MensaWidgetConfig) {
         if (showDate)
             DateTopBar(day)
 
-        LazyColumn(
-            modifier = GlanceModifier.fillMaxSize(),
-        ) {
-            items(
-                items = day.meals
-                    .filterDeals(isEnabled = filterDeals)
-            ) { meal ->
-                MealView(meal, useEmoji, priceGroup)
+        if (day.meals.isEmpty())
+            ErrorView(errorMessage = glanceString(R.string.error_empty_menu))
+        else
+            LazyColumn(
+                modifier = GlanceModifier.fillMaxSize(),
+            ) {
+                items(
+                    items = day.meals
+                        .filterDeals(isEnabled = filterDeals)
+                ) { meal ->
+                    MealView(meal, useEmoji, priceGroup)
+                }
             }
-        }
     }
 }

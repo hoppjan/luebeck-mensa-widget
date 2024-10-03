@@ -14,3 +14,6 @@ fun String.toApiResponse() = MensaJson.decodeFromString<ApiResponse>(this)
 
 fun ApiResponse.toMensaDays(): List<MensaDay> =
     meals.groupBy { it.date }.map { (date, meals) -> MensaDay(date, meals) }
+
+fun List<MensaDay>.filterByDate(date: String): MensaDay =
+    firstOrNull { it.date == date } ?: MensaDay(date, emptyList())
