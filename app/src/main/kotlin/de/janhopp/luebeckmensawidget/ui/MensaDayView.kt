@@ -21,7 +21,10 @@ fun MensaDayView(day: MensaDay, widgetConfig: MensaWidgetConfig) {
             DateTopBar(day)
 
         if (day.meals.isEmpty())
-            ErrorView(errorMessage = glanceString(R.string.error_empty_menu))
+            ErrorView(
+                imageRes = R.drawable.no_food,
+                errorMessage = glanceString(R.string.error_empty_menu),
+            )
         else
             LazyColumn(
                 modifier = GlanceModifier.fillMaxSize(),
