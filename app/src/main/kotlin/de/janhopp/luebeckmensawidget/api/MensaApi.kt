@@ -2,6 +2,7 @@ package de.janhopp.luebeckmensawidget.api
 
 import de.janhopp.luebeckmensawidget.api.model.Location
 import de.janhopp.luebeckmensawidget.api.model.MensaDay
+import de.janhopp.luebeckmensawidget.api.model.filterByDate
 import de.janhopp.luebeckmensawidget.api.model.toApiResponse
 import de.janhopp.luebeckmensawidget.api.model.toCodes
 import de.janhopp.luebeckmensawidget.api.model.toMensaDays
@@ -19,11 +20,12 @@ class MensaApi(
     private val date: String
         get() = currentTime.mensaApiFormat
 
-    suspend fun getMealsToday(locations: Set<Location>): List<MensaDay> = runCatching {
+    suspend fun getMealsToday(locations: Set<Location>): MensaDay? = runCatching {
         client.get("https://speiseplan.mcloud.digital/v2/meals?location=${locations.toCodes()}&date=$date")
             .body<String>()
             .toApiResponse()
             .toMensaDays()
+            .filterByDate(date)
     }.alsoThrow<_, CancellationException>() // needed for use of runCatching in coroutines
-        .getOrDefault(listOf())
+        .getOrNull()
 }

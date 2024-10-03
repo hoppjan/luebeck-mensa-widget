@@ -8,6 +8,7 @@
     <string name="option_filter_deals">Filter deals</string>
     <string name="option_location">Location</string>
     <string name="error_could_not_load_menu">Couldn\'t load menu…</string>
+    <string name="error_empty_menu">There is nothing on the menu today!</string>
     <string name="price_group_students">Students</string>
     <string name="price_group_employees">Employees</string>
     <string name="price_group_guests">Guests</string>
