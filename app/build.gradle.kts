@@ -58,6 +58,7 @@ dependencies {
 
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlin.reflect)
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.cio)
 

@@ -61,4 +61,5 @@ sealed class Option<T>(
     data object PriceGroup : Option<String>(key = "price_group", defaultValue = Students.name)
     data object FilterDeals : Option<Boolean>(key = "filter_deals", defaultValue = false)
     data object Locations : Option<Set<String>>(key = "locations", defaultValue = setOf(Location.MensaLuebeck.code))
+    data object Allergens : Option<Set<String>>(key = "allergens", defaultValue = emptySet())
 }
