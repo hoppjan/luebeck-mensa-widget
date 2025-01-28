@@ -1,5 +1,6 @@
 package de.janhopp.luebeckmensawidget.ui.config
 
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -15,11 +16,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-inline fun <reified T: Enum<T>> OptionDropdownMenu(
+inline fun <reified T: Enum<T>> ColumnScope.OptionDropdownMenu(
     text: String,
     options: List<T>,
     selectedOption: T,
@@ -32,12 +34,13 @@ inline fun <reified T: Enum<T>> OptionDropdownMenu(
         headlineContent = { Text(text) },
         trailingContent = {
             ExposedDropdownMenuBox(
-                modifier = Modifier.fillMaxWidth(fraction = 0.6f),
+                modifier = Modifier.align(Alignment.End),
                 expanded = expanded,
                 onExpandedChange = { expanded = !expanded },
             ) {
                 TextField(
                     modifier = Modifier
+                        .fillMaxWidth(fraction = 0.6f)
                         .menuAnchor(
                             type = MenuAnchorType.PrimaryEditable,
                             enabled = true,
