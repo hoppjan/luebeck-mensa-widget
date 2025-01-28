@@ -59,6 +59,7 @@ fun ConfigurationList(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .then(modifier),
     ) {
         OptionSwitch(
