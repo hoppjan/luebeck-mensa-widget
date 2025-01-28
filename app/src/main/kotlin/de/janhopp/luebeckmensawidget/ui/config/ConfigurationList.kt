@@ -1,7 +1,16 @@
 package de.janhopp.luebeckmensawidget.ui.config
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -13,9 +22,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import de.janhopp.luebeckmensawidget.R
 import de.janhopp.luebeckmensawidget.api.model.Location
+import de.janhopp.luebeckmensawidget.api.model.Allergens
 import de.janhopp.luebeckmensawidget.api.model.PriceGroup
+import de.janhopp.luebeckmensawidget.api.model.toStringSet
 import de.janhopp.luebeckmensawidget.storage.Option
 import de.janhopp.luebeckmensawidget.storage.OptionsStorage
 import de.janhopp.luebeckmensawidget.ui.theme.MensaTheme
@@ -24,6 +36,7 @@ import de.janhopp.luebeckmensawidget.widget.getWidgetConfig
 import de.janhopp.luebeckmensawidget.ui.utils.stringRes
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ConfigurationList(
     modifier: Modifier = Modifier,
@@ -32,8 +45,15 @@ fun ConfigurationList(
     val coroutineScope = rememberCoroutineScope()
 
     var widgetConfig by remember { mutableStateOf(MensaWidgetConfig()) }
+    val onSelectionChanged: (Set<Allergens>) -> Unit = { selected ->
+        widgetConfig = widgetConfig.copy(allergens = selected)
+        coroutineScope.launch {
+            options.setStringSet(Option.Allergens, selected.toStringSet())
+        }
+    }
     LaunchedEffect(Unit) {
         widgetConfig = options.getWidgetConfig()
+        onSelectionChanged(widgetConfig.allergens)
     }
 
     Column(
@@ -94,6 +114,39 @@ fun ConfigurationList(
                 }
             },
             selectedOption = widgetConfig.locations.first(),
+        )
+        ListItem(
+            headlineContent = {
+                Text(
+                    text = stringResource(R.string.allergens),
+                    modifier = Modifier.padding(bottom = 20.dp),
+                )
+            },
+            supportingContent = {
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Allergens.allAllergens.forEach { item ->
+                        SelectableChip<Allergens>(
+                            item = item,
+                            selected = (item in widgetConfig.allergens),
+                            itemToText = { it.stringRes() },
+                            onSelectionChanged = { allergen, wasSelected ->
+                                widgetConfig = widgetConfig.copy(
+                                    allergens = widgetConfig.allergens
+                                        .let { allergens ->
+                                            if (wasSelected) allergens + allergen
+                                            else allergens.filterNot { it == allergen }
+                                        }
+                                        .toSet()
+                                )
+                                onSelectionChanged(widgetConfig.allergens)
+                            },
+                        )
+                    }
+                }
+            }
         )
     }
 }
