@@ -32,7 +32,7 @@ inline fun <reified T: Enum<T>> OptionDropdownMenu(
         headlineContent = { Text(text) },
         trailingContent = {
             ExposedDropdownMenuBox(
-                modifier = Modifier.fillMaxWidth(fraction = 0.5f),
+                modifier = Modifier.fillMaxWidth(fraction = 0.6f),
                 expanded = expanded,
                 onExpandedChange = { expanded = !expanded },
             ) {
