@@ -132,7 +132,7 @@ fun ConfigurationList(
                         SelectableChip<Allergens>(
                             item = item,
                             selected = (item in widgetConfig.allergens),
-                            itemToText = { it.stringRes() },
+                            itemToText = { stringResource(it.resId) },
                             onSelectionChanged = { allergen, wasSelected ->
                                 widgetConfig = widgetConfig.copy(
                                     allergens = widgetConfig.allergens
