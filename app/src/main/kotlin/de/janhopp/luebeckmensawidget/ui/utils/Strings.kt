@@ -29,38 +29,6 @@ fun Location.stringRes(): String =
         }
     )
 
-fun Allergens.toStringResId(): Int = when (this) {
-    Allergens.Eggs -> R.string.allergen_eggs
-    Allergens.Peanuts -> R.string.allergen_peanuts
-    Allergens.Fish -> R.string.allergen_fish
-    Allergens.Spelt -> R.string.allergen_spelt
-    Allergens.Barley -> R.string.allergen_barley
-    Allergens.Oats -> R.string.allergen_oats
-    Allergens.Kamut -> R.string.allergen_kamut
-    Allergens.Rye -> R.string.allergen_rye
-    Allergens.Wheat -> R.string.allergen_wheat
-    Allergens.Crustaceans -> R.string.allergen_crustaceans
-    Allergens.Lupine -> R.string.allergen_lupine
-    Allergens.MilkLactose -> R.string.allergen_milk_lactose
-    Allergens.CashewNuts -> R.string.allergen_cashew_nuts
-    Allergens.Hazelnuts -> R.string.allergen_hazelnuts
-    Allergens.MacadamiaNuts -> R.string.allergen_macadamia_nuts
-    Allergens.Almonds -> R.string.allergen_almonds
-    Allergens.BrazilNuts -> R.string.allergen_brazil_nuts
-    Allergens.Pecans -> R.string.allergen_pecans
-    Allergens.Pistachios -> R.string.allergen_pistachios
-    Allergens.Walnuts -> R.string.allergen_walnuts
-    Allergens.Sesame -> R.string.allergen_sesame
-    Allergens.Mustard -> R.string.allergen_mustard
-    Allergens.Celery -> R.string.allergen_celery
-    Allergens.Soy -> R.string.allergen_soy
-    Allergens.SulfurDioxide -> R.string.allergen_sulfur_dioxide
-    Allergens.Molluscs -> R.string.allergen_molluscs
-}
-
-@Composable
-fun Allergens.stringRes(): String = stringResource(id = toStringResId())
-
 @Composable
 fun Allergen.glanceString() = Allergens.allAllergens.find { it.code == code }
-    ?.toStringResId()?.let { glanceString(it) }
+    ?.resId?.let { glanceString(it) }
