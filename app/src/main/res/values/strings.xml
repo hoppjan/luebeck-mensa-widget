@@ -41,5 +41,5 @@
     <string name="allergen_soy">Soy</string>
     <string name="allergen_sulfur_dioxide">Sulfur Dioxide and Sulfites</string>
     <string name="allergen_molluscs">Molluscs</string>
-    <string name="allergens">Allergens</string>
+    <string name="allergens">Warning for selected allergens</string>
 </resources>
