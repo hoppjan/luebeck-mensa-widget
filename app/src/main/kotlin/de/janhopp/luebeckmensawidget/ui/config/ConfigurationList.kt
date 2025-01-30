@@ -61,8 +61,6 @@ fun ConfigurationList(
     }
     LaunchedEffect(Unit) {
         widgetConfig = options.getWidgetConfig()
-        onSelectedLocationsChanged(widgetConfig.locations)
-        onSelectedAllergensChanged(widgetConfig.allergens)
     }
 
     Column(
