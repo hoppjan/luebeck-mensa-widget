@@ -11,7 +11,7 @@ data class MensaWidgetConfig(
     val useEmoji: Boolean = Option.UseEmoji.defaultValue,
     val priceGroup: PriceGroup = PriceGroup.valueOf(Option.PriceGroup.defaultValue),
     val filterDeals: Boolean = Option.FilterDeals.defaultValue,
-    val locations: Set<Location> = Option.Locations.defaultValue.mapNotNull { Location.fromCode(it) }.toSet(),
+    val locations: Set<Location> = Location.fromStringSet(Option.Locations.defaultValue),
     val allergens: Set<Allergens> = Allergens.fromStringSet(Option.Allergens.defaultValue),
 )
 

@@ -10,6 +10,12 @@ enum class Location(
 
     companion object {
         fun fromCode(code: String): Location? = entries.find { it.code == code }
+
+        fun fromStringSet(strings: Set<String>): Set<Location> = strings
+            .mapNotNull { code ->
+                Location.entries.find { location -> location.code == code }
+            }
+            .toSet()
     }
 }
 
