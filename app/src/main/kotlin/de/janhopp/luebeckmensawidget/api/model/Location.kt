@@ -14,3 +14,5 @@ enum class Location(
 }
 
 fun Set<Location>.toCodes() = joinToString(separator = ",") { it.code }
+
+fun Iterable<Location>.toStringSet(): Set<String> = map { it.code }.toSet()

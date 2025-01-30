@@ -47,7 +47,13 @@ fun ConfigurationList(
     val coroutineScope = rememberCoroutineScope()
 
     var widgetConfig by remember { mutableStateOf(MensaWidgetConfig()) }
-    val onSelectionChanged: (Set<Allergens>) -> Unit = { selected ->
+    val onSelectedLocationsChanged: (Set<Location>) -> Unit = { selected ->
+        widgetConfig = widgetConfig.copy(locations = selected)
+        coroutineScope.launch {
+            options.setStringSet(Option.Locations, selected.toStringSet())
+        }
+    }
+    val onSelectedAllergensChanged: (Set<Allergens>) -> Unit = { selected ->
         widgetConfig = widgetConfig.copy(allergens = selected)
         coroutineScope.launch {
             options.setStringSet(Option.Allergens, selected.toStringSet())
@@ -55,7 +61,8 @@ fun ConfigurationList(
     }
     LaunchedEffect(Unit) {
         widgetConfig = options.getWidgetConfig()
-        onSelectionChanged(widgetConfig.allergens)
+        onSelectedLocationsChanged(widgetConfig.locations)
+        onSelectedAllergensChanged(widgetConfig.allergens)
     }
 
     Column(
@@ -106,17 +113,38 @@ fun ConfigurationList(
                 }
             },
         )
-        OptionDropdownMenu<Location>(
-            text = stringResource(R.string.option_location),
-            options = Location.entries,
-            optionToString = { location -> location.stringRes() },
-            onOptionSelected = { locations ->
-                widgetConfig = widgetConfig.copy(locations = setOf(locations))
-                coroutineScope.launch {
-                    options.setStringSet(Option.Locations, setOf(locations.code))
-                }
+        ListItem(
+            headlineContent = {
+                Text(
+                    text = stringResource(R.string.option_location),
+                    modifier = Modifier.padding(bottom = 20.dp),
+                )
             },
-            selectedOption = widgetConfig.locations.first(),
+            supportingContent = {
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Location.entries.forEach { item ->
+                        SelectableChip<Location>(
+                            item = item,
+                            selected = item in widgetConfig.locations,
+                            itemToText = { location -> location.stringRes() },
+                            onSelectionChanged = { location, wasSelected ->
+                                widgetConfig = widgetConfig.copy(
+                                    locations = widgetConfig.locations
+                                        .let { locations ->
+                                            if (wasSelected) locations + location
+                                            else locations.filterNot { it == location }
+                                        }
+                                        .toSet()
+                                )
+                                onSelectedLocationsChanged(widgetConfig.locations)
+                            },
+                        )
+                    }
+                }
+            }
         )
         ListItem(
             headlineContent = {
@@ -144,7 +172,7 @@ fun ConfigurationList(
                                         }
                                         .toSet()
                                 )
-                                onSelectionChanged(widgetConfig.allergens)
+                                onSelectedAllergensChanged(widgetConfig.allergens)
                             },
                         )
                     }
