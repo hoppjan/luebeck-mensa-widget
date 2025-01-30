@@ -23,7 +23,7 @@ import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
 
 @Composable
 fun MensaDayView(day: MensaDay, widgetConfig: MensaWidgetConfig) {
-    val (showDate, useEmoji, priceGroup, filterDeals, _, allergens) = widgetConfig
+    val (showDate, useEmoji, priceGroup, filterDeals, locations, allergens) = widgetConfig
     val allergenCodes = allergens.map { it.code }
 
     Column {
@@ -55,9 +55,9 @@ fun MensaDayView(day: MensaDay, widgetConfig: MensaWidgetConfig) {
                         if (warnAllergens.isNotEmpty()) {
                             StyledText(text = "⚠️ ${warnAllergens.map { it.glanceString() }.joinToString()}")
                         }
-                        StyledText(
-                            text = meal.price.getFor(priceGroup).formatPrice()
-                        )
+                        val price = meal.price.getFor(priceGroup).formatPrice()
+                        val location = if (locations.size > 1) " | ${meal.location.name}" else ""
+                        StyledText(text = "$price$location")
                     }
                 }
             }
