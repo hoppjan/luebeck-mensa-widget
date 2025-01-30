@@ -51,9 +51,9 @@ fun MensaDayView(day: MensaDay, widgetConfig: MensaWidgetConfig) {
                                 .copy(fontWeight = FontWeight.Bold),
                             text = if (useEmoji) meal.widgetName else meal.name
                         )
-                        if (meal.allergens.any { it.code in allergenCodes }) {
-                            val mealAllergens = meal.allergens.mapNotNull { it.glanceString() }
-                            StyledText(text = "⚠️ ${mealAllergens.joinToString(", ")}")
+                        val warnAllergens = meal.allergens.filter { it.code in allergenCodes }
+                        if (warnAllergens.isNotEmpty()) {
+                            StyledText(text = "⚠️ ${warnAllergens.map { it.glanceString() }.joinToString()}")
                         }
                         StyledText(
                             text = meal.price.getFor(priceGroup).formatPrice()
