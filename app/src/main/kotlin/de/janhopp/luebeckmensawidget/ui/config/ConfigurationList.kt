@@ -12,6 +12,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -26,16 +29,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import de.janhopp.luebeckmensawidget.R
-import de.janhopp.luebeckmensawidget.api.model.Location
 import de.janhopp.luebeckmensawidget.api.model.Allergens
+import de.janhopp.luebeckmensawidget.api.model.Location
 import de.janhopp.luebeckmensawidget.api.model.PriceGroup
 import de.janhopp.luebeckmensawidget.api.model.toStringSet
 import de.janhopp.luebeckmensawidget.storage.Option
 import de.janhopp.luebeckmensawidget.storage.OptionsStorage
 import de.janhopp.luebeckmensawidget.ui.theme.MensaTheme
+import de.janhopp.luebeckmensawidget.ui.utils.stringRes
 import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
 import de.janhopp.luebeckmensawidget.widget.getWidgetConfig
-import de.janhopp.luebeckmensawidget.ui.utils.stringRes
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -89,17 +92,32 @@ fun ConfigurationList(
                 }
             },
         )
-        OptionDropdownMenu<PriceGroup>(
-            text = stringResource(R.string.option_price_group),
-            options = PriceGroup.entries,
-            optionToString = { group -> group.stringRes() },
-            onOptionSelected = { group ->
-                widgetConfig = widgetConfig.copy(priceGroup = group)
-                coroutineScope.launch {
-                    options.setString(Option.PriceGroup, group.name)
-                }
+        ListItem(
+            headlineContent = {
+                Text(text = stringResource(R.string.option_price_group))
             },
-            selectedOption = widgetConfig.priceGroup,
+            supportingContent = {
+                SingleChoiceSegmentedButtonRow(
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(top = 16.dp),
+                ) {
+                    PriceGroup.entries.forEachIndexed { index, priceGroup ->
+                        SegmentedButton(
+                            shape = SegmentedButtonDefaults
+                                .itemShape(index = index, count = PriceGroup.entries.size),
+                            selected = widgetConfig.priceGroup == priceGroup,
+                            onClick = {
+                                widgetConfig = widgetConfig.copy(priceGroup = priceGroup)
+                                coroutineScope.launch {
+                                    options.setString(Option.PriceGroup, priceGroup.name)
+                                }
+                            }
+                        ) {
+                            Text(text = priceGroup.stringRes())
+                        }
+                    }
+                }
+            }
         )
         OptionSwitch(
             text = stringResource(R.string.option_filter_deals),
