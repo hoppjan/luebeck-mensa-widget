@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -69,6 +70,8 @@ fun ConfigurationList(
             .verticalScroll(rememberScrollState())
             .then(modifier),
     ) {
+        Spacer(modifier = Modifier.height(height = 4.dp))
+        SectionLabel(text = stringResource(R.string.settings_section_widget))
         OptionSwitch(
             text = stringResource(R.string.option_show_date),
             checked = widgetConfig.showDate,
@@ -89,6 +92,8 @@ fun ConfigurationList(
                 }
             },
         )
+        HorizontalDivider(modifier = Modifier.padding(top = 16.dp, bottom = 8.dp))
+        SectionLabel(text = stringResource(R.string.settings_section_canteen))
         OptionDropdownMenu<PriceGroup>(
             text = stringResource(R.string.option_price_group),
             options = PriceGroup.entries,

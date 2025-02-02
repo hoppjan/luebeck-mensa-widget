@@ -3,6 +3,8 @@
     <string name="app_name">Lübeck Mensa Widget</string>
     <string name="widget_settings_title">Einstellungen</string>
     <string name="finish_configuration">Konfiguration speichern</string>
+    <string name="settings_section_canteen">Mensaoptionen</string>
+    <string name="settings_section_widget">Widgeteinstellungen</string>
     <string name="option_show_date">Datum anzeigen</string>
     <string name="option_use_emoji">Emoji anzeigen</string>
     <string name="option_price_group">Preisgruppe</string>
