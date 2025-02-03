@@ -5,11 +5,12 @@
     <string name="finish_configuration">Konfiguration speichern</string>
     <string name="settings_section_canteen">Mensaoptionen</string>
     <string name="settings_section_widget">Widgeteinstellungen</string>
-    <string name="option_show_date">Datum anzeigen</string>
-    <string name="option_use_emoji">Emoji anzeigen</string>
-    <string name="option_price_group">Preisgruppe</string>
-    <string name="option_filter_deals">Angebote ignorieren</string>
-    <string name="option_location">Standort</string>
+    <string name="option_show_date">Datum anzeigen?</string>
+    <string name="option_use_emoji">Emoji anzeigen?</string>
+    <string name="option_price_group">Zu welcher Preisgruppe gehörst du?</string>
+    <string name="option_filter_deals">Angebote ignorieren?</string>
+    <string name="option_location">Wo gehst du essen?</string>
+    <string name="option_allergens">Hast du Allergien?</string>
     <string name="error_could_not_load_menu">Menü konnte nicht geladen werden…</string>
     <string name="error_empty_menu">Heute gibt es nichts zu essen!</string>
     <string name="price_group_students">Studierende</string>
@@ -44,5 +45,4 @@
     <string name="allergen_soy">Soja</string>
     <string name="allergen_sulfur_dioxide">Schwefeldioxid und Sulfite</string>
     <string name="allergen_molluscs">Weichtiere</string>
-    <string name="allergens">Warnung für ausgewählte Allergene</string>
 </resources>

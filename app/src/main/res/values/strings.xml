@@ -4,11 +4,12 @@
     <string name="finish_configuration">Finish Configuration</string>
     <string name="settings_section_widget">Widget customization</string>
     <string name="settings_section_canteen">Canteen options</string>
-    <string name="option_show_date">Show date</string>
-    <string name="option_use_emoji">Use emoji in meal names</string>
-    <string name="option_price_group">Price to show</string>
-    <string name="option_filter_deals">Filter deals</string>
-    <string name="option_location">Location</string>
+    <string name="option_show_date">Show date?</string>
+    <string name="option_use_emoji">Use emoji in meal names?</string>
+    <string name="option_price_group">In which price group are you?</string>
+    <string name="option_filter_deals">Filter deals?</string>
+    <string name="option_location">Where do you eat?</string>
+    <string name="option_allergens">Do you have allergies?</string>
     <string name="error_could_not_load_menu">Couldn\'t load menu…</string>
     <string name="error_empty_menu">There is nothing on the menu today!</string>
     <string name="price_group_students">Students</string>
@@ -43,5 +44,4 @@
     <string name="allergen_soy">Soy</string>
     <string name="allergen_sulfur_dioxide">Sulfur Dioxide and Sulfites</string>
     <string name="allergen_molluscs">Molluscs</string>
-    <string name="allergens">Warning for selected allergens</string>
 </resources>

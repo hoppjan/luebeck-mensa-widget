@@ -170,7 +170,7 @@ fun ConfigurationList(
         ListItem(
             headlineContent = {
                 Text(
-                    text = stringResource(R.string.allergens),
+                    text = stringResource(R.string.option_allergens),
                     modifier = Modifier.padding(bottom = 20.dp),
                 )
             },
