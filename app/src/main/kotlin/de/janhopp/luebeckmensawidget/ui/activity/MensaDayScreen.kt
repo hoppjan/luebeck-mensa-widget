@@ -23,6 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import de.janhopp.luebeckmensawidget.R
 import de.janhopp.luebeckmensawidget.storage.MenuStorage
 import de.janhopp.luebeckmensawidget.storage.OptionsStorage
@@ -34,7 +36,9 @@ import de.janhopp.luebeckmensawidget.widget.getWidgetConfig
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MensaDayScreen() {
+fun MensaDayScreen(
+    navController: NavHostController = rememberNavController(),
+) {
     val appContext = LocalContext.current.applicationContext
     val storage = MenuStorage(appContext)
     val options = OptionsStorage(appContext)
@@ -57,7 +61,7 @@ fun MensaDayScreen() {
                 title = { Text(text = stringResource(R.string.app_name)) },
                 actions = {
                     IconButton(
-                        onClick = {},
+                        onClick = { navController.navigate(Navigation.SETTINGS) },
                     ) {
                         Icon(Icons.Filled.Settings, contentDescription = null)
                     }

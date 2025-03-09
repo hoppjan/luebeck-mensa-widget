@@ -12,7 +12,7 @@ class MensaDayActivity: ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MensaTheme {
-                MensaDayScreen()
+                Navigation()
             }
         }
     }
