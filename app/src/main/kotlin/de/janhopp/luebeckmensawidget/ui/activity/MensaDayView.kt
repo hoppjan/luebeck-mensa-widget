@@ -7,10 +7,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import de.janhopp.luebeckmensawidget.R
 import de.janhopp.luebeckmensawidget.api.model.MensaDay
@@ -57,7 +59,8 @@ fun MensaDayView(
                         modifier = Modifier.padding(8.dp)
                     ) {
                         Text(
-                            text = if (useEmoji) meal.widgetName else meal.name
+                            text = if (useEmoji) meal.widgetName else meal.name,
+                            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.SemiBold),
                         )
 
                         val warnAllergens = meal.allergens.filter { it.code in allergenCodes }
