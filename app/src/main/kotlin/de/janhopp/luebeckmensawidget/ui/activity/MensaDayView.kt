@@ -7,11 +7,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import de.janhopp.luebeckmensawidget.R
@@ -46,9 +44,9 @@ fun MensaDayView(
             }
 
         if (day.meals.isEmpty())
-            Icon(
-                painter = painterResource(R.drawable.no_food),
-                contentDescription = stringResource(R.string.error_empty_menu),
+            MensaErrorView(
+                imageRes = R.drawable.no_food,
+                errorMessage = stringResource(R.string.error_empty_menu),
             )
         else
             LazyColumn(
