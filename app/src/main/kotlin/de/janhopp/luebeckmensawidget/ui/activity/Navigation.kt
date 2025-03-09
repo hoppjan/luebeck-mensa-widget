@@ -35,6 +35,7 @@ fun Navigation() {
                 onConfigurationFinished = {
                     coroutineScope.launch {
                         MensaWidget().updateAll(applicationContext)
+                        navController.popBackStack()
                     }
                 }
             )
