@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">mensa.sh</string>
+    <string name="app_name">Mensa Lübeck</string>
     <string name="widget_settings_title">Einstellungen</string>
     <string name="finish_configuration">Konfiguration speichern</string>
     <string name="settings_section_canteen">Mensaoptionen</string>
