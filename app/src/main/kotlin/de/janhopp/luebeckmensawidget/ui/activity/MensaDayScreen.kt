@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import de.janhopp.luebeckmensawidget.R
@@ -71,7 +72,7 @@ fun MensaDayScreen(
     ) {
         if (todayFromStorage.value != null)
             MensaDayView(
-                Modifier.padding(it),
+                Modifier.padding(it).padding(horizontal = 8.dp),
                 todayFromStorage.value!!,
                 widgetConfig
             )
