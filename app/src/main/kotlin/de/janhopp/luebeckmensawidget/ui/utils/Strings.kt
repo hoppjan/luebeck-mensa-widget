@@ -30,5 +30,7 @@ fun Location.stringRes(): String =
     )
 
 @Composable
-fun Allergen.glanceString() = Allergens.allAllergens.find { it.code == code }
-    ?.resId?.let { glanceString(it) }
+fun Allergen.resId() = Allergens.allAllergens.find { it.code == code }?.resId
+
+@Composable
+fun Allergen.glanceString() = resId()?.let { glanceString(it) }

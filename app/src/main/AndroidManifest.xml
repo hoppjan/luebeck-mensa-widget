@@ -26,6 +26,14 @@
                 android:resource="@xml/app_widget_info" />
         </receiver>
         <activity
+            android:name=".ui.activity.MensaDayActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".WidgetConfigurationActivity"
             android:exported="true">
             <intent-filter>
