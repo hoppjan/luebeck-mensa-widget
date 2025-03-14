@@ -11,6 +11,7 @@ data class Meal(
     val vegetarian: Boolean,
     val location: MensaLocation,
     val allergens: List<Allergen>,
+    val language: Language = Language.German,
 ) {
     val widgetName = when {
         vegan -> "🌻 "
