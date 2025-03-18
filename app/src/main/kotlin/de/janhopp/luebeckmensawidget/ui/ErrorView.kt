@@ -8,6 +8,8 @@ import androidx.compose.ui.unit.dp
 import androidx.glance.GlanceModifier
 import androidx.glance.Image
 import androidx.glance.ImageProvider
+import androidx.glance.action.actionStartActivity
+import androidx.glance.action.clickable
 import androidx.glance.appwidget.lazy.LazyColumn
 import androidx.glance.layout.Alignment
 import androidx.glance.layout.Box
@@ -19,6 +21,7 @@ import androidx.glance.text.TextAlign
 import de.janhopp.luebeckmensawidget.R
 import de.janhopp.luebeckmensawidget.theme.toColorFilter
 import de.janhopp.luebeckmensawidget.theme.toGlance
+import de.janhopp.luebeckmensawidget.ui.activity.MensaDayActivity
 import de.janhopp.luebeckmensawidget.ui.components.StyledText
 
 @Composable
@@ -27,7 +30,8 @@ fun ErrorView(
     errorMessage: String,
 ) {
     Box(
-        modifier = GlanceModifier.fillMaxSize(),
+        modifier = GlanceModifier.fillMaxSize()
+            .clickable(actionStartActivity<MensaDayActivity>()),
         contentAlignment = Alignment.Center,
     ) {
         LazyColumn(

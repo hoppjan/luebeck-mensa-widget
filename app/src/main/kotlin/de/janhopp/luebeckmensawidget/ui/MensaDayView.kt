@@ -4,6 +4,8 @@ import androidx.compose.material3.LocalTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import androidx.glance.GlanceModifier
+import androidx.glance.action.actionStartActivity
+import androidx.glance.action.clickable
 import androidx.glance.appwidget.lazy.LazyColumn
 import androidx.glance.appwidget.lazy.items
 import androidx.glance.layout.Column
@@ -17,6 +19,7 @@ import de.janhopp.luebeckmensawidget.api.model.formatPrice
 import de.janhopp.luebeckmensawidget.api.model.getFor
 import de.janhopp.luebeckmensawidget.theme.glanceString
 import de.janhopp.luebeckmensawidget.theme.toGlance
+import de.janhopp.luebeckmensawidget.ui.activity.MensaDayActivity
 import de.janhopp.luebeckmensawidget.ui.components.StyledText
 import de.janhopp.luebeckmensawidget.ui.utils.glanceString
 import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
@@ -26,7 +29,10 @@ fun MensaDayView(day: MensaDay, widgetConfig: MensaWidgetConfig) {
     val (showDate, useEmoji, priceGroup, filterDeals, locations, allergens) = widgetConfig
     val allergenCodes = allergens.map { it.code }
 
-    Column {
+    Column(
+        modifier = GlanceModifier.fillMaxSize()
+            .clickable(actionStartActivity<MensaDayActivity>())
+    ) {
         if (showDate)
             DateTopBar(day)
 
@@ -45,6 +51,7 @@ fun MensaDayView(day: MensaDay, widgetConfig: MensaWidgetConfig) {
                 ) { meal ->
                     Column(
                         modifier = GlanceModifier.padding(8.dp)
+                            .clickable(actionStartActivity<MensaDayActivity>())
                     ) {
                         StyledText(
                             style = LocalTextStyle.current.toGlance()
