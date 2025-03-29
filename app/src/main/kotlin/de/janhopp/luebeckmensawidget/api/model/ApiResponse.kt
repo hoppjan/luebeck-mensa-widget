@@ -1,10 +1,12 @@
 package de.janhopp.luebeckmensawidget.api.model
 
+import androidx.annotation.Keep
 import de.janhopp.luebeckmensawidget.api.MensaJson
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
+@Keep
 data class ApiResponse(
     @SerialName("last_updated") val lastUpdated: String,
     @SerialName("data") val meals: List<Meal>,

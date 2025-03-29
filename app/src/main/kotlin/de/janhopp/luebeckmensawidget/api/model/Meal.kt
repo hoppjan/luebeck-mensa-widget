@@ -1,8 +1,10 @@
 package de.janhopp.luebeckmensawidget.api.model
 
+import androidx.annotation.Keep
 import kotlinx.serialization.Serializable
 
 @Serializable
+@Keep
 data class Meal(
     val name: String,
     val date: String,

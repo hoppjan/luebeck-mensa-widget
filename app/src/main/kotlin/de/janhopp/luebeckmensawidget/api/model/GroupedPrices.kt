@@ -1,9 +1,11 @@
 package de.janhopp.luebeckmensawidget.api.model
 
+import androidx.annotation.Keep
 import de.janhopp.luebeckmensawidget.api.model.PriceGroup.*
 import kotlinx.serialization.Serializable
 
 @Serializable
+@Keep
 data class GroupedPrices(
     val students: Float,
     val employees: Float,
