@@ -1,11 +1,13 @@
 package de.janhopp.luebeckmensawidget.api.model
 
+import androidx.annotation.Keep
 import de.janhopp.luebeckmensawidget.api.MensaJson
 import kotlinx.datetime.LocalDate
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 
 @Serializable
+@Keep
 data class MensaDay(
     val date: String,
     val meals: List<Meal>,
