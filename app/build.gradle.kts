@@ -44,6 +44,10 @@ android {
     buildFeatures {
         compose = true
     }
+    androidResources {
+        @Suppress("UnstableApiUsage")
+        generateLocaleConfig = true
+    }
 }
 
 dependencies {
