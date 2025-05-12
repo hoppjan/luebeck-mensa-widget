@@ -26,6 +26,20 @@ fun Location.stringRes(): String =
             Location.MensaLuebeck -> R.string.location_mensa_luebeck
             Location.CafeteriaLuebeck -> R.string.location_cafeteria_luebeck
             Location.MusikhochschuleLuebeck -> R.string.location_musikhochschule_luebeck
+            Location.Mensa1Kiel -> R.string.location_mensa1_kiel
+            Location.Cafeteria1Kiel -> R.string.location_cafeteria1_kiel
+            Location.Mensa2Kiel -> R.string.location_mensa2_kiel
+            Location.Cafeteria2Kiel -> R.string.location_cafeteria2_kiel
+            Location.KesselhausKiel -> R.string.location_kesselhaus_kiel
+            Location.SchwentineMensaKiel -> R.string.location_schwentine_kiel
+            Location.AmericanDinerKiel -> R.string.location_american_diner_kiel
+            Location.MensaDocksideKiel -> R.string.location_dockside_kiel
+            Location.MensaHeide -> R.string.location_mensa_heide
+            Location.MensaFlensburg -> R.string.location_mensa_flensburg
+            Location.CafeteriaAFlensburg -> R.string.location_cafeteria1_kiel
+            Location.CafeteriaBFlensburg -> R.string.location_cafeteria2_kiel
+            Location.MensaOsterroenfeld -> R.string.location_mensa_osterroenfeld
+            Location.CafeteriaWedel -> R.string.location_cafeteria_wedel
         }
     )
 
