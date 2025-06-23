@@ -6,6 +6,7 @@ import de.janhopp.luebeckmensawidget.R
 import de.janhopp.luebeckmensawidget.api.model.Allergen
 import de.janhopp.luebeckmensawidget.api.model.Location
 import de.janhopp.luebeckmensawidget.api.model.Allergens
+import de.janhopp.luebeckmensawidget.api.model.City
 import de.janhopp.luebeckmensawidget.api.model.MensaLocation
 import de.janhopp.luebeckmensawidget.api.model.PriceGroup
 import de.janhopp.luebeckmensawidget.theme.glanceString
@@ -17,6 +18,19 @@ fun PriceGroup.stringRes(): String =
             PriceGroup.Students -> R.string.price_group_students
             PriceGroup.Employees -> R.string.price_group_employees
             PriceGroup.Guests -> R.string.price_group_guests
+        }
+    )
+
+@Composable
+fun City.stringRes(): String =
+    stringResource(
+        when (this) {
+            City.Kiel -> R.string.city_kiel
+            City.Luebeck -> R.string.city_luebeck
+            City.Flensburg -> R.string.city_flensburg
+            City.Heide -> R.string.city_heide
+            City.Wedel -> R.string.city_wedel
+            City.Osterroenfeld -> R.string.city_osterroenfeld
         }
     )
 

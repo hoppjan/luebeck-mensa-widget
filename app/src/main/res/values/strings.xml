@@ -8,12 +8,19 @@
     <string name="option_use_emoji">Use emoji in meal names</string>
     <string name="option_price_group">Price to show</string>
     <string name="option_filter_deals">Filter deals</string>
+    <string name="option_city">City</string>
     <string name="option_location">Location</string>
     <string name="error_could_not_load_menu">Couldn\'t load menu…</string>
     <string name="error_empty_menu">There is nothing on the menu today!</string>
     <string name="price_group_students">Students</string>
     <string name="price_group_employees">Employees</string>
     <string name="price_group_guests">Guests</string>
+    <string name="city_kiel" translatable="false">Kiel</string>
+    <string name="city_luebeck" translatable="false">Lübeck</string>
+    <string name="city_flensburg" translatable="false">Flensburg</string>
+    <string name="city_heide" translatable="false">Heide</string>
+    <string name="city_wedel" translatable="false">Wedel</string>
+    <string name="city_osterroenfeld" translatable="false">Osterrönfeld</string>
     <string name="location_mensa_luebeck">Mensa Lübeck</string>
     <string name="location_cafeteria_luebeck">Cafeteria Lübeck</string>
     <string name="location_musikhochschule_luebeck">Musikhochschule Lübeck</string>

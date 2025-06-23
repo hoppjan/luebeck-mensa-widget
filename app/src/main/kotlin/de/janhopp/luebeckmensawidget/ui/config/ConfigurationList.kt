@@ -31,11 +31,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import de.janhopp.luebeckmensawidget.R
 import de.janhopp.luebeckmensawidget.api.model.Allergens
+import de.janhopp.luebeckmensawidget.api.model.City
 import de.janhopp.luebeckmensawidget.api.model.Location
 import de.janhopp.luebeckmensawidget.api.model.PriceGroup
+import de.janhopp.luebeckmensawidget.api.model.locations
 import de.janhopp.luebeckmensawidget.api.model.toStringSet
 import de.janhopp.luebeckmensawidget.storage.Option
 import de.janhopp.luebeckmensawidget.storage.OptionsStorage
+import de.janhopp.luebeckmensawidget.ui.components.OptionDropdownMenu
 import de.janhopp.luebeckmensawidget.ui.theme.MensaTheme
 import de.janhopp.luebeckmensawidget.ui.utils.stringRes
 import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
@@ -134,6 +137,18 @@ fun ConfigurationList(
                 }
             },
         )
+        OptionDropdownMenu(
+            text = stringResource(R.string.option_city),
+            options = City.entries,
+            selectedOption = widgetConfig.city,
+            optionToString = { it.stringRes() },
+            onOptionSelected = {
+                widgetConfig = widgetConfig.copy(city = it)
+                coroutineScope.launch {
+                    options.setString(Option.MensaCity, it.name)
+                }
+            }
+        )
         ListItem(
             headlineContent = {
                 Text(
@@ -146,7 +161,7 @@ fun ConfigurationList(
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Location.entries.forEach { item ->
+                    widgetConfig.city.locations.forEach { item ->
                         SelectableChip<Location>(
                             item = item,
                             selected = item in widgetConfig.locations,

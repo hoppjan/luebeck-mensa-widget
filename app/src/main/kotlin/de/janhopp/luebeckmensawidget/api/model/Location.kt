@@ -37,3 +37,40 @@ enum class Location(
 fun Set<Location>.toCodes() = joinToString(separator = ",") { it.code }
 
 fun Iterable<Location>.toStringSet(): Set<String> = map { it.code }.toSet()
+
+enum class City {
+    Kiel,
+    Flensburg,
+    Luebeck,
+    Heide,
+    Osterroenfeld,
+    Wedel,
+}
+
+val City.locations: List<Location>
+    get() = when (this) {
+        City.Luebeck -> listOf(
+            Location.MensaLuebeck,
+            Location.CafeteriaLuebeck,
+            Location.BitsAndBytes,
+            Location.MusikhochschuleLuebeck,
+        )
+        City.Kiel -> listOf(
+            Location.Mensa1Kiel,
+            Location.Cafeteria1Kiel,
+            Location.Mensa2Kiel,
+            Location.Cafeteria2Kiel,
+            Location.KesselhausKiel,
+            Location.SchwentineMensaKiel,
+            Location.AmericanDinerKiel,
+            Location.MensaDocksideKiel,
+        )
+        City.Flensburg -> listOf(
+            Location.MensaFlensburg,
+            Location.CafeteriaAFlensburg,
+            Location.CafeteriaBFlensburg,
+        )
+        City.Heide -> listOf(Location.MensaHeide)
+        City.Osterroenfeld -> listOf(Location.MensaOsterroenfeld)
+        City.Wedel -> listOf(Location.CafeteriaWedel)
+    }

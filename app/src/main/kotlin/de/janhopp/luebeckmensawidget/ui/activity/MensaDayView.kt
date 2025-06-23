@@ -30,7 +30,7 @@ fun MensaDayView(
     day: MensaDay,
     widgetConfig: MensaWidgetConfig,
 ) {
-    val (showDate, useEmoji, priceGroup, filterDeals, locations, allergens) = widgetConfig
+    val (showDate, useEmoji, priceGroup, filterDeals, _, locations, allergens) = widgetConfig
     val allergenCodes = allergens.map { it.code }
 
     Column(

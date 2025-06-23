@@ -9,6 +9,7 @@
     <string name="option_use_emoji">Emoji anzeigen</string>
     <string name="option_price_group">Preisgruppe</string>
     <string name="option_filter_deals">Angebote ignorieren</string>
+    <string name="option_city">Stadt</string>
     <string name="option_location">Standort</string>
     <string name="error_could_not_load_menu">Menü konnte nicht geladen werden…</string>
     <string name="error_empty_menu">Heute gibt es nichts zu essen!</string>
