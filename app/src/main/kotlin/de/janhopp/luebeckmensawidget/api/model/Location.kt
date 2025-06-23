@@ -6,7 +6,7 @@ enum class Location(
     MensaLuebeck(code = "HL_ME"),
     CafeteriaLuebeck(code = "HL_CA"),
     MusikhochschuleLuebeck(code = "HL_MH"),
-    BitsAndBytes(code = "HL_BB")
+    BitsAndBytes(code = "HL_BB"),
     ;
 
     companion object {
