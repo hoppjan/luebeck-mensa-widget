@@ -26,6 +26,7 @@ fun Location.stringRes(): String =
             Location.MensaLuebeck -> R.string.location_mensa_luebeck
             Location.CafeteriaLuebeck -> R.string.location_cafeteria_luebeck
             Location.MusikhochschuleLuebeck -> R.string.location_musikhochschule_luebeck
+            Location.BitsAndBytes -> R.string.location_bits_and_bytes
             Location.Mensa1Kiel -> R.string.location_mensa1_kiel
             Location.Cafeteria1Kiel -> R.string.location_cafeteria1_kiel
             Location.Mensa2Kiel -> R.string.location_mensa2_kiel

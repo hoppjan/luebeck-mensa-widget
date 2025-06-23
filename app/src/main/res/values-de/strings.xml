@@ -59,4 +59,5 @@
     <string name="allergen_sulfur_dioxide">Schwefeldioxid und Sulfite</string>
     <string name="allergen_molluscs">Weichtiere</string>
     <string name="allergens">Warnung für ausgewählte Allergene</string>
+    <string name="location_bits_and_bytes">Bits + Bytes</string>
 </resources>

@@ -6,6 +6,7 @@ enum class Location(
     MensaLuebeck(code = "HL_ME"),
     CafeteriaLuebeck(code = "HL_CA"),
     MusikhochschuleLuebeck(code = "HL_MH"),
+    BitsAndBytes(code = "HL_BB"),
     Mensa1Kiel(code = "KI_ME1"),
     Cafeteria1Kiel(code = "KI_CA1"),
     Mensa2Kiel(code = "KI_ME2"),
