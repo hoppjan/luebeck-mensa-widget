@@ -6,6 +6,7 @@ import de.janhopp.luebeckmensawidget.R
 import de.janhopp.luebeckmensawidget.api.model.Allergen
 import de.janhopp.luebeckmensawidget.api.model.Location
 import de.janhopp.luebeckmensawidget.api.model.Allergens
+import de.janhopp.luebeckmensawidget.api.model.MensaLocation
 import de.janhopp.luebeckmensawidget.api.model.PriceGroup
 import de.janhopp.luebeckmensawidget.theme.glanceString
 
@@ -43,6 +44,9 @@ fun Location.stringRes(): String =
             Location.CafeteriaWedel -> R.string.location_cafeteria_wedel
         }
     )
+
+@Composable
+fun MensaLocation.stringRes() = Location.fromCode(code)?.stringRes()
 
 @Composable
 fun Allergen.resId() = Allergens.allAllergens.find { it.code == code }?.resId
