@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Mensa Lübeck</string>
+    <string name="title_menu">Menu</string>
     <string name="widget_settings_title">Settings</string>
     <string name="finish_configuration">Finish Configuration</string>
     <string name="settings_section_widget">Widget customization</string>
