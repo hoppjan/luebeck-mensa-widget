@@ -52,7 +52,6 @@ jobs:
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
           draft: true
-          make_latest: true
           prerelease: false
           files: |
             luebeck-mensa-widget-${{ github.ref_name }}.apk
