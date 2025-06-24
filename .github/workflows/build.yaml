@@ -47,11 +47,11 @@ jobs:
         run: mv ${{ steps.releaseApk.outputs.apkfile }} luebeck-mensa-widget-${{ github.ref_name }}.apk
 
       - name: Release
-        uses: "marvinpinto/action-automatic-releases@latest"
+        uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag'
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: ${{ github.ref_name }}
+          token: "${{ secrets.GITHUB_TOKEN }}"
           draft: true
-          title: ${{ github.ref_name }}
+          prerelease: false
           files: |
             luebeck-mensa-widget-${{ github.ref_name }}.apk
