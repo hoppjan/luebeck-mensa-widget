@@ -67,7 +67,7 @@ fun MensaDayScreen(
             .background(MaterialTheme.colorScheme.background),
         topBar = {
             TopAppBar(
-                title = { Text(text = stringResource(R.string.app_name)) },
+                title = { Text(text = stringResource(R.string.title_menu)) },
                 actions = {
                     IconButton(
                         onClick = { navController.navigate(Navigation.SETTINGS) },

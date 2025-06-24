@@ -9,6 +9,7 @@
     <string name="option_use_emoji">Emoji anzeigen</string>
     <string name="option_price_group">Preisgruppe</string>
     <string name="option_filter_deals">Angebote ignorieren</string>
+    <string name="option_city">Stadt</string>
     <string name="option_location">Standort</string>
     <string name="error_could_not_load_menu">Menü konnte nicht geladen werden…</string>
     <string name="error_empty_menu">Heute gibt es nichts zu essen!</string>
@@ -18,6 +19,20 @@
     <string name="location_mensa_luebeck">Mensa Lübeck</string>
     <string name="location_cafeteria_luebeck">Cafeteria Lübeck</string>
     <string name="location_musikhochschule_luebeck">Musikhochschule Lübeck</string>
+    <string name="location_mensa1_kiel">Mensa I Kiel</string>
+    <string name="location_cafeteria1_kiel">Cafeteria I Kiel</string>
+    <string name="location_mensa2_kiel">Mensa II Kiel</string>
+    <string name="location_cafeteria2_kiel">Cafeteria II Kiel</string>
+    <string name="location_kesselhaus_kiel">Kesselhaus Kiel</string>
+    <string name="location_schwentine_kiel">Schwentine Mensa Kiel</string>
+    <string name="location_american_diner_kiel">American Diner Kiel</string>
+    <string name="location_dockside_kiel">Mensa Dockside Kiel</string>
+    <string name="location_mensa_heide">Mensa Heide</string>
+    <string name="location_mensa_flensburg">Mensa Flensburg</string>
+    <string name="location_cafeteria1_flensburg">Cafeteria A Flensburg</string>
+    <string name="location_cafeteria2_flensburg">Cafeteria B Flensburg</string>
+    <string name="location_mensa_osterroenfeld">Mensa Osterrönfeld</string>
+    <string name="location_cafeteria_wedel">Cafeteria Wedel</string>
     <string name="allergen_eggs">Eier</string>
     <string name="allergen_peanuts">Erdnüsse</string>
     <string name="allergen_fish">Fisch</string>
@@ -46,4 +61,5 @@
     <string name="allergen_molluscs">Weichtiere</string>
     <string name="allergens">Warnung für ausgewählte Allergene</string>
     <string name="location_bits_and_bytes">Bits + Bytes</string>
+    <string name="title_menu">Speiseplan</string>
 </resources>

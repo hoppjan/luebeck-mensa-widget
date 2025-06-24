@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import de.janhopp.luebeckmensawidget.api.model.PriceGroup.Students
 import androidx.datastore.preferences.preferencesDataStore
+import de.janhopp.luebeckmensawidget.api.model.City
 import de.janhopp.luebeckmensawidget.api.model.Location
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
@@ -60,6 +61,7 @@ sealed class Option<T>(
     data object UseEmoji : Option<Boolean>(key = "use_emoji", defaultValue = true)
     data object PriceGroup : Option<String>(key = "price_group", defaultValue = Students.name)
     data object FilterDeals : Option<Boolean>(key = "filter_deals", defaultValue = false)
+    data object MensaCity : Option<String>(key = "city", defaultValue = City.Luebeck.name)
     data object Locations : Option<Set<String>>(key = "locations", defaultValue = setOf(Location.MensaLuebeck.code))
     data object Allergens : Option<Set<String>>(key = "allergens", defaultValue = emptySet())
 }

@@ -20,6 +20,7 @@ import de.janhopp.luebeckmensawidget.api.model.filterDeals
 import de.janhopp.luebeckmensawidget.api.model.formatPrice
 import de.janhopp.luebeckmensawidget.api.model.getFor
 import de.janhopp.luebeckmensawidget.ui.utils.resId
+import de.janhopp.luebeckmensawidget.ui.utils.stringRes
 import de.janhopp.luebeckmensawidget.utils.toDisplayString
 import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
 
@@ -29,7 +30,7 @@ fun MensaDayView(
     day: MensaDay,
     widgetConfig: MensaWidgetConfig,
 ) {
-    val (showDate, useEmoji, priceGroup, filterDeals, locations, allergens) = widgetConfig
+    val (showDate, useEmoji, priceGroup, filterDeals, _, locations, allergens) = widgetConfig
     val allergenCodes = allergens.map { it.code }
 
     Column(
@@ -70,7 +71,7 @@ fun MensaDayView(
                             Text(text = "⚠️ $warnAllergens")
 
                         val price = meal.price.getFor(priceGroup).formatPrice()
-                        val location = if (locations.size > 1) " | ${meal.location.name}" else ""
+                        val location = if (locations.size > 1) " | ${meal.location.stringRes() ?: meal.location.name}" else ""
                         Text(text = "$price$location")
                     }
                 }
