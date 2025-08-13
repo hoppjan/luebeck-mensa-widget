@@ -10,10 +10,13 @@ import androidx.navigation.compose.rememberNavController
 import de.janhopp.luebeckmensawidget.ui.config.WidgetConfigurationScreen
 import de.janhopp.luebeckmensawidget.widget.MensaWidget
 import kotlinx.coroutines.launch
+import kotlinx.serialization.Serializable
 
-object Navigation {
-    const val MENU = "MENU"
-    const val SETTINGS = "SETTINGS"
+sealed interface Navigation {
+    @Serializable
+    data class Menu(val dayDate: String? = null)
+    @Serializable
+    data object Settings
 }
 
 @Composable
@@ -24,12 +27,12 @@ fun Navigation() {
 
     NavHost(
         navController = navController,
-        startDestination = Navigation.MENU,
+        startDestination = Navigation.Menu(),
     ) {
-        composable(Navigation.MENU) {
+        composable<Navigation.Menu> {
             MensaDayScreen(navController)
         }
-        composable(Navigation.SETTINGS) {
+        composable<Navigation.Settings> {
             WidgetConfigurationScreen(
                 navController = navController,
                 onConfigurationFinished = {

@@ -70,7 +70,7 @@ fun MensaDayScreen(
                 title = { Text(text = stringResource(R.string.title_menu)) },
                 actions = {
                     IconButton(
-                        onClick = { navController.navigate(Navigation.SETTINGS) },
+                        onClick = { navController.navigate(Navigation.Settings) },
                     ) {
                         Icon(Icons.Filled.Settings, contentDescription = null)
                     }
