@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "de.janhopp.luebeckmensawidget"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "de.janhopp.luebeckmensawidget"
