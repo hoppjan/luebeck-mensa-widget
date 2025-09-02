@@ -2,7 +2,8 @@ package de.janhopp.luebeckmensawidget.ui.activity
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -23,15 +24,16 @@ fun MensaErrorView(
     @DrawableRes imageRes: Int = R.drawable.error,
     errorMessage: String,
 ) {
-    Box(
+    LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
     ) {
-        LazyColumn(
-            modifier = Modifier.wrapContentSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            item {
+        item {
+            Column(
+                modifier = Modifier.wrapContentSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
                 Image(
                     modifier = Modifier
                         .padding(all = 8.dp)
@@ -40,8 +42,6 @@ fun MensaErrorView(
                     contentDescription = errorMessage,
                     colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
                 )
-            }
-            item {
                 Text(
                     text = errorMessage,
                     modifier = Modifier.padding(all = 8.dp),
