@@ -4,21 +4,33 @@ import android.content.Context
 import android.util.Log
 import androidx.work.BackoffPolicy
 import androidx.work.Constraints
+import androidx.work.CoroutineWorker
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequest
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
-import androidx.work.Worker
 import androidx.work.WorkerParameters
+import de.janhopp.luebeckmensawidget.api.MensaApi
+import de.janhopp.luebeckmensawidget.storage.MenuStorage
+import de.janhopp.luebeckmensawidget.storage.OptionsStorage
+import de.janhopp.luebeckmensawidget.widget.getWidgetConfig
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.toJavaDuration
 
 class SyncWorker(appContext: Context, workerParams: WorkerParameters) :
-    Worker(appContext, workerParams) {
-    override fun doWork(): Result {
+    CoroutineWorker(appContext, workerParams) {
+    override suspend fun doWork(): Result {
         Log.d("SyncWorker", "doWork")
+        val options = OptionsStorage(applicationContext)
+        val config = options.getWidgetConfig()
+        val mealsToday = MensaApi().getMealsToday(config.locations)
+        Log.d("SyncWorker", "doWork: $mealsToday")
+        val storage = MenuStorage(applicationContext)
+        if (mealsToday == null) return Result.retry()
+        storage.setMensaDays(listOf(mealsToday))
+        Log.d("SyncWorker", "doWork: success")
         return Result.success()
     }
 
