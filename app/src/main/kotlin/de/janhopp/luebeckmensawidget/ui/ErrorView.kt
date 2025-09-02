@@ -42,7 +42,8 @@ fun ErrorView(
                 Image(
                     modifier = GlanceModifier
                         .padding(all = 8.dp)
-                        .size(64.dp),
+                        .size(64.dp)
+                        .clickable(actionStartActivity<MensaDayActivity>()),
                     provider = ImageProvider(imageRes),
                     contentDescription = errorMessage,
                     colorFilter = MaterialTheme.colorScheme.onBackground.toColorFilter(),
@@ -51,7 +52,9 @@ fun ErrorView(
             item {
                 StyledText(
                     text = errorMessage,
-                    modifier = GlanceModifier.padding(all = 8.dp),
+                    modifier = GlanceModifier
+                        .padding(all = 8.dp)
+                        .clickable(actionStartActivity<MensaDayActivity>()),
                     style = LocalTextStyle.current.toGlance()
                         .copy(textAlign = TextAlign.Center),
                 )
