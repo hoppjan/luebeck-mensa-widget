@@ -11,6 +11,7 @@ import androidx.glance.GlanceId
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.provideContent
 import androidx.glance.appwidget.updateAll
+import de.janhopp.luebeckmensawidget.SyncWorker.Companion.enqueueSyncWork
 import de.janhopp.luebeckmensawidget.api.MensaApi
 import de.janhopp.luebeckmensawidget.api.model.MensaDay
 import de.janhopp.luebeckmensawidget.storage.MenuStorage
@@ -26,6 +27,7 @@ class MensaWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         val api = MensaApi()
         val storage = MenuStorage(context)
+        context.enqueueSyncWork()
 
         provideContent {
             var config by remember { mutableStateOf<MensaWidgetConfig?>(null) }
