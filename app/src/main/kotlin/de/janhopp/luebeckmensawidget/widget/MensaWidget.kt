@@ -41,7 +41,9 @@ class MensaWidget : GlanceAppWidget() {
                 todayFromStorage = storage.getMensaDay(currentTime.mensaDay).firstOrNull()
             }
             LaunchedEffect(Unit) {
-                updateConfigAndMenu()
+                // NOTE: updating from storage only!
+                //  it seems networking is only allowed on user interaction, at least for Samsung...
+                todayFromStorage = storage.getMensaDay(currentTime.mensaDay).firstOrNull()
             }
             val scope = rememberCoroutineScope()
             val update: () -> Unit = {
