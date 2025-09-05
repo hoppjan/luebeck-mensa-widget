@@ -1,65 +1,39 @@
 package de.janhopp.luebeckmensawidget.widget
 
 import android.content.Context
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.glance.GlanceId
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.provideContent
 import androidx.glance.appwidget.updateAll
+import androidx.glance.currentState
+import androidx.glance.state.GlanceStateDefinition
 import de.janhopp.luebeckmensawidget.SyncWorker.Companion.enqueueSyncWork
-import de.janhopp.luebeckmensawidget.api.MensaApi
-import de.janhopp.luebeckmensawidget.api.model.MensaDay
-import de.janhopp.luebeckmensawidget.storage.MenuStorage
-import de.janhopp.luebeckmensawidget.storage.OptionsStorage
 import de.janhopp.luebeckmensawidget.theme.AppTheme
 import de.janhopp.luebeckmensawidget.ui.MensaScreen
-import de.janhopp.luebeckmensawidget.utils.currentTime
-import de.janhopp.luebeckmensawidget.utils.mensaDay
-import kotlinx.coroutines.flow.firstOrNull
+import de.janhopp.luebeckmensawidget.utils.syncToday
 import kotlinx.coroutines.launch
 
 class MensaWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
-        val api = MensaApi()
-        val storage = MenuStorage(context)
         context.enqueueSyncWork()
 
         provideContent {
-            var config by remember { mutableStateOf<MensaWidgetConfig?>(null) }
-            var todayFromApi by remember { mutableStateOf<MensaDay?>(null) }
-            var todayFromStorage by remember { mutableStateOf<MensaDay?>(null) }
-
-            suspend fun updateConfigAndMenu() {
-                config = OptionsStorage(context).getWidgetConfig()
-                todayFromApi = api.getMealsToday(config!!.locations)
-                    ?.also { storage.setMensaDays(listOf(it)) }
-                todayFromStorage = storage.getMensaDay(currentTime.mensaDay).firstOrNull()
-            }
-            LaunchedEffect(Unit) {
-                // NOTE: updating from storage only!
-                //  it seems networking is only allowed on user interaction, at least for Samsung...
-                todayFromStorage = storage.getMensaDay(currentTime.mensaDay).firstOrNull()
-            }
             val scope = rememberCoroutineScope()
             val update: () -> Unit = {
                 scope.launch {
-                    updateConfigAndMenu()
+                    context.syncToday()
                     updateAll(context)
                 }
             }
-            val today = when {
-                todayFromApi != null -> todayFromApi
-                todayFromStorage != null -> todayFromStorage
-                else -> null
-            }
+            val state = currentState<MensaWidgetState>()
+            val today = state.mensaDay
             AppTheme {
                 MensaScreen(today, update)
             }
         }
     }
+
+    override val stateDefinition: GlanceStateDefinition<MensaWidgetState>
+        get() = MensaWidgetStateDefinition()
 }
