@@ -36,4 +36,8 @@ class MensaWidget : GlanceAppWidget() {
 
     override val stateDefinition: GlanceStateDefinition<MensaWidgetState>
         get() = MensaWidgetStateDefinition()
+
+    companion object {
+        suspend fun updateAll(context: Context) = MensaWidget().updateAll(context)
+    }
 }

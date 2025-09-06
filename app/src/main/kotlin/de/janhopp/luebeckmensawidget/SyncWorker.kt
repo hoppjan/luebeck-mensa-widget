@@ -14,6 +14,7 @@ import androidx.work.WorkerParameters
 import de.janhopp.luebeckmensawidget.api.MensaApi
 import de.janhopp.luebeckmensawidget.storage.MenuStorage
 import de.janhopp.luebeckmensawidget.storage.OptionsStorage
+import de.janhopp.luebeckmensawidget.widget.MensaWidget
 import de.janhopp.luebeckmensawidget.widget.getWidgetConfig
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
@@ -31,6 +32,7 @@ class SyncWorker(appContext: Context, workerParams: WorkerParameters) :
         if (mealsToday == null) return Result.retry()
         storage.setMensaDays(listOf(mealsToday))
         Log.d("SyncWorker", "doWork: success")
+        MensaWidget.updateAll(applicationContext)
         return Result.success()
     }
 
