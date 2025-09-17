@@ -64,4 +64,32 @@ class GroupedPricesTest {
         val guestPrice = mixedPrices.getFor(PriceGroup.Guests).formatPriceOrRequest()
         assertEquals("4.25 €", guestPrice)
     }
+    
+    @Test
+    fun `UI display logic should handle all combinations correctly`() {
+        // Simulate the UI logic from the views
+        fun createDisplayText(price: String, location: String): String {
+            return when {
+                price.isNotEmpty() && location.isNotEmpty() -> "$price | $location"
+                price.isNotEmpty() -> price
+                location.isNotEmpty() -> location
+                else -> ""
+            }
+        }
+        
+        // Test regular price scenarios
+        assertEquals("3.50 €", createDisplayText("3.50 €", ""))
+        assertEquals("3.50 € | Mensa Lübeck", createDisplayText("3.50 €", "Mensa Lübeck"))
+        
+        // Test zero price scenarios (Bits & Bytes case)
+        assertEquals("", createDisplayText("", ""))
+        assertEquals("Bits + Bytes", createDisplayText("", "Bits + Bytes"))
+        
+        // Verify the actual fix works
+        val zeroPrices = GroupedPrices(0.0f, 0.0f, 0.0f)
+        val emptyPrice = zeroPrices.getFor(PriceGroup.Students).formatPriceOrRequest()
+        
+        assertEquals("", createDisplayText(emptyPrice, ""))
+        assertEquals("Bits + Bytes", createDisplayText(emptyPrice, "Bits + Bytes"))
+    }
 }

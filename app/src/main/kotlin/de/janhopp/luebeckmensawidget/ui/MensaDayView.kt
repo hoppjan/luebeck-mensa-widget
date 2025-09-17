@@ -66,8 +66,14 @@ fun MensaDayView(day: MensaDay, widgetConfig: MensaWidgetConfig) {
                             StyledText(text = "⚠️ $warnAllergens")
 
                         val price = meal.price.getFor(priceGroup).formatPriceOrRequest()
-                        val location = if (locations.size > 1) " | ${meal.location.name}" else ""
-                        StyledText(text = "$price$location")
+                        val location = if (locations.size > 1) "${meal.location.name}" else ""
+                        val displayText = when {
+                            price.isNotEmpty() && location.isNotEmpty() -> "$price | $location"
+                            price.isNotEmpty() -> price
+                            location.isNotEmpty() -> location
+                            else -> ""
+                        }
+                        StyledText(text = displayText)
                     }
                 }
             }
