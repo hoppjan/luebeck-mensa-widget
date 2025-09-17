@@ -62,4 +62,5 @@
     <string name="allergens">Warnung für ausgewählte Allergene</string>
     <string name="location_bits_and_bytes">Bits + Bytes</string>
     <string name="title_menu">Speiseplan</string>
+    <string name="price_on_request">Preis auf Anfrage</string>
 </resources>

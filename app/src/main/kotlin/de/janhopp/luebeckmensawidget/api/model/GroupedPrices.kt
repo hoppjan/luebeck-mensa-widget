@@ -19,3 +19,6 @@ fun GroupedPrices.getFor(group: PriceGroup): Float = when (group) {
 }
 
 fun Float.formatPrice() = "%.2f €".format(this)
+
+fun Float.formatPriceOrRequest(): String = 
+    if (this == 0.0f) "" else formatPrice()
