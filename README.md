@@ -1,10 +1,10 @@
-# Lübeck Mensa Widget
+# Mensa SH
 
 ![Release Build Status](https://github.com/hoppjan/luebeck-mensa-widget/actions/workflows/build.yaml/badge.svg)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/hoppjan/luebeck-mensa-widget?include_prereleases)
 ![Apache 2.0 Licence](https://img.shields.io/github/license/hoppjan/luebeck-mensa-widget)
 
-Lübeck Mensa Widget is an Android application that displays the menu of the cafeteria and mensa located in the university district of Lübeck. The app provides a widget for users to access the daily menu directly from their device's home screen.
+Mensa SH is an Android application that displays the menu of the cafeteria and mensa located in the university district of Lübeck. The app provides a widget for users to access the daily menu directly from their device's home screen.
 
 <div>
     <img
@@ -18,7 +18,7 @@ Lübeck Mensa Widget is an Android application that displays the menu of the caf
 1. Download the APK file from the release section of this repository.
 1. Enable the installation of apps from unknown sources on your Android device.
 1. Open the downloaded APK file and follow the on-screen instructions to install the application.
-1. Once installed, add the widget to your home screen by long-pressing on an empty space on the home screen and selecting Widgets. Then, locate the "Lübeck Mensa Widget" and drag it to your desired position on the home screen.
+1. Once installed, add the widget to your home screen by long-pressing on an empty space on the home screen and selecting Widgets. Then, locate the "Mensa SH" and drag it to your desired position on the home screen.
 
 You can also get the app and its updates via Obtainium:
 

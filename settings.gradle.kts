@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Lübeck Mensa Widget"
+rootProject.name = "Mensa SH"
 include(":app")
