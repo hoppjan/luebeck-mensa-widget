@@ -17,10 +17,8 @@ import androidx.compose.ui.unit.dp
 import de.janhopp.luebeckmensawidget.R
 import de.janhopp.luebeckmensawidget.api.model.MensaDay
 import de.janhopp.luebeckmensawidget.api.model.filterDeals
-import de.janhopp.luebeckmensawidget.api.model.formatPrice
-import de.janhopp.luebeckmensawidget.api.model.getFor
+import de.janhopp.luebeckmensawidget.ui.utils.formatMealInfo
 import de.janhopp.luebeckmensawidget.ui.utils.resId
-import de.janhopp.luebeckmensawidget.ui.utils.stringRes
 import de.janhopp.luebeckmensawidget.utils.toDisplayString
 import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
 
@@ -70,9 +68,7 @@ fun MensaDayView(
                         if (warnAllergens.isNotEmpty())
                             Text(text = "⚠️ $warnAllergens")
 
-                        val price = meal.price.getFor(priceGroup).formatPrice()
-                        val location = if (locations.size > 1) " | ${meal.location.stringRes() ?: meal.location.name}" else ""
-                        Text(text = "$price$location")
+                        Text(text = meal.formatMealInfo(priceGroup, locations))
                     }
                 }
             }
