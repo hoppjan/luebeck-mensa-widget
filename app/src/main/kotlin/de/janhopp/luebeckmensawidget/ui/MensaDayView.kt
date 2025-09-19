@@ -15,12 +15,11 @@ import androidx.glance.text.FontWeight
 import de.janhopp.luebeckmensawidget.R
 import de.janhopp.luebeckmensawidget.api.model.MensaDay
 import de.janhopp.luebeckmensawidget.api.model.filterDeals
-import de.janhopp.luebeckmensawidget.api.model.formatPrice
-import de.janhopp.luebeckmensawidget.api.model.getFor
 import de.janhopp.luebeckmensawidget.theme.glanceString
 import de.janhopp.luebeckmensawidget.theme.toGlance
 import de.janhopp.luebeckmensawidget.ui.activity.MensaDayActivity
 import de.janhopp.luebeckmensawidget.ui.components.StyledText
+import de.janhopp.luebeckmensawidget.ui.utils.formatMealInfo
 import de.janhopp.luebeckmensawidget.ui.utils.glanceString
 import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
 
@@ -65,9 +64,7 @@ fun MensaDayView(day: MensaDay, widgetConfig: MensaWidgetConfig) {
                         if (warnAllergens.isNotEmpty())
                             StyledText(text = "⚠️ $warnAllergens")
 
-                        val price = meal.price.getFor(priceGroup).formatPrice()
-                        val location = if (locations.size > 1) " | ${meal.location.name}" else ""
-                        StyledText(text = "$price$location")
+                        StyledText(text = meal.formatMealInfo(priceGroup, locations))
                     }
                 }
             }

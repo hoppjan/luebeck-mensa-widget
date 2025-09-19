@@ -7,8 +7,11 @@ import de.janhopp.luebeckmensawidget.api.model.Allergen
 import de.janhopp.luebeckmensawidget.api.model.Location
 import de.janhopp.luebeckmensawidget.api.model.Allergens
 import de.janhopp.luebeckmensawidget.api.model.City
+import de.janhopp.luebeckmensawidget.api.model.Meal
 import de.janhopp.luebeckmensawidget.api.model.MensaLocation
 import de.janhopp.luebeckmensawidget.api.model.PriceGroup
+import de.janhopp.luebeckmensawidget.api.model.formatPrice
+import de.janhopp.luebeckmensawidget.api.model.getFor
 import de.janhopp.luebeckmensawidget.theme.glanceString
 
 @Composable
@@ -67,3 +70,16 @@ fun Allergen.resId() = Allergens.allAllergens.find { it.code == code }?.resId
 
 @Composable
 fun Allergen.glanceString() = resId()?.let { glanceString(it) }
+
+fun Meal.formatMealInfo(priceGroup: PriceGroup, locations: Set<Location>): String {
+    val priceForSelectedGroup = price.getFor(priceGroup)
+    val formattedPrice = priceForSelectedGroup.formatPrice()
+    val isValidPrice = priceForSelectedGroup != 0f
+    val hasMoreThanOneLocation = locations.size > 1
+    return when {
+        isValidPrice && hasMoreThanOneLocation -> "$formattedPrice | ${location.name}"
+        isValidPrice -> formattedPrice
+        hasMoreThanOneLocation -> location.name
+        else -> "???"
+    }
+}
