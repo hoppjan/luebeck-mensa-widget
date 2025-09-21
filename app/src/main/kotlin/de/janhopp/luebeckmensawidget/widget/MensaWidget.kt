@@ -8,7 +8,7 @@ import androidx.glance.appwidget.provideContent
 import androidx.glance.appwidget.updateAll
 import androidx.glance.currentState
 import androidx.glance.state.GlanceStateDefinition
-import de.janhopp.luebeckmensawidget.SyncWorker.Companion.enqueueSyncWork
+import de.janhopp.luebeckmensawidget.DaySyncWorker.Companion.enqueueSyncWork
 import de.janhopp.luebeckmensawidget.theme.AppTheme
 import de.janhopp.luebeckmensawidget.ui.MensaScreen
 import de.janhopp.luebeckmensawidget.utils.syncToday

@@ -20,7 +20,7 @@ import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.toJavaDuration
 
-class SyncWorker(appContext: Context, workerParams: WorkerParameters) :
+class DaySyncWorker(appContext: Context, workerParams: WorkerParameters) :
     CoroutineWorker(appContext, workerParams) {
     override suspend fun doWork(): Result {
         Log.d("SyncWorker", "doWork")
@@ -38,7 +38,7 @@ class SyncWorker(appContext: Context, workerParams: WorkerParameters) :
 
     companion object {
         val syncWorkRequest: PeriodicWorkRequest =
-            PeriodicWorkRequestBuilder<SyncWorker>(repeatInterval = 1.hours.toJavaDuration())
+            PeriodicWorkRequestBuilder<DaySyncWorker>(repeatInterval = 1.hours.toJavaDuration())
                 .setConstraints(
                     buildConstraints {
                         setRequiredNetworkType(NetworkType.CONNECTED)
@@ -52,7 +52,7 @@ class SyncWorker(appContext: Context, workerParams: WorkerParameters) :
             Log.d("SyncWorker", "enqueueSyncWork")
             WorkManager.getInstance(applicationContext)
                 .enqueueUniquePeriodicWork(
-                    SyncWorker::class.java.name,
+                    DaySyncWorker::class.java.name,
                     ExistingPeriodicWorkPolicy.UPDATE,
                     syncWorkRequest.also { Log.d("SyncWorker", "enqueueSyncWork: $it") }
                 )
