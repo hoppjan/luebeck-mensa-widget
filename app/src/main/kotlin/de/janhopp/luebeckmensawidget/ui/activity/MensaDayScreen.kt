@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -73,6 +74,11 @@ fun MensaDayScreen(
                         onClick = { navController.navigate(Navigation.Settings) },
                     ) {
                         Icon(Icons.Filled.Settings, contentDescription = null)
+                    }
+                    IconButton(
+                        onClick = { navController.navigate(Navigation.About) },
+                    ) {
+                        Icon(Icons.Filled.Info, contentDescription = null)
                     }
                 }
             )
