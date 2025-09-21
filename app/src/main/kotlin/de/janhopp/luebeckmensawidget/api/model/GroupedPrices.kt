@@ -18,4 +18,4 @@ fun GroupedPrices.getFor(group: PriceGroup): Float = when (group) {
     Guests -> guests
 }
 
-fun Float.formatPrice() = "%.2f €".format(this)
+fun Float.formatPrice() = if (this != 0f) "%.2f €".format(this) else null
