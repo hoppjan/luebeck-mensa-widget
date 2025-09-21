@@ -15,8 +15,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import de.janhopp.luebeckmensawidget.R
+import de.janhopp.luebeckmensawidget.api.model.Location
+import de.janhopp.luebeckmensawidget.api.model.Meal
 import de.janhopp.luebeckmensawidget.api.model.MensaDay
+import de.janhopp.luebeckmensawidget.api.model.PriceGroup
 import de.janhopp.luebeckmensawidget.api.model.filterDeals
+import de.janhopp.luebeckmensawidget.ui.config.SectionLabel
 import de.janhopp.luebeckmensawidget.ui.utils.formatMealInfo
 import de.janhopp.luebeckmensawidget.ui.utils.resId
 import de.janhopp.luebeckmensawidget.utils.toDisplayString
@@ -53,25 +57,48 @@ fun MensaDayView(
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
             ) {
-                items(day.meals.filterDeals(isEnabled = filterDeals)) { meal ->
-                    Column(
-                        modifier = Modifier.padding(8.dp)
-                    ) {
-                        Text(
-                            text = if (useEmoji) meal.widgetName else meal.name,
-                            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.SemiBold),
-                        )
-
-                        val warnAllergens = meal.allergens.filter { it.code in allergenCodes }
-                            .mapNotNull { it.resId()?.let { id -> stringResource(id) } }
-                            .joinToString()
-                        if (warnAllergens.isNotEmpty())
-                            Text(text = "⚠️ $warnAllergens")
-
-                        val mealInfo = meal.formatMealInfo(priceGroup, locations)
-                        if (mealInfo != null) Text(text = mealInfo)
+                val meals = day.meals.filterDeals(isEnabled = filterDeals)
+                val mealsByLocation = meals.groupBy { it.location }
+                items(mealsByLocation.keys.toList()) { location ->
+                    SectionLabel(
+                        text = location.name,
+                        modifier = Modifier
+                            .padding(horizontal = 12.dp, vertical = 4.dp)
+                            .padding(top = 8.dp),
+                    )
+                    Column(modifier = Modifier.padding(horizontal = 4.dp)) {
+                        mealsByLocation[location]?.forEach { meal ->
+                            MealView(meal, useEmoji, priceGroup, locations, allergenCodes)
+                        }
                     }
                 }
             }
+    }
+}
+
+@Composable
+fun MealView(
+    meal: Meal,
+    useEmoji: Boolean,
+    priceGroup: PriceGroup,
+    locations: Set<Location>,
+    allergenCodes: List<String>,
+) {
+    Column(
+        modifier = Modifier.padding(8.dp)
+    ) {
+        Text(
+            text = if (useEmoji) meal.widgetName else meal.name,
+            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.SemiBold),
+        )
+
+        val warnAllergens = meal.allergens.filter { it.code in allergenCodes }
+            .mapNotNull { it.resId()?.let { id -> stringResource(id) } }
+            .joinToString()
+        if (warnAllergens.isNotEmpty())
+            Text(text = "⚠️ $warnAllergens")
+
+        val mealInfo = meal.formatMealInfo(priceGroup, locations)
+        if (mealInfo != null) Text(text = mealInfo)
     }
 }
