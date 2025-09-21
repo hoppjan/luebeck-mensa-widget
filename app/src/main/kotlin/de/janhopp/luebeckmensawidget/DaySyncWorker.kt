@@ -48,7 +48,7 @@ class DaySyncWorker(appContext: Context, workerParams: WorkerParameters) :
                 .setBackoffCriteria(BackoffPolicy.LINEAR, duration = 30.minutes.toJavaDuration())
                 .build()
 
-        fun Context.enqueueSyncWork() {
+        fun Context.enqueueDaySyncWork() {
             Log.d("SyncWorker", "enqueueSyncWork")
             WorkManager.getInstance(applicationContext)
                 .enqueueUniquePeriodicWork(
