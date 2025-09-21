@@ -36,4 +36,12 @@ class MensaApi(
             .filterByDate(date)
     }.alsoThrow<_, CancellationException>() // needed for use of runCatching in coroutines
         .getOrNull()
+
+    suspend fun getAllDaysMeals(): List<MensaDay> = runCatching {
+        client.get("https://speiseplan.mcloud.digital/v2/meals")
+            .body<String>()
+            .toApiResponse()
+            .toMensaDays()
+    }.alsoThrow<_, CancellationException>() // needed for use of runCatching in coroutines
+        .getOrDefault(emptyList())
 }
