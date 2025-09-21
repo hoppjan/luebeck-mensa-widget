@@ -3,7 +3,6 @@ package de.janhopp.luebeckmensawidget
 import android.content.Context
 import android.util.Log
 import androidx.work.BackoffPolicy
-import androidx.work.Constraints
 import androidx.work.CoroutineWorker
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
@@ -14,6 +13,7 @@ import androidx.work.WorkerParameters
 import de.janhopp.luebeckmensawidget.api.MensaApi
 import de.janhopp.luebeckmensawidget.storage.MenuStorage
 import de.janhopp.luebeckmensawidget.storage.OptionsStorage
+import de.janhopp.luebeckmensawidget.utils.buildConstraints
 import de.janhopp.luebeckmensawidget.widget.MensaWidget
 import de.janhopp.luebeckmensawidget.widget.getWidgetConfig
 import kotlin.time.Duration.Companion.hours
@@ -59,6 +59,3 @@ class DaySyncWorker(appContext: Context, workerParams: WorkerParameters) :
         }
     }
 }
-
-private fun buildConstraints(builder: Constraints.Builder.() -> Unit): Constraints =
-    Constraints.Builder().apply(builder).build()
