@@ -6,6 +6,7 @@ import de.janhopp.luebeckmensawidget.api.model.Meal
 import de.janhopp.luebeckmensawidget.api.model.MensaLocation
 import de.janhopp.luebeckmensawidget.api.model.PriceGroup
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Test
 
 fun formatMealInfo(price: Float, locations: Set<Location>) = Meal(
@@ -40,6 +41,6 @@ class FormatMealInfoTest {
     @Test
     fun `formatMealInfo with 1 location and zero price should return only question marks`() {
         val actual = formatMealInfo(0f, setOf(Location.BitsAndBytes))
-        assertEquals("???", actual)
+        assertNull(actual)
     }
 }

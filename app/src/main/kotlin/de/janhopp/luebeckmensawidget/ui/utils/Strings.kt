@@ -71,7 +71,7 @@ fun Allergen.resId() = Allergens.allAllergens.find { it.code == code }?.resId
 @Composable
 fun Allergen.glanceString() = resId()?.let { glanceString(it) }
 
-fun Meal.formatMealInfo(priceGroup: PriceGroup, locations: Set<Location>): String {
+fun Meal.formatMealInfo(priceGroup: PriceGroup, locations: Set<Location>): String? {
     val priceForSelectedGroup = price.getFor(priceGroup)
     val formattedPrice = priceForSelectedGroup.formatPrice()
     val isValidPrice = priceForSelectedGroup != 0f
@@ -80,6 +80,6 @@ fun Meal.formatMealInfo(priceGroup: PriceGroup, locations: Set<Location>): Strin
         isValidPrice && hasMoreThanOneLocation -> "$formattedPrice | ${location.name}"
         isValidPrice -> formattedPrice
         hasMoreThanOneLocation -> location.name
-        else -> "???"
+        else -> null
     }
 }

@@ -64,7 +64,8 @@ fun MensaDayView(day: MensaDay, widgetConfig: MensaWidgetConfig) {
                         if (warnAllergens.isNotEmpty())
                             StyledText(text = "⚠️ $warnAllergens")
 
-                        StyledText(text = meal.formatMealInfo(priceGroup, locations))
+                        val mealInfo = meal.formatMealInfo(priceGroup, locations)
+                        if (mealInfo != null) StyledText(text = mealInfo)
                     }
                 }
             }
