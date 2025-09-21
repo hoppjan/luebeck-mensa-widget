@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Mensa SH</string>
     <string name="widget_settings_title">Einstellungen</string>
+    <string name="about_title">About</string>
     <string name="finish_configuration">Konfiguration speichern</string>
     <string name="settings_section_canteen">Mensaoptionen</string>
     <string name="settings_section_widget">Widgeteinstellungen</string>

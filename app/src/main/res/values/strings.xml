@@ -2,6 +2,7 @@
     <string name="app_name">Mensa SH</string>
     <string name="title_menu">Menu</string>
     <string name="widget_settings_title">Settings</string>
+    <string name="about_title">Über</string>
     <string name="finish_configuration">Finish Configuration</string>
     <string name="settings_section_widget">Widget customization</string>
     <string name="settings_section_canteen">Canteen options</string>
