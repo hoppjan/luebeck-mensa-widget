@@ -15,13 +15,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import de.janhopp.luebeckmensawidget.R
-import de.janhopp.luebeckmensawidget.api.model.Location
 import de.janhopp.luebeckmensawidget.api.model.Meal
 import de.janhopp.luebeckmensawidget.api.model.MensaDay
 import de.janhopp.luebeckmensawidget.api.model.PriceGroup
 import de.janhopp.luebeckmensawidget.api.model.filterDeals
+import de.janhopp.luebeckmensawidget.api.model.formatPrice
+import de.janhopp.luebeckmensawidget.api.model.getFor
 import de.janhopp.luebeckmensawidget.ui.config.SectionLabel
-import de.janhopp.luebeckmensawidget.ui.utils.formatMealInfo
 import de.janhopp.luebeckmensawidget.ui.utils.resId
 import de.janhopp.luebeckmensawidget.utils.toDisplayString
 import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
@@ -68,7 +68,7 @@ fun MensaDayView(
                     )
                     Column(modifier = Modifier.padding(horizontal = 4.dp)) {
                         mealsByLocation[location]?.forEach { meal ->
-                            MealView(meal, useEmoji, priceGroup, locations, allergenCodes)
+                            MealView(meal, useEmoji, priceGroup, allergenCodes)
                         }
                     }
                 }
@@ -81,7 +81,6 @@ fun MealView(
     meal: Meal,
     useEmoji: Boolean,
     priceGroup: PriceGroup,
-    locations: Set<Location>,
     allergenCodes: List<String>,
 ) {
     Column(
@@ -98,7 +97,7 @@ fun MealView(
         if (warnAllergens.isNotEmpty())
             Text(text = "⚠️ $warnAllergens")
 
-        val mealInfo = meal.formatMealInfo(priceGroup, locations)
-        if (mealInfo != null) Text(text = mealInfo)
+        val price = meal.price.getFor(priceGroup).formatPrice()
+        if (price != null) Text(text = price)
     }
 }

@@ -74,7 +74,7 @@ fun Allergen.glanceString() = resId()?.let { glanceString(it) }
 fun Meal.formatMealInfo(priceGroup: PriceGroup, locations: Set<Location>): String? {
     val priceForSelectedGroup = price.getFor(priceGroup)
     val formattedPrice = priceForSelectedGroup.formatPrice()
-    val isValidPrice = priceForSelectedGroup != 0f
+    val isValidPrice = formattedPrice != null
     val hasMoreThanOneLocation = locations.size > 1
     return when {
         isValidPrice && hasMoreThanOneLocation -> "$formattedPrice | ${location.name}"
