@@ -38,6 +38,6 @@ class MenuStorage(
             return stringPreferencesKey(name = toKeyString())
         }
 
-        fun LocalDate.toKeyString() = "$year-$month-$dayOfMonth"
+        fun LocalDate.toKeyString() = "$year-$month-$day"
     }
 }
