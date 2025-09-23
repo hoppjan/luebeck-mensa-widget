@@ -2,6 +2,8 @@ name: Build & Publish Release APK & AAB
 
 on:
   push:
+    branches:
+      - main
     tags:
       - "*"
 
@@ -46,6 +48,10 @@ jobs:
         run: mv ${{ steps.releaseApk.outputs.apkfile }} luebeck-mensa-widget-${{ github.ref_name }}.apk
 
       - name: Build release app bundle
+        env:
+          RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
+          RELEASE_KEYSTORE_ALIAS: ${{ secrets.RELEASE_KEYSTORE_ALIAS }}
+          RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
         run: ./gradlew bundleRelease --stacktrace
 
       - name: Get release aab path
