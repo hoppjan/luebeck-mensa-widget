@@ -2,8 +2,6 @@ name: Build & Publish Release APK & AAB
 
 on:
   push:
-    branches:
-      - main
     tags:
       - "*"
 
