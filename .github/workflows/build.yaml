@@ -1,4 +1,4 @@
-name: Build & Publish Release APK
+name: Build & Publish Release APK & AAB
 
 on:
   push:
@@ -27,7 +27,6 @@ jobs:
           RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
           RELEASE_KEYSTORE_ALIAS: ${{ secrets.RELEASE_KEYSTORE_ALIAS }}
           RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
-
         run: |
           echo $ENCODED_STRING > keystore-b64.txt
           base64 -d keystore-b64.txt > keystore.jks
@@ -46,6 +45,16 @@ jobs:
       - name: Rename release apk
         run: mv ${{ steps.releaseApk.outputs.apkfile }} luebeck-mensa-widget-${{ github.ref_name }}.apk
 
+      - name: Build release app bundle
+        run: ./gradlew bundleRelease --stacktrace
+
+      - name: Get release aab path
+        id: releaseAab
+        run: echo "aabfile=$(find app/build/outputs/bundle/release/*.aab)" >> $GITHUB_OUTPUT
+
+      - name: Rename release AAB
+        run: mv ${{ steps.releaseAab.outputs.aabfile }} luebeck-mensa-widget-${{ github.ref_name }}.aab
+
       - name: Release
         uses: softprops/action-gh-release@v2
         if: github.ref_type == 'tag'
@@ -55,3 +64,4 @@ jobs:
           prerelease: false
           files: |
             luebeck-mensa-widget-${{ github.ref_name }}.apk
+            luebeck-mensa-widget-${{ github.ref_name }}.aab
