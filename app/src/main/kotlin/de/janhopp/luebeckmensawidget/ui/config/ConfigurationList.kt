@@ -43,6 +43,7 @@ import de.janhopp.luebeckmensawidget.ui.theme.MensaTheme
 import de.janhopp.luebeckmensawidget.ui.utils.stringRes
 import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
 import de.janhopp.luebeckmensawidget.widget.getWidgetConfig
+import de.janhopp.luebeckmensawidget.api.model.DietFilter
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -136,6 +137,24 @@ fun ConfigurationList(
                     options.setBoolean(Option.FilterDeals, it)
                 }
             },
+        )
+        OptionDropdownMenu(
+            text = stringResource(R.string.option_diet_filter),
+            options = DietFilter.entries,
+            selectedOption = widgetConfig.dietFilter,
+            optionToString = { dietFilter ->
+                stringResource(when (dietFilter) {
+                    DietFilter.None -> R.string.diet_filter_none
+                    DietFilter.Vegetarian -> R.string.diet_filter_vegetarian
+                    DietFilter.Vegan -> R.string.diet_filter_vegan
+                })
+            },
+            onOptionSelected = {
+                widgetConfig = widgetConfig.copy(dietFilter = it)
+                coroutineScope.launch {
+                    options.setString(Option.DietFilter, it.key)
+                }
+            }
         )
         OptionDropdownMenu(
             text = stringResource(R.string.option_city),

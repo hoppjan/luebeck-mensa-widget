@@ -22,10 +22,11 @@ import de.janhopp.luebeckmensawidget.ui.components.StyledText
 import de.janhopp.luebeckmensawidget.ui.utils.formatMealInfo
 import de.janhopp.luebeckmensawidget.ui.utils.glanceString
 import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
+import de.janhopp.luebeckmensawidget.api.model.filterByDiet
 
 @Composable
 fun MensaDayView(day: MensaDay, widgetConfig: MensaWidgetConfig) {
-    val (showDate, useEmoji, priceGroup, filterDeals, _, locations, allergens) = widgetConfig
+    val (showDate, useEmoji, priceGroup, filterDeals, _, locations, allergens, dietFilter,) = widgetConfig
     val allergenCodes = allergens.map { it.code }
 
     Column(
@@ -47,6 +48,7 @@ fun MensaDayView(day: MensaDay, widgetConfig: MensaWidgetConfig) {
                 items(
                     items = day.meals
                         .filterDeals(isEnabled = filterDeals)
+                        .filterByDiet(dietFilter)
                 ) { meal ->
                     Column(
                         modifier = GlanceModifier.padding(8.dp)

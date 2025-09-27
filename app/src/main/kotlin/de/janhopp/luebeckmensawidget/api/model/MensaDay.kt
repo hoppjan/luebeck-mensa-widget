@@ -28,3 +28,10 @@ fun List<Meal>.filterDeals(isEnabled: Boolean): List<Meal> =
             listOf("!", "€").any { it in meal.name }
         }
     else this
+
+fun List<Meal>.filterByDiet(dietFilter: DietFilter): List<Meal> =
+    when (dietFilter) {
+        DietFilter.None -> this
+        DietFilter.Vegetarian -> filter { meal -> meal.vegetarian || meal.vegan }
+        DietFilter.Vegan -> filter { meal -> meal.vegan }
+    }

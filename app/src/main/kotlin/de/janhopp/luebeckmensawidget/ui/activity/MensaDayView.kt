@@ -25,6 +25,7 @@ import de.janhopp.luebeckmensawidget.ui.config.SectionLabel
 import de.janhopp.luebeckmensawidget.ui.utils.resId
 import de.janhopp.luebeckmensawidget.utils.toDisplayString
 import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
+import de.janhopp.luebeckmensawidget.api.model.filterByDiet
 
 @Composable
 fun MensaDayView(
@@ -32,7 +33,7 @@ fun MensaDayView(
     day: MensaDay,
     widgetConfig: MensaWidgetConfig,
 ) {
-    val (showDate, useEmoji, priceGroup, filterDeals, _, locations, allergens) = widgetConfig
+    val (showDate, useEmoji, priceGroup, filterDeals, _, locations, allergens, dietFilter,) = widgetConfig
     val allergenCodes = allergens.map { it.code }
 
     Column(
@@ -57,7 +58,9 @@ fun MensaDayView(
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
             ) {
-                val meals = day.meals.filterDeals(isEnabled = filterDeals)
+                val meals = day.meals
+                    .filterDeals(isEnabled = filterDeals)
+                    .filterByDiet(dietFilter)
                 val mealsByLocation = meals.groupBy { it.location }
                 items(mealsByLocation.keys.toList()) { location ->
                     SectionLabel(
