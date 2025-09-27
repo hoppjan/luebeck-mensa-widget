@@ -63,4 +63,8 @@
     <string name="allergens">Warnung für ausgewählte Allergene</string>
     <string name="location_bits_and_bytes">Bits + Bytes</string>
     <string name="title_menu">Speiseplan</string>
+    <string name="option_diet_filter">Ernährungstyp</string>
+    <string name="diet_filter_none">Alle Gerichte</string>
+    <string name="diet_filter_vegetarian">Vegetarisch</string>
+    <string name="diet_filter_vegan">Vegan</string>
 </resources>

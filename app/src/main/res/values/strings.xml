@@ -68,4 +68,8 @@
     <string name="allergen_sulfur_dioxide">Sulfur Dioxide and Sulfites</string>
     <string name="allergen_molluscs">Molluscs</string>
     <string name="allergens">Warning for selected allergens</string>
+    <string name="option_diet_filter">Diet filter</string>
+    <string name="diet_filter_none">All meals</string>
+    <string name="diet_filter_vegetarian">Vegetarian</string>
+    <string name="diet_filter_vegan">Vegan</string>
 </resources>
