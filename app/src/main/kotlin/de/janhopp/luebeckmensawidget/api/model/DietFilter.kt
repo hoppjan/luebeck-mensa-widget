@@ -1,11 +1,12 @@
 package de.janhopp.luebeckmensawidget.api.model
 
-enum class DietFilter(val key: String) {
-    None("none"),
-    Vegetarian("vegetarian"),
-    Vegan("vegan");
+enum class DietFilter {
+    None,
+    Vegetarian,
+    Vegan,
+    ;
 
     companion object {
-        fun fromKey(key: String): DietFilter = entries.find { it.key == key } ?: None
+        fun fromName(name: String): DietFilter = entries.find { it.name == name } ?: None
     }
 }
