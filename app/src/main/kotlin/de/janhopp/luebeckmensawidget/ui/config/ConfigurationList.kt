@@ -152,7 +152,7 @@ fun ConfigurationList(
             onOptionSelected = {
                 widgetConfig = widgetConfig.copy(dietFilter = it)
                 coroutineScope.launch {
-                    options.setString(Option.DietFilter, it.key)
+                    options.setString(Option.DietFilter, it.name)
                 }
             }
         )

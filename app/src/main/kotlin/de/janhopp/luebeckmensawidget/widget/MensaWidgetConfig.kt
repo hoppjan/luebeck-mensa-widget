@@ -16,7 +16,7 @@ data class MensaWidgetConfig(
     val city: City = City.valueOf(Option.MensaCity.defaultValue),
     val locations: Set<Location> = Location.fromStringSet(Option.Locations.defaultValue),
     val allergens: Set<Allergens> = Allergens.fromStringSet(Option.Allergens.defaultValue),
-        val dietFilter: DietFilter = DietFilter.fromKey(Option.DietFilter.defaultValue),
+    val dietFilter: DietFilter = DietFilter.fromName(Option.DietFilter.defaultValue),
 )
 
 suspend fun OptionsStorage.getWidgetConfig() = MensaWidgetConfig(
@@ -27,5 +27,5 @@ suspend fun OptionsStorage.getWidgetConfig() = MensaWidgetConfig(
     City.valueOf(getString(Option.MensaCity)),
     getStringSet(Option.Locations).mapNotNull { Location.fromCode(it) }.toSet(),
     Allergens.fromStringSet(getStringSet(Option.Allergens)),
-    DietFilter.fromKey(getString(Option.DietFilter)),
+    DietFilter.fromName(getString(Option.DietFilter)),
 )

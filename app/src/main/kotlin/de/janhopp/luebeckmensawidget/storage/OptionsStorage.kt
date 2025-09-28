@@ -9,7 +9,7 @@ import de.janhopp.luebeckmensawidget.api.model.PriceGroup.Students
 import androidx.datastore.preferences.preferencesDataStore
 import de.janhopp.luebeckmensawidget.api.model.City
 import de.janhopp.luebeckmensawidget.api.model.Location
-import de.janhopp.luebeckmensawidget.api.model.DietFilter
+import de.janhopp.luebeckmensawidget.api.model.DietFilter.None
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 
@@ -65,5 +65,5 @@ sealed class Option<T>(
     data object MensaCity : Option<String>(key = "city", defaultValue = City.Luebeck.name)
     data object Locations : Option<Set<String>>(key = "locations", defaultValue = setOf(Location.MensaLuebeck.code))
     data object Allergens : Option<Set<String>>(key = "allergens", defaultValue = emptySet())
-    data object DietFilter : Option<String>(key = "diet_filter", defaultValue = "none")
+    data object DietFilter : Option<String>(key = "diet_filter", defaultValue = None.name)
 }
