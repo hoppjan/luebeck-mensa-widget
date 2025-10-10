@@ -1,9 +1,7 @@
 name: Build app to check code validity
 
 on:
-  push:
-    tags-ignore:
-      - '*'
+  push
 
 jobs:
   Build:
