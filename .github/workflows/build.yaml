@@ -3,7 +3,7 @@ name: Build app to check code validity
 on:
   push:
     tags-ignore:
-      - *
+      - '*'
 
 jobs:
   Build:
