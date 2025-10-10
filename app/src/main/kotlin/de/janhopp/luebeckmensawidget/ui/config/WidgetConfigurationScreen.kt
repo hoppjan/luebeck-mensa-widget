@@ -3,8 +3,6 @@ package de.janhopp.luebeckmensawidget.ui.config
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
@@ -21,6 +19,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import de.janhopp.luebeckmensawidget.R
 import de.janhopp.luebeckmensawidget.ui.theme.MensaTheme
+import de.janhopp.luebeckmensawidget.utils.Icons
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,7 +36,7 @@ fun WidgetConfigurationScreen(
                 navigationIcon = {
                     if (navController.previousBackStackEntry != null)
                         IconButton(onClick = { navController.popBackStack() }) {
-                            Icon(Icons.AutoMirrored.Filled.ArrowBack, null)
+                            Icon(Icons.paintArrowBack(), null)
                         }
                 },
             )
