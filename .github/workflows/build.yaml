@@ -1,0 +1,22 @@
+name: Build app to check code validity
+
+on:
+  push:
+    tags-ignore:
+      - *
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v5
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: "temurin"
+          java-version: 21
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+      - name: Build debug apk
+        run: ./gradlew app:assembleDebug --stacktrace
