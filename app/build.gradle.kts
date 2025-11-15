@@ -13,7 +13,7 @@ android {
     defaultConfig {
         applicationId = "de.janhopp.luebeckmensawidget"
         minSdk = 29
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 28
         versionName = "0.7.0"
 
