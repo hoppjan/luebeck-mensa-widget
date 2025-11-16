@@ -10,6 +10,7 @@ import androidx.glance.appwidget.lazy.LazyColumn
 import androidx.glance.appwidget.lazy.items
 import androidx.glance.layout.Column
 import androidx.glance.layout.fillMaxSize
+import androidx.glance.layout.fillMaxWidth
 import androidx.glance.layout.padding
 import androidx.glance.text.FontWeight
 import de.janhopp.luebeckmensawidget.R
@@ -52,6 +53,7 @@ fun MensaDayView(day: MensaDay, widgetConfig: MensaWidgetConfig) {
                 ) { meal ->
                     Column(
                         modifier = GlanceModifier.padding(8.dp)
+                            .fillMaxWidth()
                             .clickable(actionStartActivity<MensaDayActivity>())
                     ) {
                         StyledText(
