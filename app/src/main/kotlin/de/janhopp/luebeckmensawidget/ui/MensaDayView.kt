@@ -20,11 +20,12 @@ import de.janhopp.luebeckmensawidget.api.model.MensaDay
 import de.janhopp.luebeckmensawidget.api.model.PriceGroup
 import de.janhopp.luebeckmensawidget.api.model.filterByDiet
 import de.janhopp.luebeckmensawidget.api.model.filterDeals
+import de.janhopp.luebeckmensawidget.api.model.formatPrice
+import de.janhopp.luebeckmensawidget.api.model.getFor
 import de.janhopp.luebeckmensawidget.theme.glanceString
 import de.janhopp.luebeckmensawidget.theme.toGlance
 import de.janhopp.luebeckmensawidget.ui.activity.MensaDayActivity
 import de.janhopp.luebeckmensawidget.ui.components.StyledText
-import de.janhopp.luebeckmensawidget.ui.utils.formatMealInfo
 import de.janhopp.luebeckmensawidget.ui.utils.glanceString
 import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
 
@@ -97,7 +98,7 @@ fun MealView(
                 .joinToString()
         if (warnAllergens.isNotEmpty()) StyledText(text = "⚠️ $warnAllergens")
 
-        val mealInfo = meal.formatMealInfo(priceGroup, locations = emptySet())
-        if (mealInfo != null) StyledText(text = mealInfo)
+        val price = meal.price.getFor(priceGroup).formatPrice()
+        if (price != null) StyledText(text = price)
     }
 }
