@@ -1,6 +1,7 @@
 package de.janhopp.luebeckmensawidget.ui
 
 import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import androidx.glance.GlanceModifier
@@ -14,7 +15,10 @@ import androidx.glance.layout.fillMaxWidth
 import androidx.glance.layout.padding
 import androidx.glance.text.FontWeight
 import de.janhopp.luebeckmensawidget.R
+import de.janhopp.luebeckmensawidget.api.model.Meal
 import de.janhopp.luebeckmensawidget.api.model.MensaDay
+import de.janhopp.luebeckmensawidget.api.model.PriceGroup
+import de.janhopp.luebeckmensawidget.api.model.filterByDiet
 import de.janhopp.luebeckmensawidget.api.model.filterDeals
 import de.janhopp.luebeckmensawidget.theme.glanceString
 import de.janhopp.luebeckmensawidget.theme.toGlance
@@ -23,7 +27,6 @@ import de.janhopp.luebeckmensawidget.ui.components.StyledText
 import de.janhopp.luebeckmensawidget.ui.utils.formatMealInfo
 import de.janhopp.luebeckmensawidget.ui.utils.glanceString
 import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
-import de.janhopp.luebeckmensawidget.api.model.filterByDiet
 
 @Composable
 fun MensaDayView(day: MensaDay, widgetConfig: MensaWidgetConfig) {
@@ -46,32 +49,55 @@ fun MensaDayView(day: MensaDay, widgetConfig: MensaWidgetConfig) {
             LazyColumn(
                 modifier = GlanceModifier.fillMaxSize(),
             ) {
-                items(
-                    items = day.meals
-                        .filterDeals(isEnabled = filterDeals)
-                        .filterByDiet(dietFilter)
-                ) { meal ->
-                    Column(
-                        modifier = GlanceModifier.padding(8.dp)
-                            .fillMaxWidth()
-                            .clickable(actionStartActivity<MensaDayActivity>())
-                    ) {
+                val meals = day.meals.filterDeals(isEnabled = filterDeals).filterByDiet(dietFilter)
+                val mealsByLocation = meals.groupBy { it.location }
+                items(items = mealsByLocation.keys.toList()) { location ->
+                    Column {
                         StyledText(
-                            style = LocalTextStyle.current.toGlance()
-                                .copy(fontWeight = FontWeight.Bold),
-                            text = if (useEmoji) meal.widgetName else meal.name
+                            modifier = GlanceModifier
+                                .fillMaxWidth()
+                                .clickable(onClick = actionStartActivity<MensaDayActivity>())
+                                .padding(horizontal = 12.dp, vertical = 2.dp)
+                                .padding(top = 8.dp),
+                            style = MaterialTheme.typography.labelLarge.copy(color = MaterialTheme.colorScheme.onPrimaryContainer)
+                                .toGlance().copy(fontWeight = FontWeight.Bold),
+                            text = location.name,
                         )
-
-                        val warnAllergens = meal.allergens.filter { it.code in allergenCodes }
-                            .mapNotNull { it.glanceString() }
-                            .joinToString()
-                        if (warnAllergens.isNotEmpty())
-                            StyledText(text = "⚠️ $warnAllergens")
-
-                        val mealInfo = meal.formatMealInfo(priceGroup, locations)
-                        if (mealInfo != null) StyledText(text = mealInfo)
+                        Column(modifier = GlanceModifier.padding(horizontal = 4.dp)) {
+                            mealsByLocation[location]?.forEach { meal ->
+                                MealView(meal, useEmoji, priceGroup, allergenCodes)
+                            }
+                        }
                     }
                 }
             }
+    }
+}
+
+@Composable
+fun MealView(
+    meal: Meal,
+    useEmoji: Boolean,
+    priceGroup: PriceGroup,
+    allergenCodes: List<String>,
+) {
+    Column(
+        modifier = GlanceModifier
+            .padding(all = 8.dp)
+            .fillMaxWidth()
+            .clickable(actionStartActivity<MensaDayActivity>())
+    ) {
+        StyledText(
+            style = LocalTextStyle.current.toGlance().copy(fontWeight = FontWeight.Bold),
+            text = if (useEmoji) meal.widgetName else meal.name,
+        )
+
+        val warnAllergens =
+            meal.allergens.filter { it.code in allergenCodes }.mapNotNull { it.glanceString() }
+                .joinToString()
+        if (warnAllergens.isNotEmpty()) StyledText(text = "⚠️ $warnAllergens")
+
+        val mealInfo = meal.formatMealInfo(priceGroup, locations = emptySet())
+        if (mealInfo != null) StyledText(text = mealInfo)
     }
 }
