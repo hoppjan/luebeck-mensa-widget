@@ -37,6 +37,7 @@ android {
         }
         debug {
             applicationIdSuffix = ".debug"
+            resValue(type = "string", name = "app_name", value = "Mensa SH debug")
             isMinifyEnabled = false
             isShrinkResources = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
