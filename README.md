@@ -4,13 +4,17 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/hoppjan/luebeck-mensa-widget?include_prereleases)
 ![Apache 2.0 Licence](https://img.shields.io/github/license/hoppjan/luebeck-mensa-widget)
 
-Mensa SH is an Android application that displays the menu of the cafeteria and mensa located in the university district of Lübeck. The app provides a widget for users to access the daily menu directly from their device's home screen.
+Mensa SH is an Android application that displays menus from canteens and cafeterias in Schleswig-Holstein, with a widget for quick access directly from your home screen.
 
-<div>
-    <img
-        alt="Screenshot showing the widget displaying the menu"
-        src="./Screenshot_Widget.png"
-        width=260 />
+<div style="display: flex; justify-content: center; align-items: center">
+        <img
+        alt="Screenshot showing the widget displaying the menu in dark mode."
+        src="./MensaSH-LIGHT.png"
+        width=350 />
+            <img
+        alt="Screenshot showing the widget displaying the menu in dark mode."
+        src="./MensaSH-DARK.png"
+        width=350 />
 </div>
 
 ## Installation
@@ -20,14 +24,22 @@ Mensa SH is an Android application that displays the menu of the cafeteria and m
 1. Open the downloaded APK file and follow the on-screen instructions to install the application.
 1. Once installed, add the widget to your home screen by long-pressing on an empty space on the home screen and selecting Widgets. Then, locate the "Mensa SH" and drag it to your desired position on the home screen.
 
-You can also get the app and its updates via Obtainium:
+You can also get the app and its updates via Obtainium and Google Play Store:
 
-<a href="https://obtainium.imranr.dev">
-    <img
-        alt="Get it on Obtainium"
-        src="https://raw.githubusercontent.com/ImranR98/Obtainium/main/assets/graphics/badge_obtainium.png"
-        width=130 />
-</a>
+<div style="display: flex; gap: 10px;">
+    <a href="https://obtainium.imranr.dev">
+        <img
+            alt="Get it on Obtainium"
+            src="https://raw.githubusercontent.com/ImranR98/Obtainium/main/assets/graphics/badge_obtainium.png"
+            width=130 />
+    </a>
+    <a href="https://play.google.com/store/apps/details?id=de.janhopp.luebeckmensawidget">
+        <img
+            alt="Get it on Google Play"
+            src="./Marketing_GooglePlay-Badge.png"
+            width=130 />
+    </a>
+</div>
 
 ## Build debug version
 
