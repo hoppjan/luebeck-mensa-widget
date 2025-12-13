@@ -1,9 +1,7 @@
 package de.janhopp.luebeckmensawidget.ui.activity
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -18,14 +16,14 @@ import de.janhopp.luebeckmensawidget.R
 import de.janhopp.luebeckmensawidget.api.model.Meal
 import de.janhopp.luebeckmensawidget.api.model.MensaDay
 import de.janhopp.luebeckmensawidget.api.model.PriceGroup
+import de.janhopp.luebeckmensawidget.api.model.filterByDiet
 import de.janhopp.luebeckmensawidget.api.model.filterDeals
 import de.janhopp.luebeckmensawidget.api.model.formatPrice
 import de.janhopp.luebeckmensawidget.api.model.getFor
+import de.janhopp.luebeckmensawidget.api.model.toCodes
 import de.janhopp.luebeckmensawidget.ui.config.SectionLabel
 import de.janhopp.luebeckmensawidget.ui.utils.resId
-import de.janhopp.luebeckmensawidget.utils.toDisplayString
 import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
-import de.janhopp.luebeckmensawidget.api.model.filterByDiet
 
 @Composable
 fun MensaDayView(
@@ -33,23 +31,14 @@ fun MensaDayView(
     day: MensaDay,
     widgetConfig: MensaWidgetConfig,
 ) {
-    val (showDate, useEmoji, priceGroup, filterDeals, _, locations, allergens, dietFilter) = widgetConfig
+    val (_, useEmoji, priceGroup, filterDeals, _, locations, allergens, dietFilter) = widgetConfig
     val allergenCodes = allergens.map { it.code }
+    val mealsInSelectedLocations = day.meals.filter { meal -> meal.location.code in locations.toCodes() }
 
     Column(
         modifier = modifier.fillMaxSize()
     ) {
-        if (showDate)
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(all = 10.dp)
-                    .padding(start = 2.dp),
-            ) {
-                Text(text = day.toDisplayString())
-            }
-
-        if (day.meals.isEmpty())
+        if (mealsInSelectedLocations.isEmpty())
             MensaErrorView(
                 imageRes = R.drawable.no_food,
                 errorMessage = stringResource(R.string.error_empty_menu),
@@ -58,7 +47,7 @@ fun MensaDayView(
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
             ) {
-                val meals = day.meals
+                val meals = mealsInSelectedLocations
                     .filterDeals(isEnabled = filterDeals)
                     .filterByDiet(dietFilter)
                 val mealsByLocation = meals.groupBy { it.location }
