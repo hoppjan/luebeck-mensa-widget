@@ -22,7 +22,7 @@ import kotlinx.serialization.Serializable
 
 sealed interface Navigation {
     @Serializable
-    data class Menu(val date: String = currentTime.mensaDay.toString())
+    data object Menu
     @Serializable
     data object Settings
     @Serializable
@@ -37,7 +37,7 @@ fun Navigation() {
 
     NavHost(
         navController = navController,
-        startDestination = Navigation.Menu(date = currentTime.mensaDay.toString()),
+        startDestination = Navigation.Menu,
         enterTransition = {
             scaleIn(animationSpec = tween(300), initialScale = 0.98f) +
                     fadeIn(tween(300))
