@@ -39,6 +39,9 @@ fun MensaDay.toDisplayString() = "${localDate.dayOfWeek.format()}, ${date.toDate
 val LocalDateTime.mensaApiFormat: String
     get() = "%04d-%02d-%02d".format(mensaDay.year, mensaDay.month.number, mensaDay.day)
 
+val LocalDate.mensaApiFormat: String
+    get() = "%04d-%02d-%02d".format(year, month.number, day)
+
 private val LocalDateTime.isAfterMensaHours
     get() = hour >= 15
 
