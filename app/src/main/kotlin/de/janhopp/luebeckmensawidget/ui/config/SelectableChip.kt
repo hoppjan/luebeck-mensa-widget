@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.ElevatedFilterChip
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
@@ -18,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import de.janhopp.luebeckmensawidget.ui.theme.MensaTheme
+import de.janhopp.luebeckmensawidget.utils.Icons
 
 @Composable
 inline fun <reified T> SelectableChip(
@@ -35,7 +34,7 @@ inline fun <reified T> SelectableChip(
         trailingIcon = if (selected) {
             {
                 Icon(
-                    imageVector = Icons.Filled.Clear,
+                    painter = Icons.paintClear(),
                     contentDescription = "Clear icon",
                     modifier = Modifier.size(FilterChipDefaults.IconSize)
                 )

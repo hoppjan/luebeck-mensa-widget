@@ -2,6 +2,7 @@
     <string name="app_name">Mensa SH</string>
     <string name="title_menu">Menu</string>
     <string name="widget_settings_title">Settings</string>
+    <string name="about_title">Über</string>
     <string name="finish_configuration">Finish Configuration</string>
     <string name="settings_section_widget">Widget customization</string>
     <string name="settings_section_canteen">Canteen options</string>
@@ -67,4 +68,8 @@
     <string name="allergen_sulfur_dioxide">Sulfur Dioxide and Sulfites</string>
     <string name="allergen_molluscs">Molluscs</string>
     <string name="allergens">Warning for selected allergens</string>
+    <string name="option_diet_filter">Diet filter</string>
+    <string name="diet_filter_none">All meals</string>
+    <string name="diet_filter_vegetarian">Vegetarian</string>
+    <string name="diet_filter_vegan">Vegan</string>
 </resources>

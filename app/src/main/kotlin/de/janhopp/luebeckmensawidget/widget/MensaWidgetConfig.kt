@@ -6,6 +6,7 @@ import de.janhopp.luebeckmensawidget.api.model.City
 import de.janhopp.luebeckmensawidget.api.model.PriceGroup
 import de.janhopp.luebeckmensawidget.storage.Option
 import de.janhopp.luebeckmensawidget.storage.OptionsStorage
+import de.janhopp.luebeckmensawidget.api.model.DietFilter
 
 data class MensaWidgetConfig(
     val showDate: Boolean = Option.ShowDate.defaultValue,
@@ -15,6 +16,7 @@ data class MensaWidgetConfig(
     val city: City = City.valueOf(Option.MensaCity.defaultValue),
     val locations: Set<Location> = Location.fromStringSet(Option.Locations.defaultValue),
     val allergens: Set<Allergens> = Allergens.fromStringSet(Option.Allergens.defaultValue),
+    val dietFilter: DietFilter = DietFilter.fromName(Option.DietFilter.defaultValue),
 )
 
 suspend fun OptionsStorage.getWidgetConfig() = MensaWidgetConfig(
@@ -25,4 +27,5 @@ suspend fun OptionsStorage.getWidgetConfig() = MensaWidgetConfig(
     City.valueOf(getString(Option.MensaCity)),
     getStringSet(Option.Locations).mapNotNull { Location.fromCode(it) }.toSet(),
     Allergens.fromStringSet(getStringSet(Option.Allergens)),
+    DietFilter.fromName(getString(Option.DietFilter)),
 )

@@ -12,6 +12,7 @@ import androidx.glance.appwidget.updateAll
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import de.janhopp.luebeckmensawidget.ui.about.AboutScreen
 import de.janhopp.luebeckmensawidget.ui.config.WidgetConfigurationScreen
 import de.janhopp.luebeckmensawidget.widget.MensaWidget
 import kotlinx.coroutines.launch
@@ -22,6 +23,8 @@ sealed interface Navigation {
     data class Menu(val dayDate: String? = null)
     @Serializable
     data object Settings
+    @Serializable
+    data object About
 }
 
 @Composable
@@ -55,6 +58,9 @@ fun Navigation() {
                     }
                 }
             )
+        }
+        composable<Navigation.About> {
+            AboutScreen(navController)
         }
     }
 }

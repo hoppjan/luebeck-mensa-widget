@@ -4,8 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -36,6 +34,7 @@ import de.janhopp.luebeckmensawidget.api.MensaApi
 import de.janhopp.luebeckmensawidget.storage.MenuStorage
 import de.janhopp.luebeckmensawidget.storage.OptionsStorage
 import de.janhopp.luebeckmensawidget.ui.theme.MensaTheme
+import de.janhopp.luebeckmensawidget.utils.Icons
 import de.janhopp.luebeckmensawidget.utils.currentTime
 import de.janhopp.luebeckmensawidget.utils.mensaDay
 import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
@@ -72,7 +71,12 @@ fun MensaDayScreen(
                     IconButton(
                         onClick = { navController.navigate(Navigation.Settings) },
                     ) {
-                        Icon(Icons.Filled.Settings, contentDescription = null)
+                        Icon(Icons.paintSettings(), contentDescription = null)
+                    }
+                    IconButton(
+                        onClick = { navController.navigate(Navigation.About) },
+                    ) {
+                        Icon(Icons.paintInfo(), contentDescription = null)
                     }
                 }
             )

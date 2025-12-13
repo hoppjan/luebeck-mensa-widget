@@ -43,6 +43,7 @@ import de.janhopp.luebeckmensawidget.ui.theme.MensaTheme
 import de.janhopp.luebeckmensawidget.ui.utils.stringRes
 import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
 import de.janhopp.luebeckmensawidget.widget.getWidgetConfig
+import de.janhopp.luebeckmensawidget.api.model.DietFilter
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -178,6 +179,42 @@ fun ConfigurationList(
                                 onSelectedLocationsChanged(widgetConfig.locations)
                             },
                         )
+                    }
+                }
+            }
+        )
+        ListItem(
+            headlineContent = {
+                Text(text = stringResource(R.string.option_diet_filter))
+            },
+            supportingContent = {
+                SingleChoiceSegmentedButtonRow(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp),
+                ) {
+                    DietFilter.entries.forEachIndexed { index, dietFilter ->
+                        SegmentedButton(
+                            shape = SegmentedButtonDefaults
+                                .itemShape(index = index, count = DietFilter.entries.size),
+                            selected = widgetConfig.dietFilter == dietFilter,
+                            onClick = {
+                                widgetConfig = widgetConfig.copy(dietFilter = dietFilter)
+                                coroutineScope.launch {
+                                    options.setString(Option.DietFilter, dietFilter.name)
+                                }
+                            }
+                        ) {
+                            Text(
+                                text = stringResource(
+                                    when (dietFilter) {
+                                        DietFilter.None -> R.string.diet_filter_none
+                                        DietFilter.Vegetarian -> R.string.diet_filter_vegetarian
+                                        DietFilter.Vegan -> R.string.diet_filter_vegan
+                                    }
+                                )
+                            )
+                        }
                     }
                 }
             }
