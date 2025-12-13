@@ -155,7 +155,6 @@ private fun List<MensaDay>.takeFiveOrUntilWeekend() = take(5).let { days ->
     val today = currentTime.mensaDay
     buildList {
         addAll(days)
-        this@buildList.size
         while (this@buildList.size < 5) {
             val newDate = (today + DatePeriod(days = this@buildList.size))
             if (newDate.dayOfWeek in listOf(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY)) break
