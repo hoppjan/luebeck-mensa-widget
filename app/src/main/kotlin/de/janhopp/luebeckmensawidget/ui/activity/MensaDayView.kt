@@ -33,7 +33,7 @@ fun MensaDayView(
 ) {
     val (_, useEmoji, priceGroup, filterDeals, _, locations, allergens, dietFilter) = widgetConfig
     val allergenCodes = allergens.map { it.code }
-    val mealsInSelectedLocations = day.meals.filter { meal -> meal.location.code in locations.toCodes() }
+    val mealsInSelectedLocations = day.meals.filter { meal -> meal.location.code in locations.map { it.code }.toSet() }
 
     Column(
         modifier = modifier.fillMaxSize()
