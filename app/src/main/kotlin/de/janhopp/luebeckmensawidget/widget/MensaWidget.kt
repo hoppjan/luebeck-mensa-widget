@@ -8,7 +8,8 @@ import androidx.glance.appwidget.provideContent
 import androidx.glance.appwidget.updateAll
 import androidx.glance.currentState
 import androidx.glance.state.GlanceStateDefinition
-import de.janhopp.luebeckmensawidget.SyncWorker.Companion.enqueueSyncWork
+import de.janhopp.luebeckmensawidget.CompleteSyncWorker.Companion.enqueueCompleteSyncWork
+import de.janhopp.luebeckmensawidget.DaySyncWorker.Companion.enqueueDaySyncWork
 import de.janhopp.luebeckmensawidget.theme.AppTheme
 import de.janhopp.luebeckmensawidget.ui.MensaScreen
 import de.janhopp.luebeckmensawidget.utils.syncToday
@@ -16,7 +17,8 @@ import kotlinx.coroutines.launch
 
 class MensaWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
-        context.enqueueSyncWork()
+        context.enqueueDaySyncWork()
+        context.enqueueCompleteSyncWork()
 
         provideContent {
             val scope = rememberCoroutineScope()
