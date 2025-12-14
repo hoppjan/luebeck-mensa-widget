@@ -18,7 +18,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -39,16 +38,12 @@ import de.janhopp.luebeckmensawidget.storage.MenuStorage
 import de.janhopp.luebeckmensawidget.storage.OptionsStorage
 import de.janhopp.luebeckmensawidget.utils.Icons
 import de.janhopp.luebeckmensawidget.utils.currentTime
-import de.janhopp.luebeckmensawidget.utils.mensaApiFormat
 import de.janhopp.luebeckmensawidget.utils.mensaDay
 import de.janhopp.luebeckmensawidget.utils.toDisplayString
 import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
 import de.janhopp.luebeckmensawidget.widget.getWidgetConfig
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import kotlinx.datetime.DatePeriod
-import kotlinx.datetime.DayOfWeek
-import kotlinx.datetime.plus
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -60,18 +55,16 @@ fun MensaMenuScreen(
     val options = OptionsStorage(appContext)
     var widgetConfig by remember { mutableStateOf(MensaWidgetConfig()) }
     var isRefreshing by remember { mutableStateOf(false) }
+    var chosenIndex by remember { mutableIntStateOf(0) }
+    var mensaDays by remember { mutableStateOf(emptyList<MensaDay>()) }
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
         isRefreshing = true
         widgetConfig = options.getWidgetConfig()
+        mensaDays = storage.getMensaDaysFrom(date = currentTime.mensaDay).first()
         isRefreshing = false
     }
-
-    val chosenIndex = remember { mutableIntStateOf(0) }
-    val mensaDays = storage.getMensaDaysFrom(currentTime.mensaDay)
-        .map { it.takeFiveOrUntilWeekend() }
-        .collectAsState(initial = emptyList())
 
     Scaffold(
         modifier = Modifier
@@ -101,6 +94,7 @@ fun MensaMenuScreen(
                 scope.launch {
                     isRefreshing = true
                     storage.setMensaDays(MensaApi().getAllDaysMeals(widgetConfig.locations))
+                    mensaDays = storage.getMensaDaysFrom(date = currentTime.mensaDay).first()
                     isRefreshing = false
                 }
             }
@@ -109,13 +103,13 @@ fun MensaMenuScreen(
                 modifier = Modifier.padding(paddingValues = it),
             ) {
                 PrimaryTabRow(
-                    selectedTabIndex = chosenIndex.intValue,
+                    selectedTabIndex = chosenIndex,
                 ) {
-                    mensaDays.value.forEachIndexed { index, day ->
+                    mensaDays.forEachIndexed { index, day ->
                         Tab(
-                            selected = chosenIndex.intValue == index,
+                            selected = chosenIndex == index,
                             onClick = {
-                                chosenIndex.intValue = index
+                                chosenIndex = index
                             },
                             text = {
                                 Text(
@@ -135,7 +129,7 @@ fun MensaMenuScreen(
                     ) {
                         CircularProgressIndicator()
                     }
-                else if (mensaDays.value.getOrNull(index = chosenIndex.intValue) == null)
+                else if (mensaDays.getOrNull(index = chosenIndex) == null)
                     MensaErrorView(
                         imageRes = R.drawable.error,
                         errorMessage = stringResource(R.string.error_could_not_load_menu),
@@ -143,22 +137,10 @@ fun MensaMenuScreen(
                 else
                     MensaDayView(
                         modifier = Modifier.padding(horizontal = 8.dp),
-                        day = mensaDays.value[chosenIndex.intValue],
+                        day = mensaDays[chosenIndex],
                         widgetConfig = widgetConfig,
                     )
             }
-        }
-    }
-}
-
-private fun List<MensaDay>.takeFiveOrUntilWeekend() = take(5).let { days ->
-    val today = currentTime.mensaDay
-    buildList {
-        addAll(days)
-        while (this@buildList.size < 5) {
-            val newDate = (today + DatePeriod(days = this@buildList.size))
-            if (newDate.dayOfWeek in listOf(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY)) break
-            add(MensaDay(newDate.mensaApiFormat, emptyList()))
         }
     }
 }
