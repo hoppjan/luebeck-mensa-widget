@@ -100,7 +100,7 @@ fun MensaMenuScreen(
             onRefresh = {
                 scope.launch {
                     isRefreshing = true
-                    storage.setMensaDays(MensaApi().getAllDaysMeals())
+                    storage.setMensaDays(MensaApi().getAllDaysMeals(widgetConfig.locations))
                     isRefreshing = false
                 }
             }
