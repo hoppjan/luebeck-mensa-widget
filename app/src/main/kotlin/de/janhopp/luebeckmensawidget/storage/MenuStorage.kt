@@ -7,8 +7,6 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import de.janhopp.luebeckmensawidget.api.model.MensaDay
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate
@@ -27,19 +25,12 @@ class MenuStorage(
         }
     }
 
-    fun getMensaDaysFrom(date: LocalDate): Flow<List<MensaDay>> = flow {
-        emit(buildList {
-            var currentDate = date
-            while (true) {
-                val day = getMensaDay(currentDate).first()
-                if (day == null) {
-                    break
-                } else {
-                    add(day)
-                    currentDate += DatePeriod(days = 1)
-                }
+    fun getMensaDaysFrom(date: LocalDate): Flow<List<MensaDay>> {
+        return dataStore.data.map { preferences ->
+            (0..<5).mapNotNull { i ->
+                MensaDay.fromJsonOrNull(preferences[(date + DatePeriod(days = i)).toKey()])
             }
-        })
+        }
     }
 
     private suspend fun setMensaDay(menu: MensaDay) {
