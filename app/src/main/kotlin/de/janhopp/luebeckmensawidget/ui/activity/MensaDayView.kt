@@ -20,7 +20,6 @@ import de.janhopp.luebeckmensawidget.api.model.filterByDiet
 import de.janhopp.luebeckmensawidget.api.model.filterDeals
 import de.janhopp.luebeckmensawidget.api.model.formatPrice
 import de.janhopp.luebeckmensawidget.api.model.getFor
-import de.janhopp.luebeckmensawidget.api.model.toCodes
 import de.janhopp.luebeckmensawidget.ui.config.SectionLabel
 import de.janhopp.luebeckmensawidget.ui.utils.resId
 import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
