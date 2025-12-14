@@ -12,8 +12,10 @@ import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import de.janhopp.luebeckmensawidget.api.MensaApi
 import de.janhopp.luebeckmensawidget.storage.MenuStorage
+import de.janhopp.luebeckmensawidget.storage.OptionsStorage
 import de.janhopp.luebeckmensawidget.utils.buildConstraints
 import de.janhopp.luebeckmensawidget.widget.MensaWidget
+import de.janhopp.luebeckmensawidget.widget.getWidgetConfig
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.toJavaDuration
 
@@ -21,11 +23,13 @@ class CompleteSyncWorker(appContext: Context, workerParams: WorkerParameters) :
     CoroutineWorker(appContext, workerParams) {
     override suspend fun doWork(): Result {
         Log.d("CompleteSyncWorker", "doWork")
-        val mealsToday = MensaApi().getAllDaysMeals()
-        Log.d("CompleteSyncWorker", "doWork: $mealsToday")
+        val options = OptionsStorage(applicationContext)
+        val config = options.getWidgetConfig()
+        val meals = MensaApi().getAllDaysMeals(config.locations)
+        Log.d("CompleteSyncWorker", "doWork: $meals")
         val storage = MenuStorage(applicationContext)
-        if (mealsToday.isEmpty()) return Result.retry()
-        storage.setMensaDays(mealsToday)
+        if (meals.isEmpty()) return Result.retry()
+        storage.setMensaDays(meals)
         Log.d("CompleteSyncWorker", "doWork: success")
         MensaWidget.updateAll(applicationContext)
         return Result.success()

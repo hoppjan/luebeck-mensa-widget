@@ -2,20 +2,24 @@ package de.janhopp.luebeckmensawidget.ui.activity
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,38 +29,45 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import de.janhopp.luebeckmensawidget.R
 import de.janhopp.luebeckmensawidget.api.MensaApi
+import de.janhopp.luebeckmensawidget.api.model.MensaDay
 import de.janhopp.luebeckmensawidget.storage.MenuStorage
 import de.janhopp.luebeckmensawidget.storage.OptionsStorage
-import de.janhopp.luebeckmensawidget.ui.theme.MensaTheme
 import de.janhopp.luebeckmensawidget.utils.Icons
 import de.janhopp.luebeckmensawidget.utils.currentTime
+import de.janhopp.luebeckmensawidget.utils.mensaApiFormat
 import de.janhopp.luebeckmensawidget.utils.mensaDay
+import de.janhopp.luebeckmensawidget.utils.toDisplayString
 import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
 import de.janhopp.luebeckmensawidget.widget.getWidgetConfig
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.datetime.DatePeriod
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.plus
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MensaDayScreen(
-    navController: NavHostController = rememberNavController(),
+fun MensaMenuScreen(
+    navController: NavHostController,
 ) {
     val appContext = LocalContext.current.applicationContext
     val storage = MenuStorage(appContext)
     val options = OptionsStorage(appContext)
     var widgetConfig by remember { mutableStateOf(MensaWidgetConfig()) }
     var isRefreshing by remember { mutableStateOf(false) }
+    var mensaDays by remember { mutableStateOf(getEmptyMensaDaysFrom(currentTime.mensaDay)) }
+    val pagerState = rememberPagerState(pageCount = { mensaDays.count() })
     val scope = rememberCoroutineScope()
-    val todayFromStorage = storage.getMensaDay(currentTime.mensaDay).collectAsState(null)
 
     LaunchedEffect(Unit) {
         isRefreshing = true
         widgetConfig = options.getWidgetConfig()
+        mensaDays = storage.getMensaDaysFrom(date = currentTime.mensaDay).first()
         isRefreshing = false
     }
 
@@ -83,41 +94,64 @@ fun MensaDayScreen(
         },
     ) {
         PullToRefreshBox(
-            modifier = Modifier.padding(it),
             isRefreshing = isRefreshing,
             onRefresh = {
                 scope.launch {
                     isRefreshing = true
-                    MensaApi().getMealsToday(widgetConfig.locations)
-                        ?.let { mealsToday -> storage.setMensaDays(listOf(mealsToday)) }
+                    storage.setMensaDays(MensaApi().getAllDaysMeals(widgetConfig.locations))
+                    mensaDays = storage.getMensaDaysFrom(date = currentTime.mensaDay).first()
                     isRefreshing = false
                 }
             }
         ) {
-            if (isRefreshing)
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center,
+            Column(
+                modifier = Modifier.padding(paddingValues = it),
+            ) {
+                PrimaryTabRow(
+                    selectedTabIndex = pagerState.currentPage,
                 ) {
-                    CircularProgressIndicator()
+                    mensaDays.forEachIndexed { index, day ->
+                        Tab(
+                            selected = pagerState.currentPage == index,
+                            onClick = {
+                                pagerState.requestScrollToPage(index)
+                            },
+                            text = {
+                                Text(
+                                    text = day.toDisplayString(),
+                                    maxLines = 2,
+                                    overflow = TextOverflow.Ellipsis,
+                                )
+                            }
+                        )
+                    }
                 }
-            else if (todayFromStorage.value == null)
-                MensaErrorView(
-                    imageRes = R.drawable.error,
-                    errorMessage = stringResource(R.string.error_could_not_load_menu),
-                )
-            else
-                MensaDayView(
-                    Modifier.padding(horizontal = 8.dp),
-                    todayFromStorage.value!!,
-                    widgetConfig
-                )
+
+                HorizontalPager(state = pagerState) { selectedIndex ->
+                    if (isRefreshing)
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            CircularProgressIndicator()
+                        }
+                    else if (mensaDays.getOrNull(index = selectedIndex) == null)
+                        MensaErrorView(
+                            imageRes = R.drawable.error,
+                            errorMessage = stringResource(R.string.error_could_not_load_menu),
+                        )
+                    else
+                        MensaDayView(
+                            modifier = Modifier.padding(horizontal = 8.dp),
+                            day = mensaDays[selectedIndex],
+                            widgetConfig = widgetConfig,
+                        )
+                }
+            }
         }
     }
 }
 
-@Composable
-@Preview
-fun Preview_MensaDayScreen() = MensaTheme {
-    MensaDayScreen()
+private fun getEmptyMensaDaysFrom(date: LocalDate): List<MensaDay> = (0..<5).map {
+    MensaDay((date + DatePeriod(days = it)).mensaApiFormat, emptyList())
 }
