@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -59,8 +61,8 @@ fun MensaMenuScreen(
     val options = OptionsStorage(appContext)
     var widgetConfig by remember { mutableStateOf(MensaWidgetConfig()) }
     var isRefreshing by remember { mutableStateOf(false) }
-    var chosenIndex by remember { mutableIntStateOf(0) }
     var mensaDays by remember { mutableStateOf(getEmptyMensaDaysFrom(currentTime.mensaDay)) }
+    val pagerState = rememberPagerState(pageCount = { mensaDays.count() })
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
@@ -107,13 +109,13 @@ fun MensaMenuScreen(
                 modifier = Modifier.padding(paddingValues = it),
             ) {
                 PrimaryTabRow(
-                    selectedTabIndex = chosenIndex,
+                    selectedTabIndex = pagerState.currentPage,
                 ) {
                     mensaDays.forEachIndexed { index, day ->
                         Tab(
-                            selected = chosenIndex == index,
+                            selected = pagerState.currentPage == index,
                             onClick = {
-                                chosenIndex = index
+                                pagerState.requestScrollToPage(index)
                             },
                             text = {
                                 Text(
@@ -126,24 +128,26 @@ fun MensaMenuScreen(
                     }
                 }
 
-                if (isRefreshing)
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        CircularProgressIndicator()
-                    }
-                else if (mensaDays.getOrNull(index = chosenIndex) == null)
-                    MensaErrorView(
-                        imageRes = R.drawable.error,
-                        errorMessage = stringResource(R.string.error_could_not_load_menu),
-                    )
-                else
-                    MensaDayView(
-                        modifier = Modifier.padding(horizontal = 8.dp),
-                        day = mensaDays[chosenIndex],
-                        widgetConfig = widgetConfig,
-                    )
+                HorizontalPager(state = pagerState) { selectedIndex ->
+                    if (isRefreshing)
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            CircularProgressIndicator()
+                        }
+                    else if (mensaDays.getOrNull(index = selectedIndex) == null)
+                        MensaErrorView(
+                            imageRes = R.drawable.error,
+                            errorMessage = stringResource(R.string.error_could_not_load_menu),
+                        )
+                    else
+                        MensaDayView(
+                            modifier = Modifier.padding(horizontal = 8.dp),
+                            day = mensaDays[selectedIndex],
+                            widgetConfig = widgetConfig,
+                        )
+                }
             }
         }
     }
