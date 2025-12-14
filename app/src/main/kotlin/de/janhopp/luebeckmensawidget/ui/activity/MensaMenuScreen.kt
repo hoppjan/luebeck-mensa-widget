@@ -38,12 +38,16 @@ import de.janhopp.luebeckmensawidget.storage.MenuStorage
 import de.janhopp.luebeckmensawidget.storage.OptionsStorage
 import de.janhopp.luebeckmensawidget.utils.Icons
 import de.janhopp.luebeckmensawidget.utils.currentTime
+import de.janhopp.luebeckmensawidget.utils.mensaApiFormat
 import de.janhopp.luebeckmensawidget.utils.mensaDay
 import de.janhopp.luebeckmensawidget.utils.toDisplayString
 import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
 import de.janhopp.luebeckmensawidget.widget.getWidgetConfig
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.datetime.DatePeriod
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.plus
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -56,7 +60,7 @@ fun MensaMenuScreen(
     var widgetConfig by remember { mutableStateOf(MensaWidgetConfig()) }
     var isRefreshing by remember { mutableStateOf(false) }
     var chosenIndex by remember { mutableIntStateOf(0) }
-    var mensaDays by remember { mutableStateOf(emptyList<MensaDay>()) }
+    var mensaDays by remember { mutableStateOf(getEmptyMensaDaysFrom(currentTime.mensaDay)) }
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
@@ -143,4 +147,8 @@ fun MensaMenuScreen(
             }
         }
     }
+}
+
+private fun getEmptyMensaDaysFrom(date: LocalDate): List<MensaDay> = (0..<5).map {
+    MensaDay((date + DatePeriod(days = it)).mensaApiFormat, emptyList())
 }

@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import de.janhopp.luebeckmensawidget.api.model.MensaDay
+import de.janhopp.luebeckmensawidget.utils.mensaApiFormat
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.datetime.DatePeriod
@@ -29,6 +30,7 @@ class MenuStorage(
         return dataStore.data.map { preferences ->
             (0..<5).mapNotNull { i ->
                 MensaDay.fromJsonOrNull(preferences[(date + DatePeriod(days = i)).toKey()])
+                    ?: MensaDay((date + DatePeriod(days = i)).mensaApiFormat, emptyList())
             }
         }
     }
