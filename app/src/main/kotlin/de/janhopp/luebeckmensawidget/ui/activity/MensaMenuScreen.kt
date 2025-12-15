@@ -64,10 +64,14 @@ fun MensaMenuScreen(
     val pagerState = rememberPagerState(pageCount = { mensaDays.count() })
     val scope = rememberCoroutineScope()
 
+    suspend fun refreshMensaDays() {
+        storage.setMensaDays(MensaApi().getAllDaysMeals(widgetConfig.locations))
+        mensaDays = storage.getMensaDaysFrom(date = currentTime.mensaDay).first()
+    }
     LaunchedEffect(Unit) {
         isRefreshing = true
         widgetConfig = options.getWidgetConfig()
-        mensaDays = storage.getMensaDaysFrom(date = currentTime.mensaDay).first()
+        refreshMensaDays()
         isRefreshing = false
     }
 
@@ -98,8 +102,7 @@ fun MensaMenuScreen(
             onRefresh = {
                 scope.launch {
                     isRefreshing = true
-                    storage.setMensaDays(MensaApi().getAllDaysMeals(widgetConfig.locations))
-                    mensaDays = storage.getMensaDaysFrom(date = currentTime.mensaDay).first()
+                    refreshMensaDays()
                     isRefreshing = false
                 }
             }
