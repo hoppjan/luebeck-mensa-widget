@@ -97,39 +97,39 @@ fun MensaMenuScreen(
             )
         },
     ) {
-        PullToRefreshBox(
-            isRefreshing = isRefreshing,
-            onRefresh = {
-                scope.launch {
-                    isRefreshing = true
-                    refreshMensaDays()
-                    isRefreshing = false
+        Column(
+            modifier = Modifier.padding(paddingValues = it),
+        ) {
+            PrimaryTabRow(
+                selectedTabIndex = pagerState.currentPage,
+            ) {
+                mensaDays.forEachIndexed { index, day ->
+                    Tab(
+                        selected = pagerState.currentPage == index,
+                        onClick = {
+                            pagerState.requestScrollToPage(index)
+                        },
+                        text = {
+                            Text(
+                                text = day.toDisplayString(),
+                                maxLines = 2,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        }
+                    )
                 }
             }
-        ) {
-            Column(
-                modifier = Modifier.padding(paddingValues = it),
-            ) {
-                PrimaryTabRow(
-                    selectedTabIndex = pagerState.currentPage,
-                ) {
-                    mensaDays.forEachIndexed { index, day ->
-                        Tab(
-                            selected = pagerState.currentPage == index,
-                            onClick = {
-                                pagerState.requestScrollToPage(index)
-                            },
-                            text = {
-                                Text(
-                                    text = day.toDisplayString(),
-                                    maxLines = 2,
-                                    overflow = TextOverflow.Ellipsis,
-                                )
-                            }
-                        )
+
+            PullToRefreshBox(
+                isRefreshing = isRefreshing,
+                onRefresh = {
+                    scope.launch {
+                        isRefreshing = true
+                        refreshMensaDays()
+                        isRefreshing = false
                     }
                 }
-
+            ) {
                 HorizontalPager(state = pagerState) { selectedIndex ->
                     if (isRefreshing)
                         Box(
