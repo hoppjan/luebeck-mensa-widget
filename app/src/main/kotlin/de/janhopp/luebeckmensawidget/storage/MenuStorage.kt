@@ -28,10 +28,16 @@ class MenuStorage(
 
     fun getMensaDaysFrom(date: LocalDate): Flow<List<MensaDay>> {
         return dataStore.data.map { preferences ->
-            (0..<5).mapNotNull { i ->
+            (0..9).map { i ->
                 MensaDay.fromJsonOrNull(preferences[(date + DatePeriod(days = i)).toKey()])
                     ?: MensaDay((date + DatePeriod(days = i)).mensaApiFormat, emptyList())
-            }
+            }.let { comingDays ->
+                val openDays = comingDays.filter { day -> day.meals.isNotEmpty() }
+                if (openDays.size >= 5)
+                    openDays
+                else
+                    comingDays
+            }.take(5)
         }
     }
 
